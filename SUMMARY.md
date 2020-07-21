@@ -36,7 +36,7 @@
   - [Style Guide](recipes/style-guide.md)
   - [Unit Testing](recipes/unit-testing.md)
 - Plugins
-  - [Introduction](plugins/intro.md)
+  - [介绍](plugins/intro.md)
   - [CLI](plugins/cli.md)
   - [Logger](plugins/logger.md)
   - [Devtools](plugins/devtools.md)

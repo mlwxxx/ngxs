@@ -1,10 +1,10 @@
-# intro
+# 前言
 
 ![](../../.gitbook/assets/ngxs-labs.png)
 
 We announced a new idea called [NGXS Labs](https://github.com/ngxs-labs). The goal of NGXS Labs is to more clearly communicate the balance between new explorations by the team, with the normal stability that our community has come to expect since the release of NGXS.
 
-## Introduction
+## 介绍
 
 There is definitely no lack of enthusiasm for the NGXS project and as a result there has been a proliferation of pull requests to add new features to the framework. This is very exciting but at the same time has been one of the big challenges. How do we incorporate the growing innovation around the framework and experiment with different ideas without compromising the stability and comprehensibility of the core framework? In response to this we have created NGXS Labs.
 
