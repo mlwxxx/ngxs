@@ -15,7 +15,7 @@ export class AddAnimal {
 
 ## 调度(Dispatching) actions
 
-调度 actions, 您需要注入 `Store` 刚才你的组件/服务,然后使用您希望触发的一个action(或一系列action的数组)调用 `dispatch` 方法。
+调度 actions, 您需要注入 `Store` 到你的组件/服务， 然后使用您希望触发的一个action(或一系列action的数组)调用 `dispatch` 方法。
 
 ```typescript
 import { Store } from '@ngxs/store';
@@ -55,7 +55,6 @@ export class ZooComponent {
 }
 ```
 
-The Observable that a dispatch returns has a void type, this is because there can be multiple states that listen to the same `@Action`, therefore it's not realistically possible to return the state from these actions since we don't know the form of them.
 调度(dispatch)返回的Observable具有void类型,这是因为可以有多个状态(states)侦听同一`@ Action`，因此从这些操作(actions)上是不可能返回状态的，因为我们不知道他们是哪些states。
 
 

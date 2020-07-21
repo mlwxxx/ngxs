@@ -1,19 +1,20 @@
-# Actions
+# 动作(Actions)
 
-Actions can either be thought of as a command which should trigger something to happen, or as the resulting event of something that has already happened.
+Actions 可以将操作视为应触发某些事件发生的命令，也可以将其视为已发生某事的结果事件。
 
-Each action contains a `type` field which is their unique identifier.
+每个动作都包含一个“type”字段，这是它们的唯一标识符。
 
-## Internal Actions
+## 内部Actions
 
-There are two actions that gets triggered in the internals of the library:
+库的内部触发了两个Actions：
 
 1. @@INIT - store being initialized, before all the [ngxsOnInit Life-cycle](../advanced/life-cycle.md) events.
 2. @@UPDATE\_STATE - a new [lazy-loaded state](../advanced/lazy.md) being added to the store.
 
-## Simple Action
+## 简单 Action
 
 Let's say we want to update the status of whether the animals have been fed in our Zoo. We would describe a class like:
+假设我们要更新一个状态，它表示某动物是否已在我们的动物园饲养。 我们将这样描述一个类：
 
 ```typescript
 export class FeedAnimals {
@@ -21,11 +22,12 @@ export class FeedAnimals {
 }
 ```
 
-Later in our state class, we will listen to this action and mutate our state, in this case flipping a boolean flag.
+然后在我我们的state类, we will listen to this action and mutate our state, in this case flipping a boolean flag.
+然后在我我们的state类, 我们将监听取这个action并改变我们的state,在这种情况中就是翻转布尔值标志。
 
-## Actions with Metadata
+## 带有元数组的Action
 
-Often you need an action to have some data associated with it. Here we have an action that should trigger feeding a zebra with hay.
+通常，您需要执行一项操作才能将一些数据与之关联。 在这里，有一个action应该触发————给斑马喂干草。
 
 ```typescript
 export class FeedZebra {
@@ -34,15 +36,15 @@ export class FeedZebra {
 }
 ```
 
-The `name` field of the action class will represent the name of the zebra we should feed. The `hayAmount` tells us how many kilos of hay the zebra should get.
+动作类的“name”字段代表我们将喂食的斑马的名字。 `hayAmount`告诉我们斑马应该得到多少公斤干草。
 
-## Dispatching Actions
+## 调度动作(Action)
 
-See [Store](store.md) documentation for how to dispatch actions.
+转到 [Store](store.md) 查看有关如何调度动作的文档。
 
-## How should you name your actions?
+## 您应该如何命名自己的actions?
 
-### Commands
+### 指令
 
 Commands are actions that tell your app to do something. They are usually triggered by user events such as clicking on a button, or selecting something.
 
