@@ -1,6 +1,6 @@
 # CLI
 
-![CLI Screenshot](../assets/cli.gif)
+![CLI Screenshot](../../.gitbook/assets/cli.gif)
 
 ## Install
 
@@ -19,7 +19,7 @@ yarn global add @ngxs/cli
 ngxs
 ```
 
-## Options (silent)
+## Options \(silent\)
 
 ```bash
   ▓█▓▒▒▒▒▒▒▒▒▒▒██░   ▓█▒░░░░░░░░░░░░░  ░▒▒▒▒▒██░ ░██▒▒▒▒▒░  ░██▓▒▒▒▒▒▒▒▒▒▒▒▒░
@@ -52,6 +52,7 @@ Custom template generator
   --plopfile path   Path to the plopfile
 ```
 
-#### What is Plop?
+### What is Plop?
 
-[Plop](https://www.npmjs.com/package/plop) is what I like to call a "micro-generator framework." Now, I call it that because it is a small tool that gives you a simple way to generate code or any other type of flat text files in a consistent way. You see, we all create structures and patterns in our code (routes, controllers, components, helpers, etc). These patterns change and improve over time so when you need to create a NEW insert-name-of-pattern-here, it's not always easy to locate the files in your codebase that represent the current "best practice." That's where plop saves you. With plop, you have your "best practice" method of creating any given pattern in CODE. Code that can easily be run from the terminal by typing plop. Not only does this save you from hunting around in your codebase for the right files to copy, but it also turns "the right way" into "the easiest way" to make new files.
+[Plop](https://www.npmjs.com/package/plop) is what I like to call a "micro-generator framework." Now, I call it that because it is a small tool that gives you a simple way to generate code or any other type of flat text files in a consistent way. You see, we all create structures and patterns in our code \(routes, controllers, components, helpers, etc\). These patterns change and improve over time so when you need to create a NEW insert-name-of-pattern-here, it's not always easy to locate the files in your codebase that represent the current "best practice." That's where plop saves you. With plop, you have your "best practice" method of creating any given pattern in CODE. Code that can easily be run from the terminal by typing plop. Not only does this save you from hunting around in your codebase for the right files to copy, but it also turns "the right way" into "the easiest way" to make new files.
+

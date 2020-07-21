@@ -1,15 +1,12 @@
 # Plugins
 
-Next let's talk about plugins. Similar to Redux's meta reducers, we have
-a plugins interface that allows you to build a global plugin for your state.
+Next let's talk about plugins. Similar to Redux's meta reducers, we have a plugins interface that allows you to build a global plugin for your state.
 
-All you have to do is provide a class to the `NGXS_PLUGINS` token.
-If your plugins have options associated with it, we suggest defining an injection token
-and then a `forRoot` method on your module.
+All you have to do is provide a class to the `NGXS_PLUGINS` token. If your plugins have options associated with it, we suggest defining an injection token and then a `forRoot` method on your module.
 
 Let's take a look at a basic example of a logger:
 
-```ts
+```typescript
 import { Injectable, Inject, NgModule } from '@angular/core';
 import { NgxsPlugin, NGXS_PLUGINS } from '@ngxs/store';
 
@@ -50,10 +47,9 @@ export class NgxsLoggerPluginModule {
 }
 ```
 
-You can also use pure functions for plugins. The above example in a pure function
-would look like this:
+You can also use pure functions for plugins. The above example in a pure function would look like this:
 
-```ts
+```typescript
 export function logPlugin(state, action, next) {
   console.log('Action started!', state);
   return next(state, action).pipe(tap(result) => {
@@ -66,7 +62,7 @@ NOTE: When providing a pure function make sure to use `useValue` instead of `use
 
 To register a plugin with NGXS, import the plugin module in your module and optionally pass in the plugin options like this:
 
-```ts
+```typescript
 @NgModule({
   imports: [NgxsModule.forRoot([ZooStore]), NgxsLoggerPluginModule.forRoot({})]
 })
@@ -74,3 +70,4 @@ export class MyModule {}
 ```
 
 The method also works with `forFeature`.
+

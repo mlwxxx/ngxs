@@ -1,17 +1,13 @@
 # Router Plugin
 
-![Router Diagram](../assets/router.png)
+![Router Diagram](../../.gitbook/assets/router.png)
 
-In the browser, the location (URL information) and session history
-(a stack of locations visited by the current browser tab) are stored in the
-global window object. They are accessible via:
+In the browser, the location \(URL information\) and session history \(a stack of locations visited by the current browser tab\) are stored in the global window object. They are accessible via:
 
-- `window.location` ([Location API](https://developer.mozilla.org/en-US/docs/Web/API/Location))
-- `window.history` ([History API](https://developer.mozilla.org/en-US/docs/Web/API/History))
+* `window.location` \([Location API](https://developer.mozilla.org/en-US/docs/Web/API/Location)\)
+* `window.history` \([History API](https://developer.mozilla.org/en-US/docs/Web/API/History)\)
 
-Our location data is a dynamic and important part of application state-the kind
-of state that belongs in a store. Holding it in the store enables devtools luxuries like
-time-travel debugging, and easy access from any store-connected component.
+Our location data is a dynamic and important part of application state-the kind of state that belongs in a store. Holding it in the store enables devtools luxuries like time-travel debugging, and easy access from any store-connected component.
 
 This plugin binds that state from the Angular router to our NGXS store.
 
@@ -28,7 +24,7 @@ yarn add @ngxs/router-plugin
 
 Add the `NgxsRouterPluginModule` plugin to your root app module:
 
-```ts
+```typescript
 import { NgxsModule } from '@ngxs/store';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 
@@ -38,14 +34,11 @@ import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 export class AppModule {}
 ```
 
-Now the route will be reflected in your store under the `router` state name. The
-state is represented as a `RouterStateSnapshot` object.
+Now the route will be reflected in your store under the `router` state name. The state is represented as a `RouterStateSnapshot` object.
 
-You can also navigate using the store's dispatch method. It accepts the following
-arguments: `new Navigate(path: any[], queryParams?: Params, extras?: NavigationExtras)`.
-A simple example would be navigating to the admin page like this:
+You can also navigate using the store's dispatch method. It accepts the following arguments: `new Navigate(path: any[], queryParams?: Params, extras?: NavigationExtras)`. A simple example would be navigating to the admin page like this:
 
-```ts
+```typescript
 import { Store } from '@ngxs/store';
 import { Navigate } from '@ngxs/router-plugin';
 
@@ -61,15 +54,13 @@ export class MyApp {
 }
 ```
 
-You can use action handlers to listen to state changes in your components
-and services by subscribing to the `RouterNavigation`, `RouterCancel`, `RouterError` or `RouterDataResolved`
-action classes.
+You can use action handlers to listen to state changes in your components and services by subscribing to the `RouterNavigation`, `RouterCancel`, `RouterError` or `RouterDataResolved` action classes.
 
 ## Listening to the data resolution event
 
 You can listen to the `RouterDataResolved` action that is dispatch when the navigated route has some linked resolvers. For example:
 
-```ts
+```typescript
 import { Actions, ofActionSuccessful } from '@ngxs/store';
 import { RouterDataResolved } from '@ngxs/router-plugin';
 
@@ -100,7 +91,7 @@ export class AppComponent {
 
 The more explicit example would be a situation where you would want to bind an input property providing some resolved data. For example:
 
-```ts
+```typescript
 import { Actions, ofActionSuccessful } from '@ngxs/store';
 import { RouterDataResolved } from '@ngxs/router-plugin';
 
@@ -125,7 +116,7 @@ export class AppComponent {
 
 You can implement your own router state serializer to serialize the router snapshot.
 
-```ts
+```typescript
 import { Params, RouterStateSnapshot } from '@angular/router';
 
 import { NgxsModule } from '@ngxs/store';
@@ -162,3 +153,4 @@ export class CustomRouterStateSerializer implements RouterStateSerializer<Router
 })
 export class AppModule {}
 ```
+

@@ -2,19 +2,15 @@
 
 Selects are functions that slice a specific portion of state from the global state container.
 
-In CQRS and Redux patterns, we keep READ and WRITE separated. This pattern also exists in NGXS.
-When we want to read data out of our store, we use a select operator to retrieve this data.
+In CQRS and Redux patterns, we keep READ and WRITE separated. This pattern also exists in NGXS. When we want to read data out of our store, we use a select operator to retrieve this data.
 
-In NGXS, there are two methods to select state, we can either call the `select` method on the
-`Store` service or use the `@Select` decorator. First let's look at the `@Select` decorator.
+In NGXS, there are two methods to select state, we can either call the `select` method on the `Store` service or use the `@Select` decorator. First let's look at the `@Select` decorator.
 
 ## Select Decorators
 
-You can select slices of data from the store using the `@Select` decorator. It has a few
-different ways to get your data out, whether passing the state class, a function, a different state class
-or a memoized selector.
+You can select slices of data from the store using the `@Select` decorator. It has a few different ways to get your data out, whether passing the state class, a function, a different state class or a memoized selector.
 
-```ts
+```typescript
 import { Select } from '@ngxs/store';
 import { ZooState, ZooStateModel } from './zoo.state';
 
@@ -38,7 +34,7 @@ export class ZooComponent {
 
 The `Store` class also has a `select` function:
 
-```ts
+```typescript
 import { Store } from '@ngxs/store';
 
 @Component({ ... })
@@ -51,23 +47,17 @@ export class ZooComponent {
 }
 ```
 
-This is most helpful to programmatic selects where we can't statically
-declare them with the select decorator.
+This is most helpful to programmatic selects where we can't statically declare them with the select decorator.
 
-There is also a `selectOnce` that will basically do `select().pipe(take(1))` for
-you automatically as a shortcut method.
+There is also a `selectOnce` that will basically do `select().pipe(take(1))` for you automatically as a shortcut method.
 
-This can be useful in route guards where you only want to check the current state and not continue
-watching the stream. It can also be useful for unit testing.
+This can be useful in route guards where you only want to check the current state and not continue watching the stream. It can also be useful for unit testing.
 
 ## Snapshot Selects
 
-On the store, there is a `selectSnapshot` function that allows you to pull out the
-raw value. This is helpful for cases where you need to get a static value but can't
-use Observables. A good use case for this would be an interceptor that needs to get
-the token from the auth state.
+On the store, there is a `selectSnapshot` function that allows you to pull out the raw value. This is helpful for cases where you need to get a static value but can't use Observables. A good use case for this would be an interceptor that needs to get the token from the auth state.
 
-```ts
+```typescript
 @Injectable()
 export class JWTInterceptor implements HttpInterceptor {
   constructor(private store: Store) {}
@@ -87,15 +77,11 @@ export class JWTInterceptor implements HttpInterceptor {
 
 ## Memoized Selectors
 
-Oftentimes you will use the same selectors in several different places
-or have complex selectors you want to keep separate from your component.
-NGXS has a `@Selector` decorator that will help us with that. This decorator
-will memoize the function for performance as well as automatically slice
-the state portion you are dealing with.
+Oftentimes you will use the same selectors in several different places or have complex selectors you want to keep separate from your component. NGXS has a `@Selector` decorator that will help us with that. This decorator will memoize the function for performance as well as automatically slice the state portion you are dealing with.
 
 Let's create a selector that will return a list of pandas from the animals.
 
-```ts
+```typescript
 import { Injectable } from '@angular/core';
 import { State, Selector } from '@ngxs/store';
 
@@ -112,10 +98,9 @@ export class ZooState {
 }
 ```
 
-Notice, the `state` is just the local state for this `ZooState` class. Now in our component,
-we simply do:
+Notice, the `state` is just the local state for this `ZooState` class. Now in our component, we simply do:
 
-```ts
+```typescript
 @Component({ ... })
 export class AppComponent {
   @Select(ZooState.pandas) pandas$: Observable<string[]>;
@@ -126,29 +111,32 @@ and our `pandas$` will only return animals with the name panda in them.
 
 ### Selector Options
 
-The behavior of the memoized selectors can be configured at a global level using the `selectorOptions` property in the options passed to the `NgxsModule.forRoot` call (see [Options](../advanced/options.md)).  
+The behavior of the memoized selectors can be configured at a global level using the `selectorOptions` property in the options passed to the `NgxsModule.forRoot` call \(see [Options](../advanced/options.md)\).  
 These options can also be provided through the `@SelectorOptions` decorator at a Class or Method level in order to configure the behavior of selectors within that scope. The following options are available:
 
 #### `suppressErrors`
 
-- `true` will cause any error within a selector to result in the selector returning `undefined`.
-- `false` results in these errors propagating through the stack that triggered the evaluation of the selector that caused the error.
-- **NOTE:** _The default for this setting will be changing to `false` in NGXS v4.  
-  The default value in NGXS v3.x is `true`._
+* `true` will cause any error within a selector to result in the selector returning `undefined`.
+* `false` results in these errors propagating through the stack that triggered the evaluation of the selector that caused the error.
+* **NOTE:** \_The default for this setting will be changing to `false` in NGXS v4.  
+
+  The default value in NGXS v3.x is `true`.\_
 
 #### `injectContainerState`
 
-- `true` will cause all selectors defined within a state class to receive the container class' state model as their first parameter. As a result every selector would be re-evaluated after any change to that state.  
-  **NOTE:** _This is not ideal, therefore this setting default will be changing to `false` in NGXS v4._
-- `false` will prevent the injection of the container state model as the first parameter of a selector method (defined within a state class) that joins to other selectors for its parameters.
-- _The default value in NGXS v3.x is `true`._
-- See [here](#joining-selectors) for examples of the effect this setting has on your selectors.
+* `true` will cause all selectors defined within a state class to receive the container class' state model as their first parameter. As a result every selector would be re-evaluated after any change to that state.  
 
-We recommend setting these options at the global level, unless you are transitioning your application from one behavior to another where you can use this decorator to introduce this transition in a piecemeal fashion. For example, NGXS v4 will be introducing a change to the selectors that will effect methods which make use of joined selectors (see [below](#joining-selectors)).
+  **NOTE:** _This is not ideal, therefore this setting default will be changing to `false` in NGXS v4._
+
+* `false` will prevent the injection of the container state model as the first parameter of a selector method \(defined within a state class\) that joins to other selectors for its parameters.
+* _The default value in NGXS v3.x is `true`._
+* See [here](select.md#joining-selectors) for examples of the effect this setting has on your selectors.
+
+We recommend setting these options at the global level, unless you are transitioning your application from one behavior to another where you can use this decorator to introduce this transition in a piecemeal fashion. For example, NGXS v4 will be introducing a change to the selectors that will effect methods which make use of joined selectors \(see [below](select.md#joining-selectors)\).
 
 We recommend using the following global settings for new projects in order to minimise the impact of the v4 upgrade:
 
-```ts
+```typescript
 {
   // These Selector Settings are recommended in preparation for NGXS v4
   // (See above for their effects)
@@ -160,16 +148,15 @@ We recommend using the following global settings for new projects in order to mi
 ### Memoized Selectors with Arguments
 
 Selectors can be configured to accept arguments.  
-There are two patterns that allow for this: [Lazy Selectors](#lazy-selectors) or [Dynamic Selectors](#dynamic-selectors)
+There are two patterns that allow for this: [Lazy Selectors](select.md#lazy-selectors) or [Dynamic Selectors](select.md#dynamic-selectors)
 
 #### Lazy Selectors
 
-To create a lazy selector all that you need to do is return a function from the selector.
-The function returned by the selector will be memoized automatically and the logic inside this function will be evaluated at a later stage when the consumer of the selector executes the function. Note that this function can take any number of arguments (or zero arguments) as it is the consumer's responsibility to supply them.
+To create a lazy selector all that you need to do is return a function from the selector. The function returned by the selector will be memoized automatically and the logic inside this function will be evaluated at a later stage when the consumer of the selector executes the function. Note that this function can take any number of arguments \(or zero arguments\) as it is the consumer's responsibility to supply them.
 
 For instance, I can have a Lazy Selector that will filter my pandas to the provided type of panda.
 
-```ts
+```typescript
 @State<string[]>({
   name: 'animals',
   defaults: []
@@ -187,7 +174,7 @@ export class ZooState {
 
 then you can use `store.select` and evaluate the lazy function using the `rxjs` `map` pipeline function.
 
-```ts
+```typescript
 import { Store } from '@ngxs/store';
 import { map } from 'rxjs/operators';
 
@@ -209,7 +196,7 @@ A dynamic selector is created by using the `createSelector` function as opposed 
 
 For instance, I can have a Dynamic Selector that will filter my pandas to the provided type of panda.
 
-```ts
+```typescript
 @State<string[]>({
   name: 'animals',
   defaults: []
@@ -226,7 +213,7 @@ export class ZooState {
 
 then you can use `@Select` to call this function with the parameter provided.
 
-```ts
+```typescript
 import { Store } from '@ngxs/store';
 import { map } from 'rxjs/operators';
 
@@ -246,11 +233,11 @@ Note that each of these selectors have their own separate memoization. Even if t
 
 These selectors are extremely powerful and are what is used under the hood to create all other selectors.
 
-_Dynamic Selectors (dynamic state slice)_
+_Dynamic Selectors \(dynamic state slice\)_
 
 An interesting use case would be to allow for a selector to be reused to select from States that have the same structure. For example:
 
-```ts
+```typescript
 export class SharedSelectors {
   static getEntities(stateClass) {
     return createSelector([stateClass], (state: { entities: any[] }) => {
@@ -262,8 +249,7 @@ export class SharedSelectors {
 
 then this could be used as follows:
 
-```ts
-
+```typescript
 @Component({ ... })
 export class ZooComponent {
 
@@ -278,12 +264,11 @@ export class ZooComponent {
 
 ### Joining Selectors
 
-When defining a selector, you can also pass other selectors into the signature
-of the `Selector` decorator to join other selectors with this state selector.
+When defining a selector, you can also pass other selectors into the signature of the `Selector` decorator to join other selectors with this state selector.
 
-If you do not change the Selector Options (see [above](#selector-options)) then these selectors will have the following signature in NGXS v3.x:
+If you do not change the Selector Options \(see [above](select.md#selector-options)\) then these selectors will have the following signature in NGXS v3.x:
 
-```ts
+```typescript
 @State<PreferencesStateModel>({ ... })
 @Injectable()
 export class PreferencesState { ... }
@@ -307,13 +292,13 @@ export class ZooState {
 }
 ```
 
-Here you can see that when using the `Selector` decorator with arguments within a state class, it will inject the state class's state model as the first parameter followed by the other selectors in the order they were passed in the signature. This is the behavior provided by the [`injectContainerState`](#injectcontainerstate) option being defaulted to `true` in NGXS v3.x.
+Here you can see that when using the `Selector` decorator with arguments within a state class, it will inject the state class's state model as the first parameter followed by the other selectors in the order they were passed in the signature. This is the behavior provided by the [`injectContainerState`](select.md#injectcontainerstate) option being defaulted to `true` in NGXS v3.x.
 
-The memoized selectors will recalculate when any of their input parameter values change (whether they use them or not). In the case of the behavior above where the state class's state model is injected as the first input parameter, the selectors will recalculate on any change to this model. You will notice that the `happyLocalPanda` selector has the `state` dependency even though it is not used. It would recalculate on every change to `state` ignoring the fact that `firstLocalPanda` value may not have changed. This is not ideal, therefore this default behavior is changing in NGXS v4.
+The memoized selectors will recalculate when any of their input parameter values change \(whether they use them or not\). In the case of the behavior above where the state class's state model is injected as the first input parameter, the selectors will recalculate on any change to this model. You will notice that the `happyLocalPanda` selector has the `state` dependency even though it is not used. It would recalculate on every change to `state` ignoring the fact that `firstLocalPanda` value may not have changed. This is not ideal, therefore this default behavior is changing in NGXS v4.
 
-In NGXS v4 and above the default value of the [`injectContainerState`](#injectcontainerstate) selector option will change to `false`, resulting in selectors that are more optimised because they do not get the state model injected as the first parameter unless explicitly requested. With this setting the selectors would need to be defined as follows:
+In NGXS v4 and above the default value of the [`injectContainerState`](select.md#injectcontainerstate) selector option will change to `false`, resulting in selectors that are more optimised because they do not get the state model injected as the first parameter unless explicitly requested. With this setting the selectors would need to be defined as follows:
 
-```ts
+```typescript
 @State<PreferencesStateModel>({ ... })
 @Injectable()
 export class PreferencesState { ... }
@@ -339,21 +324,15 @@ export class ZooState {
 
 Now the `happyLocalPanda` will only recalculate when the output value of the `firstLocalPanda` selector changes.
 
-We recommend that you move your projects to this behavior in order to optimize your selectors and to prepare for the change to the defaults coming in NGXS v4. See the Selector Options section [above](#selector-options) for the recommended settings.
+We recommend that you move your projects to this behavior in order to optimize your selectors and to prepare for the change to the defaults coming in NGXS v4. See the Selector Options section [above](select.md#selector-options) for the recommended settings.
 
 ### Meta Selectors
 
-By default selectors in NGXS are bound to a state. Sometimes you need the ability
-to join to un-related states in a high-performance re-usable fashion. A meta selector
-is a selector allows you to bind N number of selectors together to return a state
-stream.
+By default selectors in NGXS are bound to a state. Sometimes you need the ability to join to un-related states in a high-performance re-usable fashion. A meta selector is a selector allows you to bind N number of selectors together to return a state stream.
 
-Let's say we have 2 states; 'zoos' and 'theme parks'. We have a component that needs
-to show all the zoos and theme parks for a given city. These are two very distinct
-state classes that are likely not related in any manner. We can use a meta selector
-to join these two states together like:
+Let's say we have 2 states; 'zoos' and 'theme parks'. We have a component that needs to show all the zoos and theme parks for a given city. These are two very distinct state classes that are likely not related in any manner. We can use a meta selector to join these two states together like:
 
-```ts
+```typescript
 export class CityService {
   @Selector([Zoo, ThemePark])
   static zooThemeParks(zoos, themeParks) {
@@ -366,13 +345,13 @@ now we can use this `zooThemeParks` selector anywhere in our application.
 
 ### The Order of Interacting Selectors
 
-In versions of NGXS prior to 3.6.1 there was an issue where the order which the selectors were declared would matter. This was fixed in PR [#1514](https://github.com/ngxs/store/pull/1514) and selectors can now be declared in any arbitrary order.
+In versions of NGXS prior to 3.6.1 there was an issue where the order which the selectors were declared would matter. This was fixed in PR [\#1514](https://github.com/ngxs/store/pull/1514) and selectors can now be declared in any arbitrary order.
 
 ### Inheriting Selectors
 
 When we have states that share similar structure, we can extract the shared selectors into a base class which we can later extend from. If we have an `entities` field on multiple states, we can create a base class containing a dynamic `@Selector()` for that field, and extend from it on the `@State` classes like this.
 
-```ts
+```typescript
 export class EntitiesState {
   static entities<T>() {
     return createSelector([this], (state: { entities: T[] }) => {
@@ -386,7 +365,7 @@ export class EntitiesState {
 
 And extend the `EntitiesState` class on each `@State` like this:
 
-```ts
+```typescript
 export interface UsersStateModel {
   entities: User[];
 }
@@ -420,8 +399,7 @@ export class ProductsState extends EntitiesState {
 
 Then you can use them as follows:
 
-```ts
-
+```typescript
 @Component({ ... })
 export class AppComponent {
 
@@ -436,7 +414,7 @@ export class AppComponent {
 
 Or:
 
-```ts
+```typescript
 this.store.select(UsersState.entities<User>());
 ```
 
@@ -444,13 +422,13 @@ this.store.select(UsersState.entities<User>());
 
 ### Angular Libraries: Use of lambdas in static functions
 
-_If you are building an Angular lib directly so that it can be deployed to npm the Angular compiler option `strictMetadataEmit` (see [docs](https://angular.io/guide/aot-compiler#strictmetadataemit)) will most likely be set to true and, as a result, Angular's `MetadataCollector` from the `@angular/compiler-cli` package will report the following issue with using lambdas in static methods:_
+_If you are building an Angular lib directly so that it can be deployed to npm the Angular compiler option `strictMetadataEmit` \(see_ [_docs_](https://angular.io/guide/aot-compiler#strictmetadataemit)_\) will most likely be set to true and, as a result, Angular's `MetadataCollector` from the `@angular/compiler-cli` package will report the following issue with using lambdas in static methods:_
 
-> Metadata collected contains an error that will be reported at runtime: Lambda not supported.`
+> Metadata collected contains an error that will be reported at runtime: Lambda not supported.\`
 
 This error would be reported for each of the selectors defined below but, as demonstrated in the sample, you can prevent this by including the `// @dynamic` comment before the class expression and decorators:
 
-```ts
+```typescript
 // @dynamic
 @State<string[]>({
   name: 'animals',
@@ -479,9 +457,9 @@ export class ZooState {
 ```
 
 As an alternative you can assign your result to a variable before you return it:  
-See https://github.com/ng-packagr/ng-packagr/issues/696#issuecomment-387114613
+See [https://github.com/ng-packagr/ng-packagr/issues/696\#issuecomment-387114613](https://github.com/ng-packagr/ng-packagr/issues/696#issuecomment-387114613)
 
-```ts
+```typescript
 @State<string[]>({
   name: 'animals',
   defaults: ['panda', 'horse', 'bee']
@@ -515,7 +493,7 @@ export class ZooState {
 
 If `strictPropertyInitialization` option is enabled then the TypeScript compiler will require all class properties to be explicitly initialized in the constructor. Given the following code:
 
-```ts
+```typescript
 @Component({ ... })
 export class ZooComponent {
   @Select(ZooState.pandas) pandas$: Observable<string[]>;
@@ -524,18 +502,19 @@ export class ZooComponent {
 
 In the above example the compiler will emit the following error only if `strictPropertyInitialization` is turned on:
 
-```
+```text
 // Type error: Property 'pandas$' has no initializer
 // and is not definitely assigned in the constructor
 ```
 
-We can solve that by applying the [definite assignment assertion](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#definite-assignment-assertions) to `pandas$` property declaration (note the added exclamation mark):
+We can solve that by applying the [definite assignment assertion](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#definite-assignment-assertions) to `pandas$` property declaration \(note the added exclamation mark\):
 
-```ts
+```typescript
 @Component({ ... })
 export class ZooComponent {
   @Select(ZooState.pandas) pandas$!: Observable<string[]>;
 }
 ```
 
-By adding the definite assignment assertion we're telling the type-checker that we're sure that `pandas$` property will be initialized (by the `@Select` decorator).
+By adding the definite assignment assertion we're telling the type-checker that we're sure that `pandas$` property will be initialized \(by the `@Select` decorator\).
+

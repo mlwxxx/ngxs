@@ -15,7 +15,7 @@ yarn add @ngxs/logger-plugin
 
 Add the `NgxsLoggerPluginModule` plugin to your root app module:
 
-```ts
+```typescript
 import { NgxsModule } from '@ngxs/store';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 
@@ -29,12 +29,12 @@ export class AppModule {}
 
 The plugin supports the following options passed via the `forRoot` method:
 
-- `logger`: Supply a different logger, useful for logging to backend. Defaults to `console`.
-- `collapsed`: Collapse the log by default or not. Defaults to `true`.
-- `disabled`: Disable the logger during production. Defaults to `false`.
-- `filter`: Filter actions to be logged. Takes action and state snapshot as parameters. Default predicate returns `true` for all actions.
+* `logger`: Supply a different logger, useful for logging to backend. Defaults to `console`.
+* `collapsed`: Collapse the log by default or not. Defaults to `true`.
+* `disabled`: Disable the logger during production. Defaults to `false`.
+* `filter`: Filter actions to be logged. Takes action and state snapshot as parameters. Default predicate returns `true` for all actions.
 
-```ts
+```typescript
 import { NgxsModule, getActionTypeFromInstance } from '@ngxs/store';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { environment } from '../environments/environment';
@@ -63,6 +63,5 @@ export class AppModule {}
 
 ### Notes
 
-You should always include the logger as the last plugin in your configuration.
-For instance, if you were to include logger before a plugin like the storage
-plugin, the initial state would not be reflected.
+You should always include the logger as the last plugin in your configuration. For instance, if you were to include logger before a plugin like the storage plugin, the initial state would not be reflected.
+

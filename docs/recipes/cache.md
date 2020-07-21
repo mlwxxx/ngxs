@@ -1,13 +1,10 @@
 # Caching
 
-Caching requests executed by Actions is a common practice. NGXS does not
-provide this ability out of the box, but it is easy to implement.
+Caching requests executed by Actions is a common practice. NGXS does not provide this ability out of the box, but it is easy to implement.
 
-There are many different ways to approach this. Below is a simple example of
-using the store's current values and returning them instead of calling the HTTP
-service.
+There are many different ways to approach this. Below is a simple example of using the store's current values and returning them instead of calling the HTTP service.
 
-```ts
+```typescript
 import { Injectable } from '@angular/core';
 import { State, Action, StateContext } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
@@ -31,18 +28,14 @@ export class NovelsState {
 }
 ```
 
-Imagine that this state of novels contains only minimal information about them such as ID and name.
-When the user selects a particular novel - he is redirected to a page with full information about this novel.
-We want to load this information only once. Let's create a state and call it `novelsInfo`, this will be
-the object whose keys are the identifiers of the novels:
+Imagine that this state of novels contains only minimal information about them such as ID and name. When the user selects a particular novel - he is redirected to a page with full information about this novel. We want to load this information only once. Let's create a state and call it `novelsInfo`, this will be the object whose keys are the identifiers of the novels:
 
-```ts
+```typescript
 import { Injectable } from '@angular/core';
 import { State, Action, StateContext, createSelector } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
 
 export interface NovelsInfoStateModel {
-  [key: string]: Novel;
 }
 
 export class GetNovelById {
@@ -84,7 +77,7 @@ export class NovelsInfoState {
 
 The component, that displays information about the novel, can subscribe to the `params` observable of the `ActivatedRoute` to listen to the params change. The code will look as following:
 
-```ts
+```typescript
 @Component({
   selector: 'app-novel',
   template: `
@@ -123,4 +116,5 @@ export class NovelComponent implements OnDestroy {
 }
 ```
 
-We're using the `switchMap` in this example, so if the user navigates to another novel and `params` observable emits new value - we have to complete previously started asynchronous job (in our case it's getting novel by ID).
+We're using the `switchMap` in this example, so if the user navigates to another novel and `params` observable emits new value - we have to complete previously started asynchronous job \(in our case it's getting novel by ID\).
+

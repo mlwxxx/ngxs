@@ -2,19 +2,19 @@
 
 A state token can be used as a representation of a state class without referring directly to the state class itself. When creating an StateToken you will provide the location that the state should be stored on your state tree. You can also set a default state model type of the parameterized type `T`, which can assist with ensuring the type safety of referring to your state in your application. The state token is declared as follows:
 
-```ts
+```typescript
 const TODOS_STATE_TOKEN = new StateToken<TodoStateModel[]>('todos');
 ```
 
-Or if you choose to not expose the model of your state class to the rest of the application then you can pass the type as `unknown` or `any`(this is useful if you want to keep all knowledge of the structure of your state class model private).
+Or if you choose to not expose the model of your state class to the rest of the application then you can pass the type as `unknown` or `any`\(this is useful if you want to keep all knowledge of the structure of your state class model private\).
 
-```ts
+```typescript
 const TODOS_STATE_TOKEN = new StateToken<unknown>('todos');
 ```
 
-If you use pass this token as the `name` property in your `@State` declaration (or if the path specified matches your `name` property then you can use this token to refer to this state class from other parts of your application (in your selectors, or in plugins like the storage plugin that need to refer to a state class). The token can be used in your `@State` declaration as follows:
+If you use pass this token as the `name` property in your `@State` declaration \(or if the path specified matches your `name` property then you can use this token to refer to this state class from other parts of your application \(in your selectors, or in plugins like the storage plugin that need to refer to a state class\). The token can be used in your `@State` declaration as follows:
 
-```ts
+```typescript
 interface TodoStateModel {
   title: string;
   completed: boolean;
@@ -35,9 +35,9 @@ class TodosState {
 
 A state token with a model type provided can be used in other parts of your application to improve type safety in the following aspects:
 
-- Improved type checking for `@State`, `@Selector` in a state class
+* Improved type checking for `@State`, `@Selector` in a state class
 
-```ts
+```typescript
 interface TodoStateModel {
   title: string;
   completed: boolean;
@@ -60,7 +60,7 @@ class TodosState {
 
 The following code demonstrates mismatched types that will be picked up as compilation errors:
 
-```ts
+```typescript
 const TODOS_STATE_TOKEN = new StateToken<TodoStateModel[]>('todos');
 
 @State({
@@ -76,9 +76,9 @@ class TodosState {
 }
 ```
 
-- Improved type checking for `@Select`
+* Improved type checking for `@Select`
 
-```ts
+```typescript
 @Component(/**/)
 class AppComponent {
   @Select(TODOS_STATE_TOKEN) // if you specify the wrong property type, there will be a compilation error
@@ -88,7 +88,7 @@ class AppComponent {
 
 The following code demonstrates mismatched types that will be picked up as compilation errors:
 
-```ts
+```typescript
 @Component(/**/)
 class AppComponent {
   @Select(TODOS_STATE_TOKEN) // compilation error
@@ -99,9 +99,9 @@ class AppComponent {
 }
 ```
 
-- Improved type inference for `store.select, store.selectOnce, store.selectSnapshot`
+* Improved type inference for `store.select, store.selectOnce, store.selectSnapshot`
 
-```ts
+```typescript
 @Component(/**/)
 class AppComponent implements OnInit {
   constructor(private store: Store) {}
@@ -113,3 +113,4 @@ class AppComponent implements OnInit {
   }
 }
 ```
+

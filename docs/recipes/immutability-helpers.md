@@ -8,7 +8,7 @@ The cornerstone of Redux is immutability. Immutability is an amazing pattern to 
 
 Most developers have to deal with, so called, "deep objects" and most important follow the immutability concept, when it comes to changing the value of some deeply nested property. Given the following code:
 
-```ts
+```typescript
 export interface Task {
   title: string;
   dates: {
@@ -34,7 +34,7 @@ export class TrelloState {}
 
 Let's imagine that we're faced with the task of changing the `dueDate` property:
 
-```ts
+```typescript
 export class UpdateDueDate {
   static readonly type = '[Trello] Update due date';
   constructor(public taskId: string, public dueDate: string) {}
@@ -43,7 +43,7 @@ export class UpdateDueDate {
 
 Let's see how we would implement the `updateDueDate` action handler:
 
-```ts
+```typescript
 export class TrelloState {
   @Action(UpdateDueDate)
   updateDueDate(ctx: StateContext<TrelloStateModel>, action: UpdateDueDate) {
@@ -73,7 +73,7 @@ There are different ways to improve this code. Let us look at a few different pa
 
 [State operators](../advanced/operators.md) are first-class immutability helpers that NGXS provides out of the box. The `patch` operator will become your best friend in case of choosing state operators as your immutability helpers. Let's see how we could re-write the above code with the help of the `patch` state operator:
 
-```ts
+```typescript
 import { patch } from '@ngxs/store/operators';
 
 export class TrelloState {
@@ -98,7 +98,7 @@ export class TrelloState {
 
 `immer` is a very popular library that allows you to make changes to immutable objects as if they were mutable. The below code shows how to write the same code with the help of Immer:
 
-```ts
+```typescript
 import { produce } from 'immer';
 
 export class TrelloState {
@@ -115,7 +115,7 @@ export class TrelloState {
 
 Immer's `produce` function can be also used as a state operator:
 
-```ts
+```typescript
 import { produce } from 'immer';
 
 export class TrelloState {
@@ -132,7 +132,7 @@ export class TrelloState {
 
 You may notice how much less code this is and how much better it looks. From the `immer` repository:
 
-> Using Immer is like having a personal assistant; he takes a letter (the current state) and gives you a copy (draft) to jot changes onto. Once you are done, the assistant will take your draft and produce the real immutable, final letter for you (the next state).
+> Using Immer is like having a personal assistant; he takes a letter \(the current state\) and gives you a copy \(draft\) to jot changes onto. Once you are done, the assistant will take your draft and produce the real immutable, final letter for you \(the next state\).
 
 [Immer repository](https://github.com/immerjs/immer)
 
@@ -140,7 +140,7 @@ You may notice how much less code this is and how much better it looks. From the
 
 `immutability-helper` is a small package that lets you mutate a copy of data without changing the original source:
 
-```ts
+```typescript
 import update from 'immutability-helper';
 
 export class TrelloState {
@@ -169,7 +169,7 @@ export class TrelloState {
 
 `object-path-immutable` is a small library that allows you to modify deep object properties without modifying the original object. Let's look at how we could write the same code using this library:
 
-```ts
+```typescript
 import immutable from 'object-path-immutable';
 
 export class TrelloState {
@@ -192,7 +192,7 @@ export class TrelloState {
 
 `immutable-assign` is a lightweight library that pursues the same goal. Its syntax is similar to `immer`'s:
 
-```ts
+```typescript
 import * as iassign from 'immutable-assign';
 
 export class TrelloState {
@@ -214,7 +214,7 @@ export class TrelloState {
 
 Ramda is a great library for functional programming and it is used in a large number of projects. This example might be useful for people who use both Ramda and NGXS in their projects:
 
-```ts
+```typescript
 import * as R from 'ramda';
 
 export class TrelloState {
@@ -233,7 +233,7 @@ export class TrelloState {
 
 `icepick` is a zero-dependency library for working with immutable collections. Given the following re-written code:
 
-```ts
+```typescript
 import * as icepick from 'icepick';
 
 export class TrelloState {
@@ -255,3 +255,4 @@ export class TrelloState {
 ## Summary
 
 We have looked at several different libraries that might be helpful in accompanying the concept of immutability. Choose the right one for your needs.
+
