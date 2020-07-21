@@ -2,7 +2,7 @@
 
 Developers always use the `@Output` decorator in conjunction with the `EventEmitter`. The below code has been seen by any Angular developer:
 
-```ts
+```typescript
 @Output() search = new EventEmitter<string>();
 ```
 
@@ -12,7 +12,7 @@ Let's imagine that we're a part of the A team. We develop custom element that us
 
 We develop the `app-email-list` custom element that emits `messagesLoaded` DOM event and gives the data to the team B for analytics. Given the following code:
 
-```ts
+```typescript
 @Component({
   selector: 'app-email-list',
   template: `
@@ -39,7 +39,7 @@ export class EmailListComponent {
 
 The above code is very simple and is used for demonstrating purposes only! As you can see we dispatch the `LoadMessages` action every time the user clicks "Refresh messages" button. After the `LoadMessages` action handler has completed his asynchronous job we emit the `messagesLoaded` event. Let's be more declarative:
 
-```ts
+```typescript
 @Component({
   selector: 'app-email-list',
   template: `
@@ -66,7 +66,7 @@ Assume that `ButtonComponent.click` is an `EventEmitter`. Wow, we've done it in 
 
 Now let's take away that idea with A and B teams. As our store is a single source of truth thus we can listen to any action from any part of our application. DOM events can be handy to use with the `Actions` stream. Assume we've got a component that emits `booksLoaded` event every time when different genre of books are loaded:
 
-```ts
+```typescript
 // books.state.ts
 const enum Genre {
   Novel,
@@ -100,3 +100,4 @@ export class BooksComponent {
 ```
 
 This might significantly reduce your code business logic and do it in a more declarative and reactive way.
+

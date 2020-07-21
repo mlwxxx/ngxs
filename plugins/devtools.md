@@ -2,7 +2,7 @@
 
 Plugin with integration with the [Redux Devtools extension](http://extension.remotedev.io/).
 
-![Devtools Screenshot](../assets/devtools.png)
+![Devtools Screenshot](../../.gitbook/assets/devtools.png)
 
 ## Installation
 
@@ -17,7 +17,7 @@ yarn add @ngxs/devtools-plugin --dev
 
 Add the `NgxsReduxDevtoolsPluginModule` plugin to your root app module:
 
-```ts
+```typescript
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 
@@ -31,14 +31,13 @@ export class AppModule {}
 
 The plugin supports the following options passed via the `forRoot` method:
 
-- `name`: Set the name by which this store instance is referenced in devtools (Default: 'NGXS')
-- `disabled`: Disable the devtools during production
-- `maxAge`: Max number of entries to keep.
-- `actionSanitizer`: Reformat actions before sending to dev tools
-- `stateSanitizer`: Reformat state before sending to devtools
+* `name`: Set the name by which this store instance is referenced in devtools \(Default: 'NGXS'\)
+* `disabled`: Disable the devtools during production
+* `maxAge`: Max number of entries to keep.
+* `actionSanitizer`: Reformat actions before sending to dev tools
+* `stateSanitizer`: Reformat state before sending to devtools
 
 ### Notes
 
-You should always include the devtools as the last plugin in your configuration.
-For instance, if you were to include devtools before a plugin like the storage
-plugin, the initial state would not be reflected.
+You should always include the devtools as the last plugin in your configuration. For instance, if you were to include devtools before a plugin like the storage plugin, the initial state would not be reflected.
+

@@ -15,7 +15,7 @@ yarn add @ngxs/storage-plugin
 
 Import the `NgxsStoragePluginModule` into your app module like:
 
-```ts
+```typescript
 import { NgxsModule } from '@ngxs/store';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 
@@ -25,26 +25,25 @@ import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 export class AppModule {}
 ```
 
-It is recommended to register the storage plugin before other plugins so
-initial state can be picked up by those plugins.
+It is recommended to register the storage plugin before other plugins so initial state can be picked up by those plugins.
 
 ### Options
 
 The plugin has the following optional values:
 
-- `key`: State name(s) to be persisted. You can pass a string or array of strings that can be deeply nested via dot notation. If not provided, it defaults to all states using the `@@STATE` key.
-- `storage`: Storage strategy to use. This defaults to LocalStorage but you can pass SessionStorage or anything that implements the StorageEngine API.
-- `deserialize`: Custom deserializer. Defaults to `JSON.parse`
-- `serialize`: Custom serializer. Defaults to `JSON.stringify`
-- `migrations`: Migration strategies
-- `beforeSerialize`: Interceptor executed before serialization
-- `afterDeserialize`: Interceptor executed after deserialization
+* `key`: State name\(s\) to be persisted. You can pass a string or array of strings that can be deeply nested via dot notation. If not provided, it defaults to all states using the `@@STATE` key.
+* `storage`: Storage strategy to use. This defaults to LocalStorage but you can pass SessionStorage or anything that implements the StorageEngine API.
+* `deserialize`: Custom deserializer. Defaults to `JSON.parse`
+* `serialize`: Custom serializer. Defaults to `JSON.stringify`
+* `migrations`: Migration strategies
+* `beforeSerialize`: Interceptor executed before serialization
+* `afterDeserialize`: Interceptor executed after deserialization
 
 ### Key option
 
 The `key` option is used to determine what states should be persisted in the storage. `key` shouldn't be a random string, it has to coincide with your state names. Let's look at the below example:
 
-```ts
+```typescript
 // novels.state.ts
 @State<Novel[]>({
   name: 'novels',
@@ -64,7 +63,7 @@ export class DetectivesState {}
 
 In order to persist all states there is no need to provide the `key` option, so it's enough just to write:
 
-```ts
+```typescript
 @NgModule({
   imports: [NgxsStoragePluginModule.forRoot()]
 })
@@ -73,7 +72,7 @@ export class AppModule {}
 
 But what if we wanted to persist only `NovelsState`? Then we would have needed to pass its name to the `key` option:
 
-```ts
+```typescript
 @NgModule({
   imports: [
     NgxsStoragePluginModule.forRoot({
@@ -86,7 +85,7 @@ export class AppModule {}
 
 It's also possible to provide a state class as opposed to its name:
 
-```ts
+```typescript
 @NgModule({
   imports: [
     NgxsStoragePluginModule.forRoot({
@@ -99,7 +98,7 @@ export class AppModule {}
 
 And if we wanted to persist `NovelsState` and `DetectivesState`:
 
-```ts
+```typescript
 @NgModule({
   imports: [
     NgxsStoragePluginModule.forRoot({
@@ -112,7 +111,7 @@ export class AppModule {}
 
 Or using state classes:
 
-```ts
+```typescript
 @NgModule({
   imports: [
     NgxsStoragePluginModule.forRoot({
@@ -125,7 +124,7 @@ export class AppModule {}
 
 You can even combine state classes and strings:
 
-```ts
+```typescript
 @NgModule({
   imports: [
     NgxsStoragePluginModule.forRoot({
@@ -142,7 +141,7 @@ This is very handy to avoid persisting runtime-only states that shouldn't be sav
 
 You can add your own storage engine by implementing the `StorageEngine` interface.
 
-```ts
+```typescript
 import { NgxsStoragePluginModule, StorageEngine, STORAGE_ENGINE } from '@ngxs/storage-plugin';
 
 export class MyStorageEngine implements StorageEngine {
@@ -187,10 +186,10 @@ export class MyModule {}
 
 You can define your own logic before or after the state get serialized or deserialized.
 
-- beforeSerialize: Use this option to alter the state before it gets serialized.
-- afterSerialize: Use this option to alter the state after it gets deserialized. For instance, you can use it to instantiate a concrete class.
+* beforeSerialize: Use this option to alter the state before it gets serialized.
+* afterSerialize: Use this option to alter the state after it gets deserialized. For instance, you can use it to instantiate a concrete class.
 
-```ts
+```typescript
 @NgModule({
   imports: [
     NgxsStoragePluginModule.forRoot({
@@ -217,10 +216,9 @@ export class AppModule {}
 
 ### Migrations
 
-You can migrate data from one version to another during the startup of the store. Below
-is a strategy to migrate my state from `animals` to `newAnimals`.
+You can migrate data from one version to another during the startup of the store. Below is a strategy to migrate my state from `animals` to `newAnimals`.
 
-```ts
+```typescript
 @NgModule({
   imports: [
     NgxsModule.forRoot([]),
@@ -246,9 +244,10 @@ export class MyModule {}
 
 In the migration strategy, we define:
 
-- `version`: The version we are migrating
-- `versionKey`: The identifier for the version key (Defaults to 'version')
-- `migrate`: A function that accepts a state and expects the new state in return.
-- `key`: The key for the item to migrate. If not specified, it takes the entire storage state.
+* `version`: The version we are migrating
+* `versionKey`: The identifier for the version key \(Defaults to 'version'\)
+* `migrate`: A function that accepts a state and expects the new state in return.
+* `key`: The key for the item to migrate. If not specified, it takes the entire storage state.
 
 Note: Its important to specify the strategies in the order of which they should progress.
+

@@ -4,7 +4,7 @@ NGXS provides the ability to merge multiple dynamic selectors into one.
 
 Let's look at the code below:
 
-```ts
+```typescript
 interface Animal {
   type: string;
   age: string;
@@ -47,7 +47,7 @@ This construct will merge 2 dynamic selectors and memoize the result.
 
 Another example could be multiple Zoos in our application:
 
-```ts
+```typescript
 interface Animal {
   type: string;
   age: string;
@@ -55,7 +55,6 @@ interface Animal {
 }
 
 interface ZooStateModel {
-  [id: string]: {
     animals: Animal[];
     ageFilter: string;
   };
@@ -95,5 +94,5 @@ export class ZooState {
 }
 ```
 
-In that example merging is required to avoid unnecessary store events.
-When we subscribe to Zoo.pandasWithoutMemoize store will dispatch event whenever ZooState will change (even ZooState.ageFilter), but when subscribing to Zoo.pandas store will dispatch event only if result has been changed.
+In that example merging is required to avoid unnecessary store events. When we subscribe to Zoo.pandasWithoutMemoize store will dispatch event whenever ZooState will change \(even ZooState.ageFilter\), but when subscribing to Zoo.pandas store will dispatch event only if result has been changed.
+

@@ -2,7 +2,7 @@
 
 NGXS uses Angular's default `ErrorHandler` class, so if an action throws an error, Angular's `ErrorHandler` is called. You can easily override this flow by providing your own handler like so:
 
-```ts
+```typescript
 import { NgModule, ErrorHandler } from '@angular/core';
 
 @Injectable()
@@ -29,7 +29,7 @@ export class AppModule {}
 
 ## Handling errors within an `@Select`
 
-```ts
+```typescript
 @Component({ ... })
 class AppComponent {
   @Select(state => state.count.number.value) count$: Observable<number>;
@@ -38,13 +38,13 @@ class AppComponent {
 
 Let's take a look at the below example:
 
-```ts
+```typescript
 this.store.reset({}); // reset all states
 ```
 
-The catch is that when resetting the entire state, the object will no longer have those deeply nested properties (`state.count.number.value`). Given the following code:
+The catch is that when resetting the entire state, the object will no longer have those deeply nested properties \(`state.count.number.value`\). Given the following code:
 
-```ts
+```typescript
 const state = {};
 
 function getCount() {
@@ -58,7 +58,7 @@ RxJS will automatically complete the stream under the hood if any error is throw
 
 You have to disable suppressing errors using the `suppressErrors` option:
 
-```ts
+```typescript
 @NgModule({
   imports: [
     NgxsModule.forRoot([CountState], {
@@ -73,7 +73,7 @@ export class AppModule {}
 
 This option allows to track errors and handle them.
 
-```ts
+```typescript
 @Component({ ... })
 class AppComponent {
   @Select(state => {
@@ -89,7 +89,7 @@ class AppComponent {
 }
 ```
 
-#### Why does RxJS unsubscribe on error?
+### Why does RxJS unsubscribe on error?
 
 RxJS [design guidelines](https://github.com/ReactiveX/rxjs/blob/master/docs_app/content/guide/observable.md#executing-observables) provides a great explanation of this behavior.
 
@@ -97,7 +97,7 @@ RxJS [design guidelines](https://github.com/ReactiveX/rxjs/blob/master/docs_app/
 
 When you define an @Action you can handle error within the action and if you do so, the error will not propagate to Angular's global `ErrorHandler`, nor the `dispatch` Observable. This applies to both sync and async types of Actions.
 
-```ts
+```typescript
   @Action(HandledError)
   handledError(ctx: StateContext<StateModel>) {
     try {
@@ -112,14 +112,14 @@ When you define an @Action you can handle error within the action and if you do 
 
 If an unhandled exception is thrown inside an action, the error will be propagated to the `ErrorHandler` and you can also catch it subscribing to the `dispatch` Observable. If you subscribe to the `dispatch` Observable the error will be caught twice, once in the ErrorHandler and on your `dispatch` handle.
 
-```ts
+```typescript
   @Action(UnhandledError)
   unhandledError(ctx: StateContext<StateModel>) {
     // error is thrown
   }
 ```
 
-```ts
+```typescript
   unhandled() {
     this.store.dispatch(new UnhandledError()).pipe(
       catchError(err => {
@@ -133,3 +133,4 @@ If an unhandled exception is thrown inside an action, the error will be propagat
 It is recommended to handle errors within `@Action` and update state to reflect the error, which you can later select to display where required.
 
 You can play around with error handling in this following [stackblitz](https://stackblitz.com/edit/ngxs-error-handling)
+

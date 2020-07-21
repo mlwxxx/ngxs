@@ -2,7 +2,7 @@
 
 You can compose multiple stores together using class inheritance. This is quite simple:
 
-```ts
+```typescript
 @State({
   name: 'zoo',
   defaults: {
@@ -29,5 +29,5 @@ class StLouisZooState extends ZooState {
 }
 ```
 
-Now when `StLouisZooState` is invoked, it will share the actions of the `ZooState`.
-Also all state options are inherited.
+Now when `StLouisZooState` is invoked, it will share the actions of the `ZooState`. Also all state options are inherited.
+

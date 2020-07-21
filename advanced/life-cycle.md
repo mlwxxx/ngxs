@@ -4,9 +4,9 @@ States can implement life-cycle events.
 
 ## `ngxsOnChanges`
 
-If a state implements the NgxsOnChanges interface, its ngxsOnChanges method respond when (re)sets state. The states' ngxsOnChanges methods are invoked in a topological sorted order going from parent to child. The first parameter is the NgxsSimpleChange object of current and previous state.
+If a state implements the NgxsOnChanges interface, its ngxsOnChanges method respond when \(re\)sets state. The states' ngxsOnChanges methods are invoked in a topological sorted order going from parent to child. The first parameter is the NgxsSimpleChange object of current and previous state.
 
-```ts
+```typescript
 export interface ZooStateModel {
   animals: string[];
 }
@@ -28,12 +28,9 @@ export class ZooState implements NgxsOnChanges {
 
 ## `ngxsOnInit`
 
-If a state implements the `NgxsOnInit` interface, its `ngxsOnInit` method will be invoked after
-all the states from the state's module definition have been initialized and pushed into the state stream.
-The states' `ngxsOnInit` methods are invoked in a topological sorted order going from parent to child.
-The first parameter is the `StateContext` where you can get the current state and dispatch actions as usual.
+If a state implements the `NgxsOnInit` interface, its `ngxsOnInit` method will be invoked after all the states from the state's module definition have been initialized and pushed into the state stream. The states' `ngxsOnInit` methods are invoked in a topological sorted order going from parent to child. The first parameter is the `StateContext` where you can get the current state and dispatch actions as usual.
 
-```ts
+```typescript
 export interface ZooStateModel {
   animals: string[];
 }
@@ -57,7 +54,7 @@ export class ZooState implements NgxsOnInit {
 
 If a state implements the `NgxsAfterBootstrap` interface, its `ngxsAfterBootstrap` method will be invoked after the root view and all its children have been rendered, because Angular invokes functions, retrieved from the injector by `APP_BOOTSTRAP_LISTENER` token, only after creating and attaching `ComponentRef` of the root component to the tree of views.
 
-```ts
+```typescript
 export interface ZooStateModel {
   animals: string[];
 }
@@ -81,17 +78,17 @@ export class ZooState implements NgxsAfterBootstrap {
 
 After creating the state by calling its constructor, NGXS calls the lifecycle hook methods in the following sequence at specific moments:
 
-| Hook                 | Purpose and Timing                                                                                       |
-| -------------------- | -------------------------------------------------------------------------------------------------------- |
-| ngxsOnChanges()      | Called _before_ `ngxsOnInit()` and whenever state changes.                                               |
-| ngxsOnInit()         | Called _once_, after the _first_ `ngxsOnChanges()` and _before_ the `APP_INITIALIZER` token is resolved. |
-| ngxsAfterBootstrap() | Called _once_, after the root view and all its children have been rendered.                              |
+| Hook | Purpose and Timing |
+| :--- | :--- |
+| ngxsOnChanges\(\) | Called _before_ `ngxsOnInit()` and whenever state changes. |
+| ngxsOnInit\(\) | Called _once_, after the _first_ `ngxsOnChanges()` and _before_ the `APP_INITIALIZER` token is resolved. |
+| ngxsAfterBootstrap\(\) | Called _once_, after the root view and all its children have been rendered. |
 
 ## Feature Modules Order of Imports
 
 If you have feature modules they need to be imported after the root module:
 
-```ts
+```typescript
 // feature.module.ts
 @NgModule({
   imports: [NgxsModule.forFeature([FeatureState])]
@@ -105,13 +102,13 @@ export class FeatureModule {}
 export class AppModule {}
 ```
 
-## APP_INITIALIZER Stage
+## APP\_INITIALIZER Stage
 
 ### Theoretical Introduction
 
 The `APP_INITIALIZER` is just a token that references Promise factories. If you've ever used the `APP_INITIALIZER` token, then you are already familiar with its syntax:
 
-```ts
+```typescript
 export function appInitializerFactory() {
   return () => Promise.resolve();
 }
@@ -130,14 +127,14 @@ export class AppModule {}
 
 This token is injected into `ApplicationInitStatus` class. What does Angular do under the hood? It gets an instance of this class and invokes the `runInitializers` method:
 
-```ts
+```typescript
 const initStatus = moduleRef.injector.get(ApplicationInitStatus);
 initStatus.runInitializers();
 ```
 
-All that it does inside this method is looping via the `APP_INITIALIZER` array (as it's a `multi` token) and invoking those factories, that you've provided in `useFactory` properties:
+All that it does inside this method is looping via the `APP_INITIALIZER` array \(as it's a `multi` token\) and invoking those factories, that you've provided in `useFactory` properties:
 
-```ts
+```typescript
 for (let i = 0; i < this.appInits.length; i++) {
   const initResult = this.appInits[i]();
   if (isPromise(initResult)) {
@@ -148,7 +145,7 @@ for (let i = 0; i < this.appInits.length; i++) {
 
 Then `asyncInitPromises` are provided into `Promise.all`. That's all the magic. That's why the `bootstrapModule` returns a `Promise`:
 
-```ts
+```typescript
 platformBrowser()
   .bootstrapModule(AppModule)
   .then(() => {
@@ -156,11 +153,11 @@ platformBrowser()
   });
 ```
 
-### APP_INITIALIZER and NGXS
+### APP\_INITIALIZER and NGXS
 
 Everything that we examined earlier is very important, because from this comes the fact that `APP_INITIALIZER` is resolved after NGXS states are initialized. They are initialized by the `NgxsModule` that is imported into the `AppModule`. The `ngxsOnInit` method on states is also invoked before the `APP_INITIALIZER` token is resolved. Given the following code:
 
-```ts
+```typescript
 @Injectable({ providedIn: 'root' })
 export class ConfigService {
   private version: string | null = null;
@@ -221,7 +218,7 @@ The above example is used only for demonstration purposes! This code will throw 
 
 There are different solutions. Let's look at the simplest. The first solution would be to use the `ngxsAfterBootstrap` method:
 
-```ts
+```typescript
 @State<string | null>({
   name: 'version',
   defaults: null
@@ -238,7 +235,7 @@ export class VersionState implements NgxsAfterBootstrap {
 
 The second solution would be dispatching some `SetVersion` action right after the version is fetched:
 
-```ts
+```typescript
 export class SetVersion {
   static readonly type = '[Version] Set version';
   constructor(public version: string) {}
@@ -273,3 +270,4 @@ export class ConfigService {
 ### Summary
 
 In conclusion, do not try to access any data in state constructors or `ngxsOnInit` methods that is fetched during the `APP_INITIALIZER` stage.
+

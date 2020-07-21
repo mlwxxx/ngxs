@@ -1,13 +1,12 @@
 # Canceling
 
-If you have an async action, you may want to cancel a previous Observable if the action has been dispatched again.
-This is useful for canceling previous requests like in a typeahead.
+If you have an async action, you may want to cancel a previous Observable if the action has been dispatched again. This is useful for canceling previous requests like in a typeahead.
 
 ## Basic
 
 For basic scenarios, we can use the `cancelUncompleted` action decorator option.
 
-```ts
+```typescript
 import { Injectable } from '@angular/core';
 import { State, Action } from '@ngxs/store';
 
@@ -33,7 +32,7 @@ export class ZooState {
 
 For more advanced cases, we can use normal Rx operators.
 
-```ts
+```typescript
 import { Injectable } from '@angular/core';
 import { State, Action, Actions, ofAction } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
@@ -56,3 +55,4 @@ export class ZooState {
   }
 }
 ```
+

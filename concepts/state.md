@@ -4,11 +4,9 @@ States are classes that define a state container.
 
 ## Defining a State
 
-States are classes along with decorators to describe metadata
-and action mappings. To define a state container, let's create an
-ES2015 class and decorate it with the `State` decorator.
+States are classes along with decorators to describe metadata and action mappings. To define a state container, let's create an ES2015 class and decorate it with the `State` decorator.
 
-```ts
+```typescript
 import { Injectable } from '@angular/core';
 import { State } from '@ngxs/store';
 
@@ -20,18 +18,18 @@ import { State } from '@ngxs/store';
 export class AnimalsState {}
 ```
 
-In the state decorator, we define some metadata about the state. These options
-include:
+In the state decorator, we define some metadata about the state. These options include:
 
-- `name`: The name of the state slice. Note: The name is a required parameter and must be unique for the entire application.
-  Names must be object property safe, (e.g. no dashes, dots, etc).
-- `defaults`: Default set of object/array for this state slice.
-- `children`: Child sub state associations.
+* `name`: The name of the state slice. Note: The name is a required parameter and must be unique for the entire application.
 
-Our states can also participate in dependency injection. This is hooked up automatically
-so all you need to do is inject your dependencies in the constructor.
+  Names must be object property safe, \(e.g. no dashes, dots, etc\).
 
-```ts
+* `defaults`: Default set of object/array for this state slice.
+* `children`: Child sub state associations.
+
+Our states can also participate in dependency injection. This is hooked up automatically so all you need to do is inject your dependencies in the constructor.
+
+```typescript
 @State<ZooStateModel>({
   name: 'zoo',
   defaults: {
@@ -44,11 +42,11 @@ export class ZooState {
 }
 ```
 
-## (Optional) Defining State Token
+## \(Optional\) Defining State Token
 
 Optionally, you can choose to replace the `name` of your state can be made with a state token:
 
-```ts
+```typescript
 const ZOO_STATE_TOKEN = new StateToken<ZooStateModel>('zoo');
 
 @State({
@@ -67,14 +65,13 @@ This slightly more advanced approach has some benefits which you can read more a
 
 ## Defining Actions
 
-Our states listen to actions via an `@Action` decorator. The action decorator
-accepts an action class or an array of action classes.
+Our states listen to actions via an `@Action` decorator. The action decorator accepts an action class or an array of action classes.
 
 ### Simple Actions
 
 Let's define a state that will listen to a `FeedAnimals` action to toggle whether the animals have been fed:
 
-```ts
+```typescript
 import { Injectable } from '@angular/core';
 import { State, Action, StateContext } from '@ngxs/store';
 
@@ -105,20 +102,13 @@ export class ZooState {
 }
 ```
 
-The `feedAnimals` function has one argument called `ctx` with a type of `StateContext<ZooStateModel>`. This
-context state has a slice pointer and a function exposed to set the state. It's important
-to note that the `getState()` method will always return
-the freshest state slice from the global store each time it is accessed. This
-ensures that when we're performing async operations the state
-is always fresh. If you want a snapshot, you can always clone the state
-in the method.
+The `feedAnimals` function has one argument called `ctx` with a type of `StateContext<ZooStateModel>`. This context state has a slice pointer and a function exposed to set the state. It's important to note that the `getState()` method will always return the freshest state slice from the global store each time it is accessed. This ensures that when we're performing async operations the state is always fresh. If you want a snapshot, you can always clone the state in the method.
 
 ### Actions with a payload
 
-Actions can also pass along metadata that has to do with the action.
-Say we want to pass along how much hay and carrots each zebra needs.
+Actions can also pass along metadata that has to do with the action. Say we want to pass along how much hay and carrots each zebra needs.
 
-```ts
+```typescript
 import { Injectable } from '@angular/core';
 import { State, Action, StateContext } from '@ngxs/store';
 
@@ -163,14 +153,11 @@ export class ZooState {
 }
 ```
 
-In this example, we have a second argument that represents the action and we destructure it
-to pull out the name, hay, and carrots which we then update the state with.
+In this example, we have a second argument that represents the action and we destructure it to pull out the name, hay, and carrots which we then update the state with.
 
-There is also a shortcut `patchState` function to make updating the state easier. In this case,
-you only pass it the properties you want to update on the state and it handles the rest.
-The above function could be reduced to this:
+There is also a shortcut `patchState` function to make updating the state easier. In this case, you only pass it the properties you want to update on the state and it handles the rest. The above function could be reduced to this:
 
-```ts
+```typescript
 @Action(FeedZebra)
 feedZebra(ctx: StateContext<ZooStateModel>, action: FeedZebra) {
   const state = ctx.getState();
@@ -183,14 +170,12 @@ feedZebra(ctx: StateContext<ZooStateModel>, action: FeedZebra) {
 }
 ```
 
-The `setState` function can also be called with a function which will be given the
-existing state and should return the new state.
-All immutability concerns need to be honoured by this function.
+The `setState` function can also be called with a function which will be given the existing state and should return the new state. All immutability concerns need to be honoured by this function.
 
 For comparison, here are the two ways that you can invoke the `setState` function...  
 With a new constructed state value:
 
-```ts
+```typescript
 @Action(MyAction)
 public addValue(ctx: StateContext, { payload }: MyAction) {
   ctx.setState({ ...ctx.getState(), value: payload  });
@@ -199,20 +184,18 @@ public addValue(ctx: StateContext, { payload }: MyAction) {
 
 With a function that returns the new state value:
 
-```ts
+```typescript
 @Action(MyAction)
 public addValue(ctx: StateContext, { payload }: MyAction) {
   ctx.setState((state) => ({ ...state, value: payload }));
 }
 ```
 
-You may ask _"How is this valuable?"_. Well, it opens the door for refactoring of your immutable updates into `state operators` so that your code can become more declarative as opposed to imperative. We will be adding some standard `state operators` soon that you will be able to use to express your updates to the state. Follow the issue here for updates: https://github.com/ngxs/store/issues/545
+You may ask _"How is this valuable?"_. Well, it opens the door for refactoring of your immutable updates into `state operators` so that your code can become more declarative as opposed to imperative. We will be adding some standard `state operators` soon that you will be able to use to express your updates to the state. Follow the issue here for updates: [https://github.com/ngxs/store/issues/545](https://github.com/ngxs/store/issues/545)
 
-As another example you could use a library like [immer](https://github.com/mweststrate/immer) that can
-handle the immutability updates for you and provide a different way of expressing your immutable update
-through direct mutation of a draft object. We can use this external library because it supports the same signature as out `state operators` through their curried `produce` function. Here is the example from above expressed in this way:
+As another example you could use a library like [immer](https://github.com/mweststrate/immer) that can handle the immutability updates for you and provide a different way of expressing your immutable update through direct mutation of a draft object. We can use this external library because it supports the same signature as out `state operators` through their curried `produce` function. Here is the example from above expressed in this way:
 
-```ts
+```typescript
 import produce from 'immer';
 
 // in class ZooState ...
@@ -224,15 +207,11 @@ feedZebra(ctx: StateContext<ZooStateModel>, action: FeedZebra) {
 }
 ```
 
-Here the `produce` function from the `immer` library is called with just a single parameter
-so that it returns its' [curried form](https://github.com/mweststrate/immer#currying)
-that will take a value and return a new value with all the expressed changes applied.
+Here the `produce` function from the `immer` library is called with just a single parameter so that it returns its' [curried form](https://github.com/mweststrate/immer#currying) that will take a value and return a new value with all the expressed changes applied.
 
-This approach can also allow for the creation of well named helper functions that can be shared
-between handlers that require the same type of update.
-The above example could be refactored to this:
+This approach can also allow for the creation of well named helper functions that can be shared between handlers that require the same type of update. The above example could be refactored to this:
 
-```ts
+```typescript
 // in class ZooState ...
 @Action(FeedZebra)
 feedZebra(ctx: StateContext<ZooStateModel>, action: FeedZebra) {
@@ -253,14 +232,11 @@ function addToZebraFood(itemToAdd) {
 
 Actions can perform async operations and update the state after an operation.
 
-Typically in Redux your actions are pure functions and you have some other system like a saga or an effect to perform
-these operations and dispatch another action back to your state to mutate it. There are some
-reasons for this, but for the most part it can be redundant and just add boilerplate. The great thing here is
-we give you the flexibility to make that decision yourself based on your requirements.
+Typically in Redux your actions are pure functions and you have some other system like a saga or an effect to perform these operations and dispatch another action back to your state to mutate it. There are some reasons for this, but for the most part it can be redundant and just add boilerplate. The great thing here is we give you the flexibility to make that decision yourself based on your requirements.
 
 Let's take a look at a simple async action:
 
-```ts
+```typescript
 import { Injectable } from '@angular/core';
 import { State, Action, StateContext } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
@@ -299,20 +275,13 @@ export class ZooState {
 }
 ```
 
-In this example, we reach out to the animal service and call `feed` and then
-call `setState` with the result. Remember that we can guarantee that the state
-is fresh since the state property is a getter back to the current state slice.
+In this example, we reach out to the animal service and call `feed` and then call `setState` with the result. Remember that we can guarantee that the state is fresh since the state property is a getter back to the current state slice.
 
-You might notice I returned the Observable and just did a `tap`. If we return
-the Observable, the framework will automatically subscribe to it for us, so
-we don't have to deal with that ourselves. Additionally, if we want the stores
-`dispatch` function to be able to complete only once the operation is completed,
-we need to return that so it knows that.
+You might notice I returned the Observable and just did a `tap`. If we return the Observable, the framework will automatically subscribe to it for us, so we don't have to deal with that ourselves. Additionally, if we want the stores `dispatch` function to be able to complete only once the operation is completed, we need to return that so it knows that.
 
-Observables are not a requirement, you can use promises too. We could swap
-that observable chain to look like this:
+Observables are not a requirement, you can use promises too. We could swap that observable chain to look like this:
 
-```ts
+```typescript
 import { Injectable } from '@angular/core';
 import { State, Action } from '@ngxs/store';
 
@@ -349,10 +318,9 @@ export class ZooState {
 
 ### Dispatching Actions From Actions
 
-If you want your action to dispatch another action, you can use the `dispatch` function
-that is contained in the state context object.
+If you want your action to dispatch another action, you can use the `dispatch` function that is contained in the state context object.
 
-```ts
+```typescript
 import { Injectable } from '@angular/core';
 import { State, Action, StateContext } from '@ngxs/store';
 import { map } from 'rxjs/operators';
@@ -403,5 +371,5 @@ export class ZooState {
 }
 ```
 
-Notice I returned the dispatch function, this goes back to our example above with async operations
-and the dispatcher subscribing to the result. It is not required though.
+Notice I returned the dispatch function, this goes back to our example above with async operations and the dispatcher subscribing to the result. It is not required though.
+

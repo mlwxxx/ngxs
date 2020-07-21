@@ -1,11 +1,10 @@
 # Authentication
 
-Authentication is a common theme across many applications. Let's take a look
-at how we would implement this in NGXS.
+Authentication is a common theme across many applications. Let's take a look at how we would implement this in NGXS.
 
 First, let's define our state model and our actions:
 
-```ts
+```typescript
 export interface AuthStateModel {
   token: string | null;
   username: string | null;
@@ -21,13 +20,11 @@ export class Logout {
 }
 ```
 
-In our state model, we want to track our token and the username. The token
-represents a JWT token that was issued for the session.
+In our state model, we want to track our token and the username. The token represents a JWT token that was issued for the session.
 
-Let's hook up these actions in our state class and wire that up to our login
-service.
+Let's hook up these actions in our state class and wire that up to our login service.
 
-```ts
+```typescript
 @State<AuthStateModel>({
   name: 'auth',
   defaults: {
@@ -78,13 +75,13 @@ export class AuthState {
 
 In this state class, we have:
 
-- A selector that will select the token from the store
-- A login action method that will invoke the authentication service and set the token
-- A logout action method that will invoke the authentication service and remove our state
+* A selector that will select the token from the store
+* A login action method that will invoke the authentication service and set the token
+* A logout action method that will invoke the authentication service and remove our state
 
 Now let's wire up the state in our module.
 
-```ts
+```typescript
 @NgModule({
   imports: [
     NgxsModule.forRoot([AuthState]),
@@ -96,14 +93,11 @@ Now let's wire up the state in our module.
 export class AppModule {}
 ```
 
-In a typical JWT setup, you want to store your token in the `localstorage`. To do this
-so we hookup our storage plugin and tell it to track the token
-key in our state.
+In a typical JWT setup, you want to store your token in the `localstorage`. To do this so we hookup our storage plugin and tell it to track the token key in our state.
 
-Next, we want to make sure that our users can't go to any pages that require authentication.
-We can easily accomplish this with a router guard provided by Angular.
+Next, we want to make sure that our users can't go to any pages that require authentication. We can easily accomplish this with a router guard provided by Angular.
 
-```ts
+```typescript
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(private store: Store) {}
@@ -115,12 +109,9 @@ export class AuthGuard implements CanActivate {
 }
 ```
 
-This guard will decide if a route can be activated by using our selector to
-select the token from the store. If the token is invalid it won't let the user go to that page.
-Let's make sure we implement this in our route itself by defining the `AuthGuard`
-in the `canActivate` definition.
+This guard will decide if a route can be activated by using our selector to select the token from the store. If the token is invalid it won't let the user go to that page. Let's make sure we implement this in our route itself by defining the `AuthGuard` in the `canActivate` definition.
 
-```ts
+```typescript
 export const routes: Routes = [
   {
     path: 'admin',
@@ -130,12 +121,9 @@ export const routes: Routes = [
 ];
 ```
 
-A common action you want to take is when a user logs out, we want
-to actually redirect the user to the login page. We can use our action
-stream to listen to the `Logout` action and tell the router to go to
-the login page.
+A common action you want to take is when a user logs out, we want to actually redirect the user to the login page. We can use our action stream to listen to the `Logout` action and tell the router to go to the login page.
 
-```ts
+```typescript
 @Component({
   selector: 'app',
   template: '..'
@@ -152,3 +140,4 @@ export class AppComponent implements OnInit {
 ```
 
 And that's it!
+

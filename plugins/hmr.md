@@ -1,15 +1,12 @@
 # Hot Module Replacement
 
-Hot Module Replacement (HMR) is a Webpack feature to update code in a running app without rebuilding it. This results in faster updates and less full page-reloads.
-In order to get HMR working with Angular CLI we first need to add a new environment and enable it.
+Hot Module Replacement \(HMR\) is a Webpack feature to update code in a running app without rebuilding it. This results in faster updates and less full page-reloads. In order to get HMR working with Angular CLI we first need to add a new environment and enable it.
 
-### Add environment for HMR
+## Add environment for HMR
 
-In this step we will configure the Angular CLI environments and define in which environment we enable HMR.
-We will start out by adding and changing files in the `src/environments/` directory.
-First we create a file called `src/environments/environment.hmr.ts` with the following contents:
+In this step we will configure the Angular CLI environments and define in which environment we enable HMR. We will start out by adding and changing files in the `src/environments/` directory. First we create a file called `src/environments/environment.hmr.ts` with the following contents:
 
-```ts
+```typescript
 export const environment = {
   production: false,
   hmr: true
@@ -18,7 +15,7 @@ export const environment = {
 
 Update `src/environments/environment.prod.ts` and add the hmr: false flag to the environment:
 
-```ts
+```typescript
 export const environment = {
   production: true,
   hmr: false
@@ -27,15 +24,14 @@ export const environment = {
 
 Lastly we edit `src/environments/environment.ts` and change the environment to:
 
-```ts
+```typescript
 export const environment = {
   production: false,
   hmr: false
 };
 ```
 
-Update angular.json to include an hmr environment as explained here and add configurations within build and serve to enable hmr.
-Note that \<project-name\> here represents the name of the project you are adding this configuration to in angular.json.
+Update angular.json to include an hmr environment as explained here and add configurations within build and serve to enable hmr. Note that \ here represents the name of the project you are adding this configuration to in angular.json.
 
 ```text
   "build": {
@@ -90,7 +86,7 @@ Create a shortcut for this by updating package.json and adding an entry to the s
 }
 ```
 
-### Add dependency and configure app
+## Add dependency and configure app
 
 In order to get HMR working we need to install the dependency and configure our app to use it.
 
@@ -98,7 +94,7 @@ Install the `@ngxs/hmr-plugin` package as a dev-dependency
 
 Update src/main.ts to use the file we just created:
 
-```ts
+```typescript
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { enableProdMode, NgModuleRef } from '@angular/core';
 
@@ -122,9 +118,9 @@ if (environment.hmr) {
 
 The `@ngxs/hmr-plugin` should be loaded on demand using dynamic import thus this can benefit more readily from tree shaking.
 
-### (OPTIONAL) Update src/app/app.module.ts to manage the state in HMR lifecycle:
+## \(OPTIONAL\) Update src/app/app.module.ts to manage the state in HMR lifecycle:
 
-```ts
+```typescript
 import { StateContext } from '@ngxs/store';
 import { NgxsHmrLifeCycle, NgxsHmrSnapshot as Snapshot } from '@ngxs/hmr-plugin';
 
@@ -140,7 +136,7 @@ export class AppBrowserModule implements NgxsHmrLifeCycle<Snapshot> {
 }
 ```
 
-### Starting the development environment with HMR enabled
+## Starting the development environment with HMR enabled
 
 Now that everything is set up we can run the new configuration:
 
@@ -150,7 +146,7 @@ npm run hmr
 
 Example:
 
-![hmr](../assets/hmr.gif)
+![hmr](../../.gitbook/assets/hmr.gif)
 
 When starting the server Webpack will tell you that it’s enabled:
 
@@ -160,11 +156,11 @@ NOTICE Hot Module Replacement (HMR) is enabled for the dev server.
 
 Now if you make changes to one of your components, those changes should be visible automatically without a complete browser refresh.
 
-### HMR lifecycle
+## HMR lifecycle
 
 If you want to do some modifications to the state during the hmr lifecycle you can use these built-in actions. They will not be executed in production.
 
-```ts
+```typescript
 import { HmrInitAction, HmrBeforeDestroyAction } from '@ngxs/hmr-plugin';
 
 @State({ ... })
@@ -182,14 +178,14 @@ export class MyState {
 }
 ```
 
-### HMR Options
+## HMR Options
 
 The following options are available:
 
-- `autoClearLogs` - Clear logs after each refresh (default value is `true`).
-- `deferTime` - Deferred time before loading the old state (default value is `100` ms);
+* `autoClearLogs` - Clear logs after each refresh \(default value is `true`\).
+* `deferTime` - Deferred time before loading the old state \(default value is `100` ms\);
 
-```ts
+```typescript
 import('@ngxs/hmr-plugin').then(plugin => {
   plugin
     .hmr(module, bootstrap, {
@@ -200,13 +196,13 @@ import('@ngxs/hmr-plugin').then(plugin => {
 });
 ```
 
-### HMR Utils
+## HMR Utils
 
-- `hmrIsReloaded` - returns `true` if the application was hot module replaced at least once or more.
+* `hmrIsReloaded` - returns `true` if the application was hot module replaced at least once or more.
 
 Examples:
 
-```ts
+```typescript
 import { hmrIsReloaded } from '@ngxs/hmr-plugin';
 
 @Component({})
@@ -220,3 +216,4 @@ class SomeComponent implements OnDestroy {
   }
 }
 ```
+
