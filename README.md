@@ -1,7 +1,6 @@
 <p align="center">
   <img src="assets/logo.png">
   <br />
-  NGXS is a state management pattern + library for Angular
   NGXS是Angular的状态管理模式+库
   <br />
   <br />

@@ -1,4 +1,4 @@
-# Summary
+# 摘要
 
 - 入门
   - [为什么使用ngxs](introduction/why.md)
