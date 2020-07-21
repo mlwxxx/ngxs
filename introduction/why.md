@@ -1,28 +1,29 @@
 # 为什么使用ngxs?
 
-Why another state management solution? We asked ourselves that same question before we started on NGXS. After trial and error of several different redux based solutions we decided that they didn’t represent the type of API we wanted and expected from Angular.
+为什么要使用其他状态管理解决方案？ 在开始使用NGXS之前，我们问过同样的问题。 经过对几种不同的基于Redux的解决方案进行反复试验后，我们认为它们不代表我们希望和期望的Angular API类型。
 
-## Simple
+## 简单
 
-NGXS tries to make things as simple and accessible as possible. There can be a lot of boilerplate code in state management, thus a main goal of NGXS is to reduce boilerplate allowing you to do more things with less. It is also not necessary to be super familiar with RxJs.
 
-RxJs is great and is made use of heavily internally within the project, but the library tries to do as much for you as it can. NGXS drives to let users take advantage of the benefits of Observables but in many cases treat them as an implementation detail of the library rather than a prerequisite.
+NGXS试图使事情变得尽可能简单和可访问。 状态管理中可能有很多样板代码，因此NGXS的主要目标是减少样板，使您可以事半功倍。 也不需要对RxJ超级熟悉。
 
-The other thing that NGXS gets rid of is switch statements. The library is responsible for knowing when functions need to be called.
+RxJs很棒，并且在项目内部大量使用RxJs，但是该库会尽力为您做更多的事情。 NGXS驱动器使用户可以利用Observable的优势，但在许多情况下将它们视为库的实现细节而不是先决条件。
 
-## Dependency Injection \(DI\)
+NGXS摆脱的另一件事是switch语句。 该库负责知道何时需要调用函数。
 
-A core feature of Angular is dependency injection. It can be a very useful tool and NGXS makes sure that users can use DI in their state management code. This means Angular services can be injected into state classes making it easier to take advantage of more Angular features.
+## 依赖注入 \(DI\)
 
-## Action Life Cycles
+Angular的核心功能是依赖注入。 它可能是一个非常有用的工具，NGXS确保用户可以在其状态管理代码中使用DI。 这意味着可以将Angular服务注入状态类，从而更轻松地利用更多Angular功能。
 
-Actions in NGXS are asynchronous. This allows actions to have a life cycle, meaning we can now listen for when a single action or a collection of actions is complete making complex workflows predictable. It is very common to want to do something after an action is completed and NGXS makes it simple to do.
+## 动作（Action）生命周期
+
+NGXS中的Actions是异步的。这使Action具有生命周期，这意味着我们现在可以侦听单个Action或Action集合何时完成，从而使复杂的工作流程可预测。 在Action完成后想做某事是很常见的，并且NGXS使操作变得简单。
 
 ## Promises
 
-Observables are great but they aren't a silver bullet. Sometimes Promises are the preferred option. NGXS allows either to be returned from an action method.
+Observables对像非常的棒，但不是灵丹妙药。 有时，Promises是首选。 NGXS允许从操作方法中返回任一方法。
 
-## Community
+## 社区
 
-NGXS is entirely community built and driven. The project exists to help people build applications and the team is open to any suggestions that help with that goal.
+NGXS完全由社区构建和驱动。 该项目的存在是为了帮助人们构建应用程序，并且该团队愿意接受任何有助于实现该目标的建议。
 

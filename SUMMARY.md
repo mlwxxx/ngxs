@@ -3,8 +3,8 @@
 - 入门
   - [为什么使用ngxs](introduction/why.md)
   - [安装](introduction/installation.md)
-- Concepts
-  - [Introduction](concepts/intro.md)
+- 概念
+  - [介绍](concepts/intro.md)
   - [Store](concepts/store.md)
   - [Actions](concepts/actions.md)
   - [State](concepts/state.md)

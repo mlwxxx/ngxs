@@ -2,37 +2,37 @@
   <img src="assets/logo.png">
   <br />
   NGXS is a state management pattern + library for Angular
+  NGXS是Angular的状态管理模式+库
   <br />
   <br />
   <a href="https://now-examples-slackin-eqzjxuxoem.now.sh/"><img src="https://now-examples-slackin-eqzjxuxoem.now.sh/badge.svg"></a> <a href="https://badge.fury.io/js/%40ngxs%2Fstore"><img src="https://badge.fury.io/js/%40ngxs%2Fstore.svg"></a> <a href="https://codeclimate.com/github/ngxs/store/maintainability"><img src="https://api.codeclimate.com/v1/badges/5b43106a1ddff7d76a04/maintainability" /></a> <a href="https://codeclimate.com/github/ngxs/store/test_coverage"><img src="https://api.codeclimate.com/v1/badges/5b43106a1ddff7d76a04/test_coverage" /></a> <a href="https://circleci.com/gh/ngxs/store"><img src="https://circleci.com/gh/ngxs/store/tree/master.svg?style=svg"></a>
 </p>
 
-## ❓ What is NGXS?
+## ❓ NGXS是什么?
 
-NGXS is a state management pattern + library for Angular. It acts as a single source of
-truth for your application's state, providing simple rules for predictable state mutations.
+NGXS是Angular的状态管理模式+库。 它是应用程序状态的唯一真实来源，为可预测的状态突变提供简单的规则。
 
-NGXS is modeled after the CQRS pattern popularly implemented in libraries like Redux and NgRx
-but reduces boilerplate by using modern TypeScript features such as classes and decorators.
 
-## 🌱 Does NGXS work with Ivy?
+NGXS是以Redux和NgRx等库中普遍实施的CQRS模式为蓝本的，但是通过使用现代的TypeScript功能（例如类和装饰器）减少了样板。
 
-Yes, it does, and very easily. Check out the [NGXS Ivy migration guide](https://ngxs.io/advanced/ivy-migration-guide) for details.
+## 🌱 NGXS是否与Ivy一起使用?
 
-## 👋 New to NGXS?
+是的,不公可以,而且非常简便. 查看 [NGXS Ivy 迁移指南](https://ngxs.io/advanced/ivy-migration-guide) 获取更多详细内容.
 
-If you're just getting started with NGXS, I recommend you head over to the [concepts](concepts/intro.md)
-and then explore the rich ecosystem of examples in the [community resources](community/projects.md) page.
+## 👋 NGXS 新功能?
 
-## ❓ Need Help?
+如果您刚刚开始使用NGXS, 建议您转到 [概念](concepts/intro.md)
+然后探索丰富的示例生态系统 [社区资源](community/projects.md) 页面。
 
-For questions, please ask them on Stack Overflow with the `ngxs` tag:
+## ❓ 需要帮助?
+
+如有疑问，可以在Stack Overflow上提问，记得带上"ngxs"标签：
 https://stackoverflow.com/questions/ask?tags=ngxs
 
-To chat with other users and contributors join us on Slack: https://now-examples-slackin-eqzjxuxoem.now.sh/
+要与其他用户和贡献者聊天，请在Slack上加入我们: https://now-examples-slackin-eqzjxuxoem.now.sh/
 
-If you think there is a bug in this library, you can open an issue on GitHub (https://github.com/ngxs/store/issues/new). If possible a link to a http://stackblitz.com (or github) repo with a repro or a failing test would be great.
+如果您认为该库中存在错误，你可以在GitHub上打开issue(https://github.com/ngxs/store/issues/new). 如果可能，转向 http://stackblitz.com (or github) repo一个repro 或者failing test就更好了 .
 
-## ❤️ Giving Back
+## ❤️ 回馈
 
-Become a [Contributor](community/contributors.md) or a [Sponsor](community/sponsors.md).
+成为一个[贡献者](community/contributors.md) 或者一个 [赞助者](community/sponsors.md).
