@@ -46,7 +46,7 @@
   - [Router](plugins/router.md)
   - [HMR](plugins/hmr.md)
 - NGXS Labs
-  - [Introduction](ngxs-labs/intro.md)
+  - [介绍](ngxs-labs/intro.md)
 - Community
   - [FAQ](advanced/faq.md)
   - [Resources](community/projects.md)

@@ -2,7 +2,7 @@
 
 ## 安装
 
-To get started, install the package from npm. The latest version \(3.x\) supports Angular/RxJS 6+, if you want support for Angular 5, use version 2.x.
+~~To get started, install the package from npm. The latest version \(3.x\) supports Angular/RxJS 6+, if you want support for Angular 5, use version 2.x.
 
 开始, 从npm安装包. 最新版本 \(3.x\) 支持 Angular/RxJS 6+, 如果你需要支持Angular5, 请用2.x版本.
 
@@ -13,7 +13,7 @@ npm install @ngxs/store --save
 yarn add @ngxs/store
 ```
 
-then in `app.module.ts`, import the `NgxsModule`:
+~~then in `app.module.ts`, import the `NgxsModule`:
 
 然后在 `app.module.ts`, 导入 `NgxsModule`:
 
