@@ -13,7 +13,6 @@ Actions 可以将操作视为应触发某些事件发生的命令，也可以将
 
 ## 简单 Action
 
-Let's say we want to update the status of whether the animals have been fed in our Zoo. We would describe a class like:
 假设我们要更新一个状态，它表示某动物是否已在我们的动物园饲养。 我们将这样描述一个类：
 
 ```typescript
@@ -22,7 +21,6 @@ export class FeedAnimals {
 }
 ```
 
-然后在我我们的state类, we will listen to this action and mutate our state, in this case flipping a boolean flag.
 然后在我我们的state类, 我们将监听取这个action并改变我们的state,在这种情况中就是翻转布尔值标志。
 
 ## 带有元数组的Action
@@ -44,44 +42,43 @@ export class FeedZebra {
 
 ## 您应该如何命名自己的actions?
 
-### 指令
+### 命令(Commands)
 
-Commands are actions that tell your app to do something. They are usually triggered by user events such as clicking on a button, or selecting something.
+命令是action,它告诉您的应用执行某些任务。 它们通常是由用户事件触发的，例如单击按钮或选择某些东西。
+名称应包含三个部分:
 
-Names should contain three parts:
+* 一个描述命令来自何处的上下文(context), `[User API]`, `[Product Page]`, `[Dashboard Page]`.
+* 描述我们要对实体做什么的动词.
+* 我们所操作的实体, `User`, `Card`, `Project`.
 
-* A context as to where the command came from, `[User API]`, `[Product Page]`, `[Dashboard Page]`.
-* A verb describing what we want to do with the entity.
-* The entity we are acting upon, `User`, `Card`, `Project`.
-
-Examples:
+示例:
 
 * `[User API] GetUser`
 * `[Product Page] AddItemToCart`
 * `[Dashboard Page] ArchiveProject`
 
-### Event examples
+### 事件示例
 
-Events are actions that have already happened and we now need to react to them.
+事件是已经发生的、我们现在需要对它们做出反应的动作(actions)。
 
-The same naming conventions apply as commands, but they should always be in the past tense.
+相同的命名约定适用于命令(Commands)，但它们应始终使用过去时。
 
-By using `API` in the context part of the action name we know that this event was fired because of an async action to an API.
+在上下文动作名称部分使用`API`，让我们知道此事件是由一个作用于API的异步动作而触发的。
 
-Actions are normally dispatched from container components such as router pages. By having explicit actions for each page, it's also easier to track where an event came from.
+通常动作(Action)由容器组件（如路由器页面）分派。每个页面拥有明确的动作(actions)，跟踪事件的来源也变得更加容易。
 
-Examples:
+示例:
 
 * \[User API\] GetUserSuccess
 * \[Project API\] ProjectUpdateFailed
 * \[User Details Page\] PasswordChanged
 * \[Project Stars Component\] StarsUpdated
 
-A great video on the topic is [Good Action Hygiene by Mike Ryan](https://www.youtube.com/watch?v=JmnsEvoy-gY) It's for NgRx, but the same naming conventions apply to NGXS.
+有一个关于这个主题的精彩视频 [Good Action Hygiene by Mike Ryan](https://www.youtube.com/watch?v=JmnsEvoy-gY) 它是基于NgRx的, 但是相同的命名约定也适用于NGXS。
 
-## Group your actions
+## 分组动作(actions)
 
-Don't suffix your actions:
+不要用后缀命名你的动作(actions):
 
 ```typescript
 export class AddTodo {
@@ -104,7 +101,7 @@ export class DeleteTodo {
 }
 ```
 
-here we group similar actions into the `Todo` namespace. In this case just import namespace instead of multiple action classes in same file.
+在这里，我们将类似的动作分组到`Todo`命名空间中。 在这种情况下，只需导入名称空间，而不是在同一文件中导入多个动作类。
 
 ```typescript
 export namespace Todo {
