@@ -1,8 +1,8 @@
-# State
+# 状态(State)
 
 状态\(States\)是一个用来定义状态容器的类。
 
-## 定义一个状态\(State\)
+## 定义一个状态
 
 States是一个带有装饰器的类，用于描述元数据\(metadata\)和动作\(action\)映射。为了定义一个状态容器，让我们创建一个ES2015类，并用`State`装饰器装饰它。
 
@@ -42,7 +42,7 @@ export class ZooState {
 }
 ```
 
-## \(可选的\) 定义状态\(State\)令牌
+## \(可选的\) 定义状态令牌
 
 （可选）, 您可以使用一个状态令牌\(state token\)替换你的状态名`name`
 
@@ -104,7 +104,7 @@ export class ZooState {
 
 `feedAnimals`函数具有一个名为ctx的参数，其类型为 `StateContext<ZooStateModel>`.此上下文状态具有切片指针和公开用于设置状态的函数。 需要特别注意的是，每次访问时，`getState()`方法将始终从全局存储返回最新的状态片。 这样可以确保当我们执行异步操作时，状态始终是最新的。 如果需要快照，则始终可以在方法中克隆状态\(state\)。
 
-### 具有有效载荷\(payload\)的动作\(action\)
+### 具有有效载荷的动作(Actions with a payload)
 
 动作也可以传递与动作有关的元数据。 假设我们要传递每个斑马需要多少干草和胡萝卜。
 
@@ -227,7 +227,7 @@ function addToZebraFood(itemToAdd) {
 }
 ```
 
-### 异步动作\(Actions\)
+### 异步动作
 
 动作\(Actions\)可以执行异步操作并在操作后更新状态。
 

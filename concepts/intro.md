@@ -1,13 +1,13 @@
 # 介绍
 
-There are 4 major concepts to NGXS:
+NGXS有4个主要概念：
 
-* Store: Global state container, action dispatcher and selector
-* Actions: Class describing the action to take and its associated metadata
-* State: Class definition of the state
-* Selects: State slice selectors
+* 储存(Store): 全局的状态容器, 动作调度和选择。
+* 动作(Actions): 描述要动作具体要干什么的类，以及其相关的元数据
+* 状态(State): 定义状态的类
+* 选择(Selects): 状态片选择器
 
-These concepts create a circular control flow traveling from a component dispatching an action, to a store reacting to the action, back to the component through a state select.
+这些概念创建了一个循环控制流，该循环控制流从组件分发动作，再到对动作做出反应的存储，再通过状态选择返回到组件。
 
 ![](../.gitbook/assets/diagram.png)
 

@@ -8,7 +8,7 @@ Selects 函数是从全局状态容器中切片状态(state)的特定部分。
 的NGXS, 有两种选择状态(state)的方法，我们可以在`Store`服务上调用`select`方法，也可以使用@Select装饰器。
 首先让我们看一下@Select装饰器。
 
-## 选择(Select)装饰器(Decorators)
+## 选择装饰器(Select Decorators)
 
 You can select slices of data from the store using the `@Select` decorator. It has a few different ways to get your data out, whether passing the state class, a function, a different state class or a memoized selector.
 
