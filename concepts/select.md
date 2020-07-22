@@ -1,14 +1,18 @@
 # Select
 
-Selects are functions that slice a specific portion of state from the global state container.
+Selects 函数是从全局状态容器中切片状态(state)的特定部分。
 
-In CQRS and Redux patterns, we keep READ and WRITE separated. This pattern also exists in NGXS. When we want to read data out of our store, we use a select operator to retrieve this data.
 
-In NGXS, there are two methods to select state, we can either call the `select` method on the `Store` service or use the `@Select` decorator. First let's look at the `@Select` decorator.
+在CQRS和Redux模式中，我们将READ和WRITE分开。NGXS中也存在此模式,当我们想从store中读取数据时，我们使用select运算符来检索该数据。
 
-## Select Decorators
+的NGXS, 有两种选择状态(state)的方法，我们可以在`Store`服务上调用`select`方法，也可以使用@Select装饰器。
+首先让我们看一下@Select装饰器。
+
+## 选择(Select)装饰器(Decorators)
 
 You can select slices of data from the store using the `@Select` decorator. It has a few different ways to get your data out, whether passing the state class, a function, a different state class or a memoized selector.
+
+您可以使用`@Select`装饰器从存储(store)中选择数据片段。 它有几种不同的方式来获取数据，无论是传递状态类，函数，其他状态类还是备注选择器。
 
 ```typescript
 import { Select } from '@ngxs/store';
@@ -30,9 +34,9 @@ export class ZooComponent {
 }
 ```
 
-## Store Select Function
+## Store类的select函数
 
-The `Store` class also has a `select` function:
+`Store`类还具有`select`函数：
 
 ```typescript
 import { Store } from '@ngxs/store';
@@ -47,15 +51,15 @@ export class ZooComponent {
 }
 ```
 
-This is most helpful to programmatic selects where we can't statically declare them with the select decorator.
+当程序无法使用select装饰器静态声明时，它便非常有用。
 
-There is also a `selectOnce` that will basically do `select().pipe(take(1))` for you automatically as a shortcut method.
+还有一个`selectOnce`，它将基本上作为自动为您执行`select().pipe(take(1))` 快捷方法。
 
-This can be useful in route guards where you only want to check the current state and not continue watching the stream. It can also be useful for unit testing.
+这在仅希望检查当前状态而不希望继续观看流的路由守卫中非常有用。 它对于单元测试也很有用。
 
-## Snapshot Selects
+## Selects快照
 
-On the store, there is a `selectSnapshot` function that allows you to pull out the raw value. This is helpful for cases where you need to get a static value but can't use Observables. A good use case for this would be an interceptor that needs to get the token from the auth state.
+在store中，有一个`selectSnapshot`功能，可让您提取原始值。 这在需要获取静态值但不能使用Observable的情况下很有用。 一个很好的用例是需要从auth状态获取令牌的拦截器。
 
 ```typescript
 @Injectable()
@@ -75,11 +79,11 @@ export class JWTInterceptor implements HttpInterceptor {
 }
 ```
 
-## Memoized Selectors
+## 带有记忆功能的选择器(Selectors)
 
-Oftentimes you will use the same selectors in several different places or have complex selectors you want to keep separate from your component. NGXS has a `@Selector` decorator that will help us with that. This decorator will memoize the function for performance as well as automatically slice the state portion you are dealing with.
+通常，您会在几个不同的地方使用相同的选择器，或者想要将复杂的选择器与组件分离。 NGXS有一个`@ Selector`装饰器，可以帮助我们。 该装饰器将记住该函数的性能，并自动对要处理的状态部分进行切片。
 
-Let's create a selector that will return a list of pandas from the animals.
+让我们创建一个选择器，该选择器将返回这些动物中熊猫的列表。
 
 ```typescript
 import { Injectable } from '@angular/core';
@@ -98,7 +102,7 @@ export class ZooState {
 }
 ```
 
-Notice, the `state` is just the local state for this `ZooState` class. Now in our component, we simply do:
+注意，`state`只是这个`ZooState` 类的本地状态。 现在在我们的组件中，我们只需执行以下操作：
 
 ```typescript
 @Component({ ... })
@@ -107,34 +111,36 @@ export class AppComponent {
 }
 ```
 
-and our `pandas$` will only return animals with the name panda in them.
+而我们的 `pandas $` 将只返回名称包含panda的动物。
 
-### Selector Options
+### Selector选项
 
-The behavior of the memoized selectors can be configured at a global level using the `selectorOptions` property in the options passed to the `NgxsModule.forRoot` call \(see [Options](../advanced/options.md)\).  
-These options can also be provided through the `@SelectorOptions` decorator at a Class or Method level in order to configure the behavior of selectors within that scope. The following options are available:
+在`NgxsModule.forRoot`选项中使用`selectorOptions`属性可以在全局级别上配置记忆选择器，\(参见 [Options](../advanced/options.md)\)。
+
+也可以在类或方法级别通过`@SelectorOptions`装饰器提供这些选项，以便在该范围内配置选择器的行为。 可以使用以下选项：
 
 #### `suppressErrors`
 
-* `true` will cause any error within a selector to result in the selector returning `undefined`.
-* `false` results in these errors propagating through the stack that triggered the evaluation of the selector that caused the error.
-* **NOTE:** \_The default for this setting will be changing to `false` in NGXS v4.
+* `true` 此时选择器内的任何错误，导致选择器返回 `undefined`.
+* `false` 导致这些错误在堆栈中传播，从而触发对导致错误的选择器的评估。
+* **注意：** \_在NGXS v4中，它的默认值将更改为 `false`
 
-  The default value in NGXS v3.x is `true`.\_
+  在NGXS v3.x 中它的默认值是 `true` 。\_
 
 #### `injectContainerState`
 
-* `true` will cause all selectors defined within a state class to receive the container class' state model as their first parameter. As a result every selector would be re-evaluated after any change to that state.
+* `true` 此时, 在状态类中定义的所有选择器要接收容器类的状态模型作为其第一个参数。这导致了，在对该状态进行任何更改之后，每个选择器都将重新评估。
 
-  **NOTE:** _This is not ideal, therefore this setting default will be changing to `false` in NGXS v4._
+  **注意：** _这显然是不理想的，, 因此在NGXS v4中此设置默认值将更改为 `false` in NGXS v4。_
 
-* `false` will prevent the injection of the container state model as the first parameter of a selector method \(defined within a state class\) that joins to other selectors for its parameters.
-* _The default value in NGXS v3.x is `true`._
-* See [here](select.md#joining-selectors) for examples of the effect this setting has on your selectors.
+* `false` 将防止把容器状态模型作为 选择器方法 \(在状态类中定义的\) 的第一个参数注入，将连接其他选择器作为方法的参数。
 
-We recommend setting these options at the global level, unless you are transitioning your application from one behavior to another where you can use this decorator to introduce this transition in a piecemeal fashion. For example, NGXS v4 will be introducing a change to the selectors that will effect methods which make use of joined selectors \(see [below](select.md#joining-selectors)\).
+* _在 NGXS v3.x 中它的默认值是 `true`._
+* 转到 [这里](select.md#joining-selectors) 查看示例来了解这个设置对选择器的影响。
 
-We recommend using the following global settings for new projects in order to minimise the impact of the v4 upgrade:
+我们建议在全局级别上设置这些选项，除非您要将应用程序从一种行为过渡到另一种行为，在这种行为下您可以使用此装饰器来逐步引入这种过渡。 例如，NGXS v4将对选择器进行更改，这将影响使用联合选择器的方法\(查阅) [这里](select.md#joining-selectors)\).
+
+我们建议对新项目使用以下全局设置，以最大程度地减少v4升级的影响：
 
 ```typescript
 {
@@ -145,16 +151,17 @@ We recommend using the following global settings for new projects in order to mi
 }
 ```
 
-### Memoized Selectors with Arguments
+### 带参数的记忆选择器
 
-Selectors can be configured to accept arguments.  
-There are two patterns that allow for this: [Lazy Selectors](select.md#lazy-selectors) or [Dynamic Selectors](select.md#dynamic-selectors)
+选择器可配置为 能够接受参数。
 
-#### Lazy Selectors
+有两种模式可以实现此目的： [Lazy Selectors](select.md#lazy-selectors) or [Dynamic Selectors](select.md#dynamic-selectors)
 
-To create a lazy selector all that you need to do is return a function from the selector. The function returned by the selector will be memoized automatically and the logic inside this function will be evaluated at a later stage when the consumer of the selector executes the function. Note that this function can take any number of arguments \(or zero arguments\) as it is the consumer's responsibility to supply them.
+#### 惰性选择器(Lazy Selectors)
 
-For instance, I can have a Lazy Selector that will filter my pandas to the provided type of panda.
+要创建一个惰性选择器，您需要做的就是从选择器中返回一个函数。 选择器返回的函数将被自动存储，并且当选择器的使用者执行该函数时，将在稍后阶段执行该函数内部的逻辑。 请注意，此函数可以接受任意数量的参数\(或者没有参数\)，因为消费者有责任提供它们。
+
+例如，我可以有一个惰性选择器，它将按类型将我们的熊猫过滤。
 
 ```typescript
 @State<string[]>({
@@ -172,7 +179,7 @@ export class ZooState {
 }
 ```
 
-then you can use `store.select` and evaluate the lazy function using the `rxjs` `map` pipeline function.
+您可以使用`store.select` 并使用`rxjs` `map`管道函数执行惰性函数。
 
 ```typescript
 import { Store } from '@ngxs/store';
@@ -190,11 +197,11 @@ export class ZooComponent {
 }
 ```
 
-#### Dynamic Selectors
+#### 动态选择器(Dynamic Selectors)
 
-A dynamic selector is created by using the `createSelector` function as opposed to the `@Selector` decorator. It does not need to be created in any special area at any specific time. The typical use case though would be to create a selector that looks like a normal selector but takes an argument to provide to the dynamic selector.
+动态选择器是通过使用 `createSelector`函数创建的，而不是`@Selector`装饰器。 无需在任何特定时间在任何特殊区域中创建它。 不过，典型的用例是像普通选择器一样创建，但是需要一个参数来提供给动态选择器。
 
-For instance, I can have a Dynamic Selector that will filter my pandas to the provided type of panda.
+例如，我可以有一个动态选择器，该选择器可以按类型将我们的熊猫过滤。
 
 ```typescript
 @State<string[]>({
@@ -212,6 +219,7 @@ export class ZooState {
 ```
 
 then you can use `@Select` to call this function with the parameter provided.
+您可以使用`@Select`来通过提供的参数调用此函数。
 
 ```typescript
 import { Store } from '@ngxs/store';
@@ -229,13 +237,13 @@ export class ZooComponent {
 }
 ```
 
-Note that each of these selectors have their own separate memoization. Even if two dynamic selectors created in this way are provided the same argument, they will have separate memoization.
+请注意，这些选择器中的每一个都有各自独立的备注。 即使为以这种方式创建的两个动态选择器提供了相同的参数，它们也将具有独立的备注。
 
-These selectors are extremely powerful and are what is used under the hood to create all other selectors.
+这些选择器非常强大，是在后台创建所有其他选择器的工具。
 
-_Dynamic Selectors \(dynamic state slice\)_
+_动态选择器s \(动态状态切片\)_
 
-An interesting use case would be to allow for a selector to be reused to select from States that have the same structure. For example:
+一个有趣的用例，是从具有相同结构的状态(States)中进行选择时，允许重用选择器。 例如：
 
 ```typescript
 export class SharedSelectors {
@@ -247,7 +255,7 @@ export class SharedSelectors {
 }
 ```
 
-then this could be used as follows:
+居然可以这样使用：
 
 ```typescript
 @Component({ ... })
@@ -262,11 +270,11 @@ export class ZooComponent {
 }
 ```
 
-### Joining Selectors
+### 连接选择器(Joining Selectors)
 
-When defining a selector, you can also pass other selectors into the signature of the `Selector` decorator to join other selectors with this state selector.
+定义选择器时，你还可以将其他选择器传递到`Selector`装饰器的签名中，以将其他选择器与此状态选择器连接在一起。
 
-If you do not change the Selector Options \(see [above](select.md#selector-options)\) then these selectors will have the following signature in NGXS v3.x:
+如果不更改选择器选项 \(查看 [above](select.md#selector-options)\) 那么在NGXS v3.x中，这些选择器将具有以下签名 :
 
 ```typescript
 @State<PreferencesStateModel>({ ... })
@@ -292,11 +300,12 @@ export class ZooState {
 }
 ```
 
-Here you can see that when using the `Selector` decorator with arguments within a state class, it will inject the state class's state model as the first parameter followed by the other selectors in the order they were passed in the signature. This is the behavior provided by the [`injectContainerState`](select.md#injectcontainerstate) option being defaulted to `true` in NGXS v3.x.
+在这里，您可以看到，在状态类中使用带有参数的`Selector`装饰器时，它将注入状态类的状态模型作为第一个参数，然后按在签名中传递其他选择器的顺序注入其他选择器。 这是[injectContainerState`]（select.md＃injectcontainerstate）选项提供的行为，在NGXS v3.x中默认为`true`。
 
-The memoized selectors will recalculate when any of their input parameter values change \(whether they use them or not\). In the case of the behavior above where the state class's state model is injected as the first input parameter, the selectors will recalculate on any change to this model. You will notice that the `happyLocalPanda` selector has the `state` dependency even though it is not used. It would recalculate on every change to `state` ignoring the fact that `firstLocalPanda` value may not have changed. This is not ideal, therefore this default behavior is changing in NGXS v4.
+记忆的选择器将在它们的任何输入参数值更\(无论你是否使用它们\)时重新计算。 在上述行为的情况下，状态类的状态模型作为第一个输入参数被注入，选择器将对此模型的任何更改重新计算。 您会注意到，即使不使用`happyLocalPanda`选择器，也具有`state`依赖性。 即使`firstLocalPanda`值可能没有更改，它也会在每次更改`state`时重新计算。 这是不理想的，因此此默认行为在NGXS v4中正在更改。
 
-In NGXS v4 and above the default value of the [`injectContainerState`](select.md#injectcontainerstate) selector option will change to `false`, resulting in selectors that are more optimised because they do not get the state model injected as the first parameter unless explicitly requested. With this setting the selectors would need to be defined as follows:
+在NGXS v4及更高版本中，[`injectContainerState`]（select.md＃injectcontainerstate）选择器选项的默认值将更改为`false`，从而选择器的优化程度更高，因为它们没有将状态模型作为第一个注入参数，除非明确要求。 使用此设置，需要按照以下方式定义选择器：
+
 
 ```typescript
 @State<PreferencesStateModel>({ ... })
@@ -322,15 +331,15 @@ export class ZooState {
 }
 ```
 
-Now the `happyLocalPanda` will only recalculate when the output value of the `firstLocalPanda` selector changes.
+现在，`happyLocalPanda`只会在`firstLocalPanda`选择器的输出值更改时重新计算。
 
-We recommend that you move your projects to this behavior in order to optimize your selectors and to prepare for the change to the defaults coming in NGXS v4. See the Selector Options section [above](select.md#selector-options) for the recommended settings.
+我们建议您将项目移至此行为，以优化选择器并为NGXS v4中的默认值更改做准备。 请参见 选择器选项 [above](select.md#selector-options)部分了解建议的设置。
 
-### Meta Selectors
+### 元选择器(Meta Selectors)
 
-By default selectors in NGXS are bound to a state. Sometimes you need the ability to join to un-related states in a high-performance re-usable fashion. A meta selector is a selector allows you to bind N number of selectors together to return a state stream.
+默认情况下，NGXS中的选择器绑定到一个状态。 有时，您需要以高性能可重用的方式链接不相关状态的能力。 元选择器是一个可让您将N个选择器绑定在一起以返回状态流的 选择器。
 
-Let's say we have 2 states; 'zoos' and 'theme parks'. We have a component that needs to show all the zoos and theme parks for a given city. These are two very distinct state classes that are likely not related in any manner. We can use a meta selector to join these two states together like:
+假设我们有2个状态； '动物园'和'主题公园'('zoos' and 'theme parks')。 我们有一个组件，需要显示某个城市的所有动物园和主题公园。 这是两个非常不同的状态类，它们可能根本不相关。 我们可以使用元选择器将这两个状态结合在一起，例如：
 
 ```typescript
 export class CityService {
@@ -341,15 +350,16 @@ export class CityService {
 }
 ```
 
-now we can use this `zooThemeParks` selector anywhere in our application.
+现在我们可以在应用程序中的任何地方使用此`zooThemeParks`选择器。
 
-### The Order of Interacting Selectors
+### 交互选择器的顺序(The Order of Interacting Selectors)
 
-In versions of NGXS prior to 3.6.1 there was an issue where the order which the selectors were declared would matter. This was fixed in PR [\#1514](https://github.com/ngxs/store/pull/1514) and selectors can now be declared in any arbitrary order.
+在3.6.1之前的NGXS版本中，存在一个问题，即选择器的声明顺序很重要。 这已在PR [\＃1514]（https://github.com/ngxs/store/pull/1514）中修复，现在可以以任意顺序声明选择器。
 
-### Inheriting Selectors
+### 继承选择器(Inheriting Selectors)
 
-When we have states that share similar structure, we can extract the shared selectors into a base class which we can later extend from. If we have an `entities` field on multiple states, we can create a base class containing a dynamic `@Selector()` for that field, and extend from it on the `@State` classes like this.
+当我们拥有共享相似结构的状态时，我们可以将共享的选择器提取到一个基类中，以便以后进行扩展。 如果我们在多个状态上都有一个 `entities` 字段，则可以创建一个包含动态 `@Selector()` 字段的基类，并扩展这样的`@State`类上对其进行,像如下进行。
+
 
 ```typescript
 export class EntitiesState {
@@ -363,7 +373,7 @@ export class EntitiesState {
 }
 ```
 
-And extend the `EntitiesState` class on each `@State` like this:
+并在每个`@State`上扩展 `EntitiesState` 类，如下所示：
 
 ```typescript
 export interface UsersStateModel {
@@ -397,7 +407,7 @@ export class ProductsState extends EntitiesState {
 }
 ```
 
-Then you can use them as follows:
+然后，您就可以像下面这个使用它们：
 
 ```typescript
 @Component({ ... })
@@ -418,15 +428,17 @@ Or:
 this.store.select(UsersState.entities<User>());
 ```
 
-## Special Considerations
+## 特别注意事项
 
-### Angular Libraries: Use of lambdas in static functions
+### 角库：在静态函数中使用lambda
 
-_If you are building an Angular lib directly so that it can be deployed to npm the Angular compiler option `strictMetadataEmit` \(see_ [_docs_](https://angular.io/guide/aot-compiler#strictmetadataemit)_\) will most likely be set to true and, as a result, Angular's `MetadataCollector` from the `@angular/compiler-cli` package will report the following issue with using lambdas in static methods:_
+
+_如果要直接构建Angular库，以便可以将其部署到Angular编译器选项`strictMetadataEmit` \(查阅_ [_docs_](https://angular.io/guide/aot-compiler#strictmetadataemit)_\)将最有可能被设置为true，Angular的 `@angular/compiler-cli` 包中的 `MetadataCollector` 将报告在静态方法中使用lambda的以下问题:_
 
 > Metadata collected contains an error that will be reported at runtime: Lambda not supported.\`
+> 收集的元数据包含将在运行时报告的错误：不支持Lambda。\`
 
-This error would be reported for each of the selectors defined below but, as demonstrated in the sample, you can prevent this by including the `// @dynamic` comment before the class expression and decorators:
+对于下面定义的每个选择器，都会报告此错误，但是，如示例中所示，您可以通过在类表达式和修饰符之前包含 `// @ dynamic` 注释来防止此错误：
 
 ```typescript
 // @dynamic
@@ -456,8 +468,8 @@ export class ZooState {
 }
 ```
 
-As an alternative you can assign your result to a variable before you return it:  
-See [https://github.com/ng-packagr/ng-packagr/issues/696\#issuecomment-387114613](https://github.com/ng-packagr/ng-packagr/issues/696#issuecomment-387114613)
+或者，您可以在返回结果之前将结果分配给变量：
+查阅 [https://github.com/ng-packagr/ng-packagr/issues/696\#issuecomment-387114613](https://github.com/ng-packagr/ng-packagr/issues/696#issuecomment-387114613)
 
 ```typescript
 @State<string[]>({
@@ -489,9 +501,9 @@ export class ZooState {
 }
 ```
 
-### Using Select Decorator with `strictPropertyInitialization`
+### 使用选择装饰器 with `strictPropertyInitialization`
 
-If `strictPropertyInitialization` option is enabled then the TypeScript compiler will require all class properties to be explicitly initialized in the constructor. Given the following code:
+如果启用了 `strictPropertyInitialization` 选项，那么TypeScript编译器将要求在构造函数中显式初始化所有类属性。 给出以下代码：
 
 ```typescript
 @Component({ ... })
@@ -500,14 +512,14 @@ export class ZooComponent {
 }
 ```
 
-In the above example the compiler will emit the following error only if `strictPropertyInitialization` is turned on:
+在上面的示例中，仅当打开 `strictPropertyInitialization` 时，编译器才会发出以下错误：
 
 ```text
 // Type error: Property 'pandas$' has no initializer
 // and is not definitely assigned in the constructor
 ```
 
-We can solve that by applying the [definite assignment assertion](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#definite-assignment-assertions) to `pandas$` property declaration \(note the added exclamation mark\):
+我们可以通过应用 [definite assignment assertion](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#definite-assignment-assertions) 对 `pandas$` 属性声明 \(注意后面的感叹号\):
 
 ```typescript
 @Component({ ... })
@@ -516,5 +528,5 @@ export class ZooComponent {
 }
 ```
 
-By adding the definite assignment assertion we're telling the type-checker that we're sure that `pandas$` property will be initialized \(by the `@Select` decorator\).
+通过添加确定的赋值断言，我们告诉类型检查器我们确定 `pandas$` 属性将被初始化（通过 `@Select` 装饰器）。
 

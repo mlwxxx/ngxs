@@ -1,17 +1,17 @@
-# Actions
+# 动作(Actions)
 
 Actions 可以将操作视为应触发某些事件发生的命令，也可以将其视为已发生某事的结果事件。
 
 每个动作都包含一个“type”字段，这是它们的唯一标识符。
 
-## 内部Actions
+## 内部动作(Internal Actions)
 
 库的内部触发了两个Actions：
 
 1. @@INIT - store正在初始化, 在[ngxsOnInit生命周期](../advanced/life-cycle.md) 之前.
 2. @@UPDATE\_STATE - 一个新的[延迟加载state](../advanced/lazy.md)被添加到store.
 
-## 简单 Action
+## 简单动作(Simple Action)
 
 假设我们要更新一个状态，它表示某动物是否已在我们的动物园饲养。 我们将这样描述一个类：
 
@@ -23,7 +23,7 @@ export class FeedAnimals {
 
 然后在我我们的state类, 我们将监听取这个action并改变我们的state,在这种情况中就是翻转布尔值标志。
 
-## 带有元数组的Action
+## 带有元数组的动作(Actions with Metadata)
 
 通常，您需要执行一项操作才能将一些数据与之关联。 在这里，有一个action应该触发————给斑马喂干草。
 
@@ -36,7 +36,7 @@ export class FeedZebra {
 
 动作类的“name”字段代表我们将喂食的斑马的名字。 `hayAmount`告诉我们斑马应该得到多少公斤干草。
 
-## 调度动作\(Action\)
+## 调度动作\(Dispatching Actions\)
 
 转到 [Store](store.md) 查看有关如何调度动作的文档。
 

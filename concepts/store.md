@@ -1,4 +1,4 @@
-# Store
+# 储存(Store)
 
 store是一个全局状态管理器，可调度状态容器侦听的动作，并提供从全局状态中选择数据切片的方法。
 
@@ -13,7 +13,7 @@ export class AddAnimal {
 }
 ```
 
-## 调度\(Dispatching\) actions
+## 调度\(Dispatching actions\) 
 
 调度 actions, 您需要注入 `Store` 到你的组件/服务， 然后使用您希望触发的一个action\(或一系列action的数组\)调用 `dispatch` 方法。
 

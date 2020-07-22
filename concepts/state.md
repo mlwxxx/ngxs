@@ -206,8 +206,6 @@ feedZebra(ctx: StateContext<ZooStateModel>, action: FeedZebra) {
 }
 ```
 
-Here the `produce` function from the `immer` library is called with just a single parameter so that it returns its' [curried form](https://github.com/mweststrate/immer#currying) that will take a value and return a new value with all the expressed changes applied.
-
 在这里，仅使用单个参数调用 `immer` 库中的`produce`函数，以便它返回其[curried form](https://github.com/mweststrate/immer#currying)，它将采用一个值， 返回一个新值，并应用所有表示的更改。
 
 这种方法还可以允许创建命名良好的帮助程序功能，这些功能可以在需要相同类型更新的处理程序之间共享。 上面的示例可以重构为：
