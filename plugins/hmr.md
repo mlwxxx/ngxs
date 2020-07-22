@@ -1,4 +1,4 @@
-# Hot Module Replacement
+# HMR
 
 Hot Module Replacement \(HMR\) is a Webpack feature to update code in a running app without rebuilding it. This results in faster updates and less full page-reloads. In order to get HMR working with Angular CLI we first need to add a new environment and enable it.
 
@@ -31,7 +31,7 @@ export const environment = {
 };
 ```
 
-Update angular.json to include an hmr environment as explained here and add configurations within build and serve to enable hmr. Note that \ here represents the name of the project you are adding this configuration to in angular.json.
+Update angular.json to include an hmr environment as explained here and add configurations within build and serve to enable hmr. Note that  here represents the name of the project you are adding this configuration to in angular.json.
 
 ```text
   "build": {
@@ -146,7 +146,7 @@ npm run hmr
 
 Example:
 
-![hmr](../../.gitbook/assets/hmr.gif)
+![hmr](../.gitbook/assets/hmr.gif)
 
 When starting the server Webpack will tell you that it’s enabled:
 

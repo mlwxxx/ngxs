@@ -1,4 +1,4 @@
-# Logger Plugin
+# Logger
 
 A simple console log plugin to log actions as they are processed.
 

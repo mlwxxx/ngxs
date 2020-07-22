@@ -2,7 +2,7 @@
 
 ## Backers
 
-Thank you to all our backers! [Become a backer](https://opencollective.com/ngxs#backer) 
+Thank you to all our backers! [Become a backer](https://opencollective.com/ngxs#backer)
 
 ## Sponsors
 

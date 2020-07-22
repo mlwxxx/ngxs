@@ -1,4 +1,4 @@
-# WebSocket Plugin - Experimental Status
+# Web Socket
 
 Bind server web socket events to Ngxs store actions.
 
@@ -166,7 +166,7 @@ export class AppComponent {
 
 If you have difficulties with understanding how the plugin works, you can have a look at the data flow diagram below. From one side it seems a little bit complex, but no worries. Just follow the pink data flow that leads to the server-side starting from view:
 
-![NGXS WebSocket data flow](../../.gitbook/assets/ngxs-socket-dfd.png)
+![NGXS WebSocket data flow](../.gitbook/assets/ngxs-socket-dfd.png)
 
 Here is a list of all the available actions you have:
 

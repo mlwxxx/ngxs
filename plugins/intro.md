@@ -1,4 +1,4 @@
-# Plugins
+# 介绍
 
 Next let's talk about plugins. Similar to Redux's meta reducers, we have a plugins interface that allows you to build a global plugin for your state.
 

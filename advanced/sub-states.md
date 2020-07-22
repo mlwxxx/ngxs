@@ -8,7 +8,7 @@ Unidirectional data flow as a pattern is usually mentioned when talking about pe
 
 Unidirectional data flow policy is also applied to the state management. We have to make sure that states are independent and do not affect each other, the child state should know nothing about its parent. Potentially that could lead to unpredictable side effects. Our states are meant to be encapsulated from each other and only the parent can manage its children.
 
-![Unidirectional](../../.gitbook/assets/unidirectional.png)
+![Unidirectional](../.gitbook/assets/unidirectional.png)
 
 ## Example
 

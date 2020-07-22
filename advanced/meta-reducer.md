@@ -1,4 +1,4 @@
-# Meta Reducer
+# Meta Reducers
 
 A meta reducer is a higher order reducer that allows you to take action on the global state rather than a state slice. In NGXS, we don't have this concept but you can accomplish this with [plugins](../plugins/intro.md).
 

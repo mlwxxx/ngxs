@@ -1,6 +1,6 @@
 # CLI
 
-![CLI Screenshot](../../.gitbook/assets/cli.gif)
+![CLI Screenshot](../.gitbook/assets/cli.gif)
 
 ## Install
 

@@ -1,8 +1,8 @@
-# Redux Devtools
+# Devtools
 
 Plugin with integration with the [Redux Devtools extension](http://extension.remotedev.io/).
 
-![Devtools Screenshot](../../.gitbook/assets/devtools.png)
+![Devtools Screenshot](../.gitbook/assets/devtools.png)
 
 ## Installation
 

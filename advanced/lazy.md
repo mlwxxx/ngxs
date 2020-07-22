@@ -1,4 +1,4 @@
-# Lazy Loaded Stores
+# Lazy Loading
 
 Stores can be lazy-loaded easily by importing the `NgxsModule` using the `forFeature` method. All the other syntax for how you import and describe them are the same. For example:
 

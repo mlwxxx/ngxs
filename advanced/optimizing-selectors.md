@@ -1,6 +1,6 @@
 # Optimizing Selectors
 
-[Selectors](../concepts/select.md) are responsible for providing state data to your application. As your application code grows, naturally the number of selectors you create also increases. Ensuring your selectors are optimized can be instrumental in building a faster performing application.
+[Selectors](../gai-nian/select.md) are responsible for providing state data to your application. As your application code grows, naturally the number of selectors you create also increases. Ensuring your selectors are optimized can be instrumental in building a faster performing application.
 
 ## Memoization
 

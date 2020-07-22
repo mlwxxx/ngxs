@@ -1,2 +1,2 @@
-# ngxs-labs
+# NGXS Labs
 

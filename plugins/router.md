@@ -1,6 +1,6 @@
-# Router Plugin
+# Router
 
-![Router Diagram](../../.gitbook/assets/router.png)
+![Router Diagram](../.gitbook/assets/router.png)
 
 In the browser, the location \(URL information\) and session history \(a stack of locations visited by the current browser tab\) are stored in the global window object. They are accessible via:
 

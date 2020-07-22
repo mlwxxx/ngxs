@@ -1,4 +1,4 @@
-# Community Projects
+# Resources
 
 ## Projects
 
