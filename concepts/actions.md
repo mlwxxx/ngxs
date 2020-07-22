@@ -8,8 +8,8 @@ Actions 可以将操作视为应触发某些事件发生的命令，也可以将
 
 库的内部触发了两个Actions：
 
-1. @@INIT - store being initialized, before all the [ngxsOnInit Life-cycle](../advanced/life-cycle.md) events.
-2. @@UPDATE\_STATE - a new [lazy-loaded state](../advanced/lazy.md) being added to the store.
+1. @@INIT - store正在初始化, 在[ngxsOnInit生命周期](../advanced/life-cycle.md) 之前.
+2. @@UPDATE\_STATE - 一个新的[延迟加载state](../advanced/lazy.md)被添加到store.
 
 ## 简单 Action
 

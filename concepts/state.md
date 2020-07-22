@@ -1,10 +1,10 @@
 # State
 
-States are classes that define a state container.
+状态(States)是一个用来定义状态容器的类。
 
-## Defining a State
+## 定义一个状态(State)
 
-States are classes along with decorators to describe metadata and action mappings. To define a state container, let's create an ES2015 class and decorate it with the `State` decorator.
+States是一个带有装饰器的类，用于描述元数据(metadata)和动作(action)映射。为了定义一个状态容器，让我们创建一个ES2015类，并用`State`装饰器装饰它。
 
 ```typescript
 import { Injectable } from '@angular/core';
@@ -18,16 +18,16 @@ import { State } from '@ngxs/store';
 export class AnimalsState {}
 ```
 
-In the state decorator, we define some metadata about the state. These options include:
+在状态装饰器中，我们定义有关状态(State)的一些元数据。 这些选项包括：
 
-* `name`: The name of the state slice. Note: The name is a required parameter and must be unique for the entire application.
+* `name`: 状态片的名称。 注意：名称是必填参数，并且对于整个应用程序必须是唯一的。
 
-  Names must be object property safe, \(e.g. no dashes, dots, etc\).
+  名称必须是对象属性安全的, \(如果不能包含破折号、点等等\).
 
-* `defaults`: Default set of object/array for this state slice.
-* `children`: Child sub state associations.
+* `defaults`: 此状态切片默认值的集合(对象/数组)。
+* `children`: 子状态关联.
 
-Our states can also participate in dependency injection. This is hooked up automatically so all you need to do is inject your dependencies in the constructor.
+我们的states也可以依赖注入。 并且是自动连接的，因此您要做的就是将依赖项注入到构造函数中。
 
 ```typescript
 @State<ZooStateModel>({
@@ -42,9 +42,9 @@ export class ZooState {
 }
 ```
 
-## \(Optional\) Defining State Token
+## \(可选的\) 定义状态(State)令牌
 
-Optionally, you can choose to replace the `name` of your state can be made with a state token:
+（可选）, 您可以使用一个状态令牌(state token)替换你的状态名`name` 
 
 ```typescript
 const ZOO_STATE_TOKEN = new StateToken<ZooStateModel>('zoo');
@@ -61,15 +61,15 @@ export class ZooState {
 }
 ```
 
-This slightly more advanced approach has some benefits which you can read more about in the [State Token](../advanced/token.md) section.
+这种稍微高级的方法具有一些优点，你可转到[State Token](../advanced/token.md) 部分中了解更多信息。
 
-## Defining Actions
+## 定义动作(Actions)
 
-Our states listen to actions via an `@Action` decorator. The action decorator accepts an action class or an array of action classes.
-
-### Simple Actions
+states通过一个@Action装饰器来监听动作。 动作装饰器接受一个动作类或动作类数组。
+### 简单动作(Actions)
 
 Let's define a state that will listen to a `FeedAnimals` action to toggle whether the animals have been fed:
+让我们定义一个状态，该状态将监听`FeedAnimals`动作来切换动物是否已喂食：
 
 ```typescript
 import { Injectable } from '@angular/core';
@@ -102,11 +102,15 @@ export class ZooState {
 }
 ```
 
-The `feedAnimals` function has one argument called `ctx` with a type of `StateContext<ZooStateModel>`. This context state has a slice pointer and a function exposed to set the state. It's important to note that the `getState()` method will always return the freshest state slice from the global store each time it is accessed. This ensures that when we're performing async operations the state is always fresh. If you want a snapshot, you can always clone the state in the method.
 
-### Actions with a payload
+ `feedAnimals`函数具有一个名为ctx的参数，其类型为 `StateContext<ZooStateModel>`.此上下文状态具有切片指针和公开用于设置状态的函数。
+ 需要特别注意的是，每次访问时，`getState()`方法将始终从全局存储返回最新的状态片。 这样可以确保当我们执行异步操作时，状态始终是最新的。
+ 如果需要快照，则始终可以在方法中克隆状态(state)。
 
-Actions can also pass along metadata that has to do with the action. Say we want to pass along how much hay and carrots each zebra needs.
+### 具有有效载荷(payload)的动作(action)
+
+
+动作也可以传递与动作有关的元数据。 假设我们要传递每个斑马需要多少干草和胡萝卜。
 
 ```typescript
 import { Injectable } from '@angular/core';
@@ -153,9 +157,10 @@ export class ZooState {
 }
 ```
 
-In this example, we have a second argument that represents the action and we destructure it to pull out the name, hay, and carrots which we then update the state with.
+在这个示例中，我们有第二个参数表示动作，然后对其进行解构以提取名称，干草和胡萝卜，然后使用其更新状态。
 
-There is also a shortcut `patchState` function to make updating the state easier. In this case, you only pass it the properties you want to update on the state and it handles the rest. The above function could be reduced to this:
+还有一个快捷的函数 `patchState`，使更新状态变得更加容易。在这种情况下，您仅向其传递要在状态上更新的属性，然后它将处理其余的属性。 上面的功能可以简化为：
+
 
 ```typescript
 @Action(FeedZebra)
@@ -171,9 +176,11 @@ feedZebra(ctx: StateContext<ZooStateModel>, action: FeedZebra) {
 ```
 
 The `setState` function can also be called with a function which will be given the existing state and should return the new state. All immutability concerns need to be honoured by this function.
+`setState`函数也可以通过将被赋予现有状态并应返回新状态的函数来调用。 此函数必须满足所有不变性的考虑。
 
-For comparison, here are the two ways that you can invoke the `setState` function...  
-With a new constructed state value:
+
+为了进行比较，以下是两种可以调用 `setState`函数的方式...
+使用新构造的状态(state)值：
 
 ```typescript
 @Action(MyAction)
@@ -182,7 +189,7 @@ public addValue(ctx: StateContext, { payload }: MyAction) {
 }
 ```
 
-With a function that returns the new state value:
+使用返回新状态值的函数：
 
 ```typescript
 @Action(MyAction)
@@ -191,9 +198,11 @@ public addValue(ctx: StateContext, { payload }: MyAction) {
 }
 ```
 
-You may ask _"How is this valuable?"_. Well, it opens the door for refactoring of your immutable updates into `state operators` so that your code can become more declarative as opposed to imperative. We will be adding some standard `state operators` soon that you will be able to use to express your updates to the state. Follow the issue here for updates: [https://github.com/ngxs/store/issues/545](https://github.com/ngxs/store/issues/545)
+您可能会问 _"这有什么价值？"_ 好的，它为将不可变的更新重构为`state operators`打开了大门，因此您的代码可以变得更具声明性，而不再是命令性的。 我们将很快添加一些标准的`state operators`，您将可以使用它们来表示对状态的更新。请在此处关注该问题以进行更新: [https://github.com/ngxs/store/issues/545](https://github.com/ngxs/store/issues/545)
 
-As another example you could use a library like [immer](https://github.com/mweststrate/immer) that can handle the immutability updates for you and provide a different way of expressing your immutable update through direct mutation of a draft object. We can use this external library because it supports the same signature as out `state operators` through their curried `produce` function. Here is the example from above expressed in this way:
+再举一个例子，您可以使用 [immer](https://github.com/mweststrate/immer) 之类的库，该库可以为您处理不变性更新，并提供通过直接修改草稿对象来表达您不变性更新的另一种方式 。 
+我们可以使用此外部库，因为它通过其咖喱的`produce`函数支持与`state operators`相同的签名。 这是上面以这种方式表达的示例：
+
 
 ```typescript
 import produce from 'immer';
@@ -209,7 +218,9 @@ feedZebra(ctx: StateContext<ZooStateModel>, action: FeedZebra) {
 
 Here the `produce` function from the `immer` library is called with just a single parameter so that it returns its' [curried form](https://github.com/mweststrate/immer#currying) that will take a value and return a new value with all the expressed changes applied.
 
-This approach can also allow for the creation of well named helper functions that can be shared between handlers that require the same type of update. The above example could be refactored to this:
+在这里，仅使用单个参数调用 `immer` 库中的`produce`函数，以便它返回其[curried form](https://github.com/mweststrate/immer#currying)，它将采用一个值， 返回一个新值，并应用所有表示的更改。
+
+这种方法还可以允许创建命名良好的帮助程序功能，这些功能可以在需要相同类型更新的处理程序之间共享。 上面的示例可以重构为：
 
 ```typescript
 // in class ZooState ...
@@ -228,13 +239,13 @@ function addToZebraFood(itemToAdd) {
 }
 ```
 
-### Async Actions
+### 异步动作(Actions)
 
-Actions can perform async operations and update the state after an operation.
+动作(Actions)可以执行异步操作并在操作后更新状态。
 
-Typically in Redux your actions are pure functions and you have some other system like a saga or an effect to perform these operations and dispatch another action back to your state to mutate it. There are some reasons for this, but for the most part it can be redundant and just add boilerplate. The great thing here is we give you the flexibility to make that decision yourself based on your requirements.
+通常，在Redux中，您的操作是纯函数，并且您还可以使用其他系统（例如saga或effect）来执行这些操作，并将其他动作分派回您的状态以进行更改。 这有一些原因，但是在大多数情况下，它可能是多余的，只需添加样板即可。 很棒的是，我们让您可以根据自己的需求灵活地做出决定。
 
-Let's take a look at a simple async action:
+让我们看一个简单的异步动作：
 
 ```typescript
 import { Injectable } from '@angular/core';
@@ -275,9 +286,9 @@ export class ZooState {
 }
 ```
 
-In this example, we reach out to the animal service and call `feed` and then call `setState` with the result. Remember that we can guarantee that the state is fresh since the state property is a getter back to the current state slice.
+在此示例中，我们联系动物服务并调用`feed`，然后使用`setState`返回结果。 请记住，由于state属性是返回至当前状态切片，因此我们可以保证状态是新的。
 
-You might notice I returned the Observable and just did a `tap`. If we return the Observable, the framework will automatically subscribe to it for us, so we don't have to deal with that ourselves. Additionally, if we want the stores `dispatch` function to be able to complete only once the operation is completed, we need to return that so it knows that.
+您可能会注意到我返回了Observable，只是使用了`tap`。 如果我们返回Observable，框架将自动为我们订阅它，因此我们不必自己处理它。 另外，如果我们希望 stores `dispatch`函数只能在操作完成后才能完成，则需要返回它，以便知道。
 
 Observables are not a requirement, you can use promises too. We could swap that observable chain to look like this:
 
@@ -316,9 +327,9 @@ export class ZooState {
 }
 ```
 
-### Dispatching Actions From Actions
+### 从动作分派动作
 
-If you want your action to dispatch another action, you can use the `dispatch` function that is contained in the state context object.
+如果您想让您的动作分派另一个动作，则可以使用状态上下文对象中包含的 `dispatch` 函数。
 
 ```typescript
 import { Injectable } from '@angular/core';
@@ -371,5 +382,5 @@ export class ZooState {
 }
 ```
 
-Notice I returned the dispatch function, this goes back to our example above with async operations and the dispatcher subscribing to the result. It is not required though.
+注意，我返回了dispatch函数，这返回到上面的示例，其中包含异步操作和分派器订阅结果。 这不是必需的。
 
