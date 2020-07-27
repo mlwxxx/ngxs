@@ -1,6 +1,7 @@
-# Unit Testing
+# 单元测试
 
 Unit testing is easy with NGXS. To perform a unit test we just dispatch the events, listen to the changes and perform our expectation. A basic test looks like this:
+使用NGXS时可以轻松进行单元测试。 为了执行单元测试，我们只是调度事件，侦听更改并执行想要进行的操作。 基本测试如下所示：
 
 ```typescript
 import { TestBed } from '@angular/core/testing';
@@ -25,7 +26,7 @@ describe('Zoo', () => {
 });
 ```
 
-We recommend using `selectSnapshot` method instead of `selectOnce` or `select`. Jasmine and Jest might not run expectations inside the `subscribe` block. Given the following example:
+我们建议使用 `selectSnapshot` 方法而不是 `selectOnce` 或 `select` 。 茉莉花（Jasmine）和杰斯特（Jest）可能不会在“订阅”（Subscribe）块内运行。 给出以下示例：
 
 ```typescript
 it('should select zoo', () => {
@@ -41,11 +42,12 @@ it('should select zoo', () => {
 });
 ```
 
-## Prepping State
+## 预备状态
 
 Often times in your app you want to test what happens when the state is C and you dispatch action X. You can use the `store.reset(MyNewState)` to prepare the state for your next operation.
+在您的应用中，您通常想测试状态为C并调度动作X时会发生什么。您可以使用 `store.reset(MyNewState)` 来准备用于下一个操作的状态。
 
-Note: You need to provide the registered state name as key if you reset the state. `store.reset` will reflect to your whole state! Merge the current with your new changes to be sure nothing gets lost.
+注意：如果您重置状态，则需要提供注册状态名称作为密钥。 `store.reset` 将体现您的整个状态！ 用新更改的合并到当前状态，以确保不会丢失任何内容。
 
 ```typescript
 // zoo.state.spec.ts
@@ -79,9 +81,9 @@ describe('Zoo', () => {
 });
 ```
 
-## Testing Selectors
+## 测试选择器
 
-Selectors are just plain functions that accept the state as the argument so its really easy to test them. A simple test might look like this:
+选择器只是接受状态作为参数的简单函数，因此测试它们非常容易。 一个简单的测试可能看起来像这样：
 
 ```typescript
 import { TestBed } from '@angular/core/testing';
@@ -94,7 +96,7 @@ describe('Zoo', () => {
 });
 ```
 
-In your application you may have selectors created dynamically using the `createSelector` function:
+在您的应用程序中，您可能会使用 `createSelector` 函数动态创建选择器：
 
 ```typescript
 export class ZooSelectors {
@@ -106,7 +108,7 @@ export class ZooSelectors {
 }
 ```
 
-Testing these selectors is really an easy task. You just need to mock the state and pass it as parameter to our selector:
+测试这些选择器确实很容易。 您只需要模拟状态并将其作为参数传递给我们的选择器：
 
 ```typescript
 it('should select requested animal names from state', () => {
@@ -125,11 +127,11 @@ it('should select requested animal names from state', () => {
 });
 ```
 
-## Testing Asynchronous Actions
+## 测试异步动作
 
-It's also very easy to test asynchronous actions using Jasmine or Jest. The greatest features of these testing frameworks is a support of `async/await`. No one prevents you of using `async/await` + RxJS `toPromise` method that "converts" `Observable` to `Promise`. As an alternative you could you a `done` callback, Jasmine or Jest will wait until the `done` callback is called before finishing the test.
+使用Jasmine或Jest测试异步操作也非常容易。 这些测试框架的最大特点是对 `async/await` 的支持。 没有人会阻止您使用`async/await` +  RxJS `toPromise`方法将 `Observable` 转换为 `Promise` 。 另外，您也可以执行 `done` 回调，Jasmine或Jest将等到调用 `done` 回调后再完成测试。
 
-The below example is not really complex, but it clearly shows how to test asynchronous code using `async/await`:
+下面的例子并不是很复杂，但是清楚地显示了如何使用 `async/await` 测试异步代码：
 
 ```typescript
 import { timer } from 'rxjs';
@@ -144,7 +146,7 @@ it('should wait for completion of the asynchronous action', async () => {
     static type = '[Counter] Decrement async';
   }
 
-  // Assume you will make some XHR call to your API or anything else
+  // 假设您将对您的API或其他什么进行XHR调用
   function getRandomDelay() {
     return 1000 * Math.random();
   }

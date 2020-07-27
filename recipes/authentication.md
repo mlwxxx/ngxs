@@ -1,8 +1,8 @@
 # Authentication
 
-Authentication is a common theme across many applications. Let's take a look at how we would implement this in NGXS.
+身份验证是许多应用程序中的通用主题。 让我们看一下如何在NGXS中实现这一点。
 
-First, let's define our state model and our actions:
+首先，让我们定义状态模型和动作：
 
 ```typescript
 export interface AuthStateModel {
@@ -20,9 +20,10 @@ export class Logout {
 }
 ```
 
-In our state model, we want to track our token and the username. The token represents a JWT token that was issued for the session.
 
-Let's hook up these actions in our state class and wire that up to our login service.
+在状态模型中，我们要跟踪令牌和用户名。 该令牌表示为该会话发行的JWT令牌。
+
+让我们在状态类中连接这些操作，并将其连接到我们的登录服务。
 
 ```typescript
 @State<AuthStateModel>({
@@ -73,13 +74,14 @@ export class AuthState {
 }
 ```
 
-In this state class, we have:
 
-* A selector that will select the token from the store
-* A login action method that will invoke the authentication service and set the token
-* A logout action method that will invoke the authentication service and remove our state
+在这个状态类中，我们有：
 
-Now let's wire up the state in our module.
+* 一个选择器，它将从储存(store)中选择令牌
+* 登录操作方法，它将调用身份验证服务并设置令牌
+* 注销操作方法，它将调用身份验证服务并删除我们的状态
+
+现在，在我们的模块中连接状态。
 
 ```typescript
 @NgModule({
@@ -94,8 +96,9 @@ export class AppModule {}
 ```
 
 In a typical JWT setup, you want to store your token in the `localstorage`. To do this so we hookup our storage plugin and tell it to track the token key in our state.
+在典型的JWT设置中，您要将令牌存储在`localstorage`中。 为此，我们连接了存储插件，并告诉它在我们的状态中跟踪令牌密钥。
 
-Next, we want to make sure that our users can't go to any pages that require authentication. We can easily accomplish this with a router guard provided by Angular.
+接下来，我们要确保我们的用户不能进入任何需要身份验证的页面。 我们可以使用Angular提供的路由器防护功能轻松完成此任务。
 
 ```typescript
 @Injectable()
@@ -109,7 +112,9 @@ export class AuthGuard implements CanActivate {
 }
 ```
 
-This guard will decide if a route can be activated by using our selector to select the token from the store. If the token is invalid it won't let the user go to that page. Let's make sure we implement this in our route itself by defining the `AuthGuard` in the `canActivate` definition.
+我们通过路由卫士决定某个路由是否能用我们从store中选择的令牌来激活。
+
+如果令牌无效，则不会让用户转到该页面。 我们确保在路由 `canActivate` 中定义 `AuthGuard` 来实现它。
 
 ```typescript
 export const routes: Routes = [
@@ -121,7 +126,7 @@ export const routes: Routes = [
 ];
 ```
 
-A common action you want to take is when a user logs out, we want to actually redirect the user to the login page. We can use our action stream to listen to the `Logout` action and tell the router to go to the login page.
+您要执行的常见操作是，当用户注销时，我们实际上希望将用户重定向到登录页面。 我们可以使用我们的动作流来侦听 `Logout` 动作，并告诉路由器进入登录页面。
 
 ```typescript
 @Component({
@@ -139,5 +144,5 @@ export class AppComponent implements OnInit {
 }
 ```
 
-And that's it!
+就是这样！
 

@@ -1,8 +1,9 @@
-# Dynamic Plugins
+# 动态插件
 
-Angular provides the ability to have a different environment file loaded for development as compared to production or other build targets. We can use this to improve our application bundling when it comes to development only packages. In NGXS the packages that are mainly useful only for development mode are the `@ngxs/devtools-plugin` and `@ngxs/logger-plugin`. Typically you would only want to use these packages during development and not in production.
 
-Let's look at the code below:
+与生产或其他构建目标相比，Angular提供了为开发加载不同环境文件的功能。 当涉及仅开发包时，我们可以使用它来改善我们的应用程序捆绑。 在NGXS中，主要仅对开发模式有用的软件包是 `@ngxs/devtools-plugin` 和 `@ngxs/logger-plugin`。 通常，您只想在开发过程中而不是在生产中使用这些软件包。
+
+我们来看下面的代码：
 
 ```typescript
 // environment.ts
@@ -16,6 +17,7 @@ export const environment = {
 ```
 
 This means that these plugins will be used only when Angular uses `environment.ts` file, but in the production build it will be replaced with `environment.prod.ts` file \(or any other configuration you use\). If you already figured out the `environment.prod.ts` file will contain `plugins` property that equals empty array, the code would look as follows:
+这意味着仅当Angular使用 `environment.ts` 文件时才使用这些插件，但是在生产版本中它将被 `environment.prod.ts` 文件\(或您使用的任何其他配置\)替换。 如果您已经发现 `environment.prod.ts` 文件将包含等于空数组的 `plugins` 属性，代码将文件下面这样：
 
 ```typescript
 // environment.prod.ts
@@ -26,6 +28,7 @@ export const environment = {
 ```
 
 All we have left to do is to import the environment file and reference `plugins` property in the `AppModule` imports:
+我们剩下要做的就是导入环境文件，并在 `AppModule` 导入中引用 `plugins` 属性：
 
 ```typescript
 import { NgxsModule } from '@ngxs/store';
@@ -38,5 +41,5 @@ import { environment } from '../environments/environment';
 export class AppModule {}
 ```
 
-This approach will reduce your production bundle size, as these packages are only needed during development.
+这样将减小您的产品包大小，因为仅在开发期间才需要这些软件包。
 

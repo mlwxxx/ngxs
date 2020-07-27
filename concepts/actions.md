@@ -21,7 +21,7 @@ export class FeedAnimals {
 }
 ```
 
-然后在我我们的state类, 我们将监听取这个action并改变我们的state,在这种情况中就是翻转布尔值标志。
+然后在我我们的state类, 我们将侦听取这个action并改变我们的state,在这种情况中就是翻转布尔值标志。
 
 ## 带有元数组的动作(Actions with Metadata)
 

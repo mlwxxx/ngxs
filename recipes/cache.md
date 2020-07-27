@@ -1,8 +1,9 @@
-# Caching
+# 缓存
 
-Caching requests executed by Actions is a common practice. NGXS does not provide this ability out of the box, but it is easy to implement.
+使用Actions执行缓存操作是一种常见的做法。 NGXS并没有提供此功能，但是很容易实现。
 
 There are many different ways to approach this. Below is a simple example of using the store's current values and returning them instead of calling the HTTP service.
+有许多不同的方法可以解决此问题。 这个简单示例中，使用存储的当前值并返回它们而不是调用HTTP服务。
 
 ```typescript
 import { Injectable } from '@angular/core';
@@ -28,7 +29,7 @@ export class NovelsState {
 }
 ```
 
-Imagine that this state of novels contains only minimal information about them such as ID and name. When the user selects a particular novel - he is redirected to a page with full information about this novel. We want to load this information only once. Let's create a state and call it `novelsInfo`, this will be the object whose keys are the identifiers of the novels:
+想象一下，这种小说(novels)状态仅包含有关它们的最少信息，例如ID和名称。 当用户选择特定小说时，他将被重定向到包含有关该小说的完整信息的页面。 我们只希望加载一次此信息。 让我们创建一个状态并将其称为`novelsInfo`，这将是对象，其键是小说(novels)的标识符：
 
 ```typescript
 import { Injectable } from '@angular/core';
@@ -75,7 +76,7 @@ export class NovelsInfoState {
 }
 ```
 
-The component, that displays information about the novel, can subscribe to the `params` observable of the `ActivatedRoute` to listen to the params change. The code will look as following:
+在组件如果想要显示有关小说的信息，可以订阅`ActivatedRoute`中的`params`可观测对像来侦听到参数变化。 该代码将如下所示：
 
 ```typescript
 @Component({
@@ -116,5 +117,5 @@ export class NovelComponent implements OnDestroy {
 }
 ```
 
-We're using the `switchMap` in this example, so if the user navigates to another novel and `params` observable emits new value - we have to complete previously started asynchronous job \(in our case it's getting novel by ID\).
+在此示例中，我们使用的是`switchMap`，因此，如果用户导航到另一本小说，并且`params`对像发出新值 - 我们必须完成先前启动的异步作业 \(在本例中，是通过ID获取小说的\)。
 

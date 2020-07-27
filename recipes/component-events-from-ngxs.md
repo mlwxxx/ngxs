@@ -1,16 +1,17 @@
-# Component Events from NGXS
+# NGXS的组件事件
 
 Developers always use the `@Output` decorator in conjunction with the `EventEmitter`. The below code has been seen by any Angular developer:
+开发人员通常将 `@Output` 装饰器与 `EventEmitter` 结合使用。 任何Angular开发人员都可以看到以下代码：
 
 ```typescript
 @Output() search = new EventEmitter<string>();
 ```
 
-The secret is that the `@Output` can decorate any "observable" property. The Angular compiler emits needful information for the Angular itself that says "hey, please subscribe to the `search` class property and dispatch `CustomEvent` any time the observable emits".
+秘密是`@Output`可以修饰任何“可观察”的属性。 Angular编译器为Angular本身发出了必要的信息，说：“嘿，请订阅 `search` 类属性，并在可观察对象发出时随时调度 `CustomEvent` 。
 
-Let's imagine that we're a part of the A team. We develop custom element that uses NGXS and we want to provide this component to the team B. The team B doesn't know anything about NGXS, they cannot use our API. Our element is just a black box that exposes data via `@Output`.
+假设我们是A团队的一员。 我们开发了使用NGXS的自定义元素，并且希望将此组件提供给团队B。团队B对NGXS一无所知，他们不能使用我们的API。 我们的元素只是一个黑盒，它只通过`@Output`公开数据。
 
-We develop the `app-email-list` custom element that emits `messagesLoaded` DOM event and gives the data to the team B for analytics. Given the following code:
+我们开发了一个 `app-email-list` 自定义元素，该元素会发出`messagesLoaded`DOM事件，并将数据提供给团队B进行分析。 给出以下代码：
 
 ```typescript
 @Component({
@@ -37,7 +38,7 @@ export class EmailListComponent {
 }
 ```
 
-The above code is very simple and is used for demonstrating purposes only! As you can see we dispatch the `LoadMessages` action every time the user clicks "Refresh messages" button. After the `LoadMessages` action handler has completed his asynchronous job we emit the `messagesLoaded` event. Let's be more declarative:
+上面的代码非常简单，仅用于演示！ 如您所见，每当用户单击“刷新消息”按钮时，我们都会调度 `LoadMessages` 操作。 在 `LoadMessages` 动作处理程序完成其异步工作之后，我们发出 `messagesLoaded` 事件。 让我们更具声明性：
 
 ```typescript
 @Component({
@@ -62,9 +63,11 @@ export class EmailListComponent {
 }
 ```
 
-Assume that `ButtonComponent.click` is an `EventEmitter`. Wow, we've done it in a more declarative and reactive way. So every time the user clicks the `app-button` our `switchMap` will produce the next `store.dispatch` subscribe and unsubscribe from the previous one. Next we use the `map` operator that will map our stream value to the `Message[]` array from our state.
 
-Now let's take away that idea with A and B teams. As our store is a single source of truth thus we can listen to any action from any part of our application. DOM events can be handy to use with the `Actions` stream. Assume we've got a component that emits `booksLoaded` event every time when different genre of books are loaded:
+假设 `ButtonComponent.click` 是一个 `EventEmitter`。我们以更具声明性和反应性的方式做到了。 因此，当用户单击 `app-button` 时，我们的 `switchMap` 将产生下一个 `store.dispatch` 订阅，并从上一个中取消。接下来，我们使用 `map` 运算符，它会将流的值从状态映射到`Message[]`数组。
+
+现在，让我们与A和B团队一起消除这个想法。 由于我们的存储(store)是真相的唯一来源，因此我们可以侦听应用程序任何部分的任何操作。 DOM事件可以很方便地与`Actions`流一起使用。 假设我们有一个组件，每次加载不同类型的书籍时都会发出 `booksLoaded` 事件：
+
 
 ```typescript
 // books.state.ts
@@ -99,5 +102,5 @@ export class BooksComponent {
 }
 ```
 
-This might significantly reduce your code business logic and do it in a more declarative and reactive way.
+这可能会大大减少您的代码业务逻辑，并以更具声明性和反应性的方式来实现。
 

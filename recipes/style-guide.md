@@ -1,54 +1,57 @@
-# Style Guide
+# 设计指南
 
-Below are suggestions for naming and style conventions.
+以下是有关命名和样式约定的建议。
 
-## State Suffix
+## 状态后缀
 
-A state should always be suffixed with the word `State`. Prefer: `ZooState` Avoid: `Zoo`
+状态应始终以`State`一词作为后缀。 首选：`ZooState` 而不是 `Zoo`
 
-## State Filenames
+## 状态文件名
 
-States should have a `.state.ts` suffix for the filename
+状态文件名称应带有`.state.ts`后缀
 
-## State Interfaces
+## 状态接口
 
 State interfaces should be named the name of the state followed by the `Model` suffix. If my state were called `ZooState`, we would call my state interface `ZooStateModel`.
+状态接口应命名为状态名称，后跟 `Model` 后缀。 如果我的状态称为 `ZooState` ，则将其称为状态接口 `ZooStateModel`。
 
-## Select Suffix
+## 选择后缀
 
-Selects should have a `$` suffix. Prefer: `animals$` Avoid: `animals`
+选择项应带有 `$` 后缀。 首选：`animals$`，而不是 `animals`
 
-## Plugin Suffix
+## 插件后缀
 
-Plugins should end with the `Plugin` suffix
+插件应以 `Plugin` 后缀结尾
 
-## Plugin Filenames
+## 插件文件名
 
-Plugins file names should end with `.plugin.ts`
+插件文件名应以 `.plugin.ts` 结尾
 
-## Folder Organization
+## 文件夹组织
 
-Global states should be organized under `src/shared/state`. Feature states should live within the respective feature folder structure `src/app/my-feature`. Actions can live within the state file but are recommended to be a separate file like: `zoo.actions.ts`
+全局状态应放在 `src/shared/state`里面。 功能状态应位于相应的功能文件夹结构 `src/app/my-feature` 中。 动作可以存在于状态文件中，但建议使用单独的文件，例如：`zoo.actions.ts`。
 
-## Action Suffixes
+## 动作后缀
 
-Actions should NOT have a suffix
+动作不应有后缀
 
-## Unit Tests
+## 单元测试
 
 Unit tests for the state should be named `my-state-name.state.spec.ts`
+状态的单元测试应命名为 `my-state-name.state.spec.ts` 的样子
 
-## Action Operations
+## 动作的操作
 
-Actions should NOT deal with view related operations \(i.e. showing popups/etc\). Use the action stream to handle these types of operations
+动作不应处理与视图相关的操作\(如：显示弹出窗口\)。 应使用操作流来处理这类操作
 
-## Avoid Saving Class Based Instances in Your State
+## 避免在状态中保存基于类的实例(Avoid Saving Class Based Instances in Your State)
 
-The objects stored in your state should be immutable and should support serialization and deserialization. It is therefore recommended to store pure object literals in your state. Class based instances are not trivial to serialize and deserialize, and also are generally focused on encapsulating internals and mutating internal state through exposed operations. This does not match the requirement for the data stored in state.
 
-This also applies to the usage of data collections such as Set, Map, WeakMap, WeakSet, etc. Since they are not amenable to deserialization and cannot easily be presented for normalization.
+状态存储的对象应该是不可变的，并且应该支持序列化和反序列化。 因此，建议在您的状态下存储纯对象文字。 基于类的实例在序列化和反序列化方面并非易事，而且它们常常通过公开操作封装内部结构和改变内部状态。 这与状态中存储的数据要求不符。
 
-### Avoid
+这也适用于使用数据集（例如Set，Map，WeakMap，WeakSet等）。由于它们不适合反序列化，因此不易呈现以进行标准化。
+
+### 避免
 
 ```typescript
 export class Todo {
@@ -81,9 +84,9 @@ class AppComponent {
 }
 ```
 
-It is not recommended to add Class based object instances to your state because this can lead to undefined behavior in the future.
+不建议将基于类的对象实例添加到您的状态，因为这将可能导致未定义的行为。
 
-### Prefer
+### 推荐
 
 ```typescript
 export interface TodoModel {
@@ -118,11 +121,11 @@ class AppComponent {
 }
 ```
 
-## Flatten Deep Object Graphs
+## 展平深层对象图(Flatten Deep Object Graphs)
 
-The general recommendation for handling hierarchical data in Redux is to normalise it. This would entail flattening it in the same way that you would design relational tables, having keys for references to parent objects.
+在Redux中处理分层数据的一般建议是对其进行规范化。 这将需要以与设计关系表相同的方式对其进行展平，它具有引用父对象的键。
 
-### Avoid
+### 避免
 
 ```typescript
 export interface RowStateModel {
@@ -167,9 +170,9 @@ export class GridState {}
 export class GridCollectionState {}
 ```
 
-Note: It is not recommended to use data collections such as Set, Map, WeakMap, WeakSet, etc. Since they are not amenable to deserialization and cannot easily be presented for normalization.
+注意：不建议使用Set，Map，WeakMap，WeakSet等数据收集。因为它们不适合反序列化，并且不易呈现以进行标准化。
 
-### Prefer
+### 推荐
 
 ```typescript
 export interface RowStateModel {

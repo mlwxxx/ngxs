@@ -1,12 +1,13 @@
-# Immutability Helpers
+# 不可变数据助手
 
-Redux is a tiny pattern that represents states as immutable objects. Redux was originally designed for React. Most Redux concepts, such as pure functions, are centered around the React ecosystem. Nowadays Redux is not directly related to React.
+Redux是一个微型的模式，将状态表示为不可变的对象。 Redux最初是为React设计的。 大多数Redux概念（例如纯函数）都围绕React生态系统。 如今，Redux与React没有直接关系。
 
-The cornerstone of Redux is immutability. Immutability is an amazing pattern to minimise unpredictable behaviour in our code. We're not going to cover functional programming in this article. However we're going to look at very useful packages that are called "immutability helpers".
 
-## The Problem
+Redux的基石是不变性。 不变性是一种惊人的模式，可以最大程度地减少代码中不可预测的行为。 本文将不讨论函数式编程。 但是，我们将研究非常有用的称为"不可变数据助手"(immutability helpers)的软件包。
 
-Most developers have to deal with, so called, "deep objects" and most important follow the immutability concept, when it comes to changing the value of some deeply nested property. Given the following code:
+## 问题
+
+大多数开发人员必须处理所谓的“深层对象”，最重要的是要遵循不变性概念，以更改某些深层嵌套属性的值。 给出以下代码：
 
 ```typescript
 export interface Task {
@@ -32,7 +33,8 @@ export interface TrelloStateModel {
 export class TrelloState {}
 ```
 
-Let's imagine that we're faced with the task of changing the `dueDate` property:
+
+让我们想象一下，我们有一个需要更改 `dueDate` 属性的需求：
 
 ```typescript
 export class UpdateDueDate {
@@ -63,15 +65,16 @@ export class TrelloState {
 }
 ```
 
-This code will work but unfortunately it is complicated to maintain and understand. It's not self-descriptive and will be daunting for new developers.
+该代码可以工作，但不幸的是，维护和理解起来很复杂。 它不是自我描述的，对于新开发人员来说将是艰巨的。
 
-## Solutions
+## 解决方案
 
-There are different ways to improve this code. Let us look at a few different packages that can help in this regard.
+有多种方法可以改进此代码。 让我们看一些可以在这方面有所帮助的软件包。
 
-### State Operators
+### 状态操作符(State Operators)
 
-[State operators](../advanced/operators.md) are first-class immutability helpers that NGXS provides out of the box. The `patch` operator will become your best friend in case of choosing state operators as your immutability helpers. Let's see how we could re-write the above code with the help of the `patch` state operator:
+[状态操作符](../advanced/operators.md)是NGXS提供的的一流的不可变数据助手,它开箱即用。如果选择状态运算符作为您的不可变数据助手，那么 `patch` 运算符将成为您最好的朋友。 让我们看看如何在`patch` 状态运算符的帮助下重新编写以上代码：
+
 
 ```typescript
 import { patch } from '@ngxs/store/operators';
@@ -96,7 +99,7 @@ export class TrelloState {
 
 ### immer
 
-`immer` is a very popular library that allows you to make changes to immutable objects as if they were mutable. The below code shows how to write the same code with the help of Immer:
+`immer` 是一个非常流行的库，它使您可以对不可变对象进行更改，就好像它们是可变的一样。 以下代码显示了如何在Immer的帮助下编写相同的代码：
 
 ```typescript
 import { produce } from 'immer';
@@ -113,7 +116,7 @@ export class TrelloState {
 }
 ```
 
-Immer's `produce` function can be also used as a state operator:
+Immer的 `produce` 函数也可以用作状态运算符：
 
 ```typescript
 import { produce } from 'immer';
@@ -130,15 +133,15 @@ export class TrelloState {
 }
 ```
 
-You may notice how much less code this is and how much better it looks. From the `immer` repository:
+在`immer`库中，您可能关注这会减少多少代码，看起来有多好 ：
 
-> Using Immer is like having a personal assistant; he takes a letter \(the current state\) and gives you a copy \(draft\) to jot changes onto. Once you are done, the assistant will take your draft and produce the real immutable, final letter for you \(the next state\).
+> 使用Immer就像有个私人助理； 他拿了一封信\(当前状态\)，并给了您一份副本\(草稿\) 来记录更改。 完成后，助手将使用你的草稿生成真正的不可变对像，即最后的封信 \(下一个状态\)。
 
-[Immer repository](https://github.com/immerjs/immer)
+[Immer 库](https://github.com/immerjs/immer)
 
 ### immutability-helper
 
-`immutability-helper` is a small package that lets you mutate a copy of data without changing the original source:
+`immutability-helper` 是一个很小的包，可让您更改数据副本而无需更改原始源：
 
 ```typescript
 import update from 'immutability-helper';
@@ -163,11 +166,11 @@ export class TrelloState {
 }
 ```
 
-[immutability-helper repository](https://github.com/kolodny/immutability-helper)
+[immutability-helper 库](https://github.com/kolodny/immutability-helper)
 
 ### object-path-immutable
 
-`object-path-immutable` is a small library that allows you to modify deep object properties without modifying the original object. Let's look at how we could write the same code using this library:
+`object-path-immutable` 是一个小型库，可让您修改深层对象属性而不用修改原始对象。 让我们看看如何使用该库编写相同的代码：
 
 ```typescript
 import immutable from 'object-path-immutable';
@@ -186,11 +189,11 @@ export class TrelloState {
 }
 ```
 
-[object-path-immutable repository](https://github.com/mariocasciaro/object-path-immutable)
+[object-path-immutable 库](https://github.com/mariocasciaro/object-path-immutable)
 
 ### immutable-assign
 
-`immutable-assign` is a lightweight library that pursues the same goal. Its syntax is similar to `immer`'s:
+`immutable-assign` 是追求相同目标的轻量级库。 它的语法类似于 `immer`：
 
 ```typescript
 import * as iassign from 'immutable-assign';
@@ -208,12 +211,11 @@ export class TrelloState {
 }
 ```
 
-[immutable-assign repository](https://github.com/engineforce/ImmutableAssign)
+[immutable-assign 库](https://github.com/engineforce/ImmutableAssign)
 
 ### Ramda
 
-Ramda is a great library for functional programming and it is used in a large number of projects. This example might be useful for people who use both Ramda and NGXS in their projects:
-
+Ramda 是用于函数式编程的出色库，并且已在许多项目中使用。 对于在项目中同时使用Ramda和NGXS的人，此示例可能很有用：
 ```typescript
 import * as R from 'ramda';
 
@@ -227,11 +229,11 @@ export class TrelloState {
 }
 ```
 
-[Ramda repository](https://github.com/ramda/ramda)
+[Ramda 库](https://github.com/ramda/ramda)
 
 ### icepick
 
-`icepick` is a zero-dependency library for working with immutable collections. Given the following re-written code:
+`icepick` 是用于不可变集合的零依赖库。 以下是重写后的代码：
 
 ```typescript
 import * as icepick from 'icepick';
@@ -250,9 +252,9 @@ export class TrelloState {
 }
 ```
 
-[icepick repository](https://github.com/aearly/icepick)
+[icepick 库](https://github.com/aearly/icepick)
 
-## Summary
+## 总结
 
-We have looked at several different libraries that might be helpful in accompanying the concept of immutability. Choose the right one for your needs.
+我们研究了几种不同的库，它们可能有助于伴随不可变数据的概念。 你只需要选择一个适合您需求的。
 

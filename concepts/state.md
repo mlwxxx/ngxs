@@ -65,11 +65,11 @@ export class ZooState {
 
 ## 定义动作\(Actions\)
 
-states通过一个@Action装饰器来监听动作。 动作装饰器接受一个动作类或动作类数组。
+states通过一个@Action装饰器来侦听动作。 动作装饰器接受一个动作类或动作类数组。
 
 ### 简单动作\(Actions\)
 
-Let's define a state that will listen to a `FeedAnimals` action to toggle whether the animals have been fed: 让我们定义一个状态，该状态将监听`FeedAnimals`动作来切换动物是否已喂食：
+Let's define a state that will listen to a `FeedAnimals` action to toggle whether the animals have been fed: 让我们定义一个状态，该状态将侦听`FeedAnimals`动作来切换动物是否已喂食：
 
 ```typescript
 import { Injectable } from '@angular/core';
