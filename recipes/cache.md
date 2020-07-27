@@ -2,7 +2,6 @@
 
 使用Actions执行缓存操作是一种常见的做法。 NGXS并没有提供此功能，但是很容易实现。
 
-There are many different ways to approach this. Below is a simple example of using the store's current values and returning them instead of calling the HTTP service.
 有许多不同的方法可以解决此问题。 这个简单示例中，使用存储的当前值并返回它们而不是调用HTTP服务。
 
 ```typescript

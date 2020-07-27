@@ -34,7 +34,7 @@
   * [防抖动动作](recipes/debouncing-actions.md)
   * [动态插件](recipes/dynamic-plugins.md)
   * [不可变数据助手](recipes/immutability-helpers.md)
-  * [设计指南]](recipes/style-guide.md)
+  * [设计指南](recipes/style-guide.md)
   * [单元测试](recipes/unit-testing.md)
 * [插件](plugins/README.md)
   * [介绍](plugins/intro.md)

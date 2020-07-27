@@ -1,6 +1,5 @@
 # 单元测试
 
-Unit testing is easy with NGXS. To perform a unit test we just dispatch the events, listen to the changes and perform our expectation. A basic test looks like this:
 使用NGXS时可以轻松进行单元测试。 为了执行单元测试，我们只是调度事件，侦听更改并执行想要进行的操作。 基本测试如下所示：
 
 ```typescript

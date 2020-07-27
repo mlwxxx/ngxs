@@ -43,7 +43,7 @@ export class UpdateDueDate {
 }
 ```
 
-Let's see how we would implement the `updateDueDate` action handler:
+让我们看看如何实现 `updateDueDate` 动作处理程序：
 
 ```typescript
 export class TrelloState {

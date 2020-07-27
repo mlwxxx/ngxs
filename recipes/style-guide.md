@@ -12,7 +12,6 @@
 
 ## 状态接口
 
-State interfaces should be named the name of the state followed by the `Model` suffix. If my state were called `ZooState`, we would call my state interface `ZooStateModel`.
 状态接口应命名为状态名称，后跟 `Model` 后缀。 如果我的状态称为 `ZooState` ，则将其称为状态接口 `ZooStateModel`。
 
 ## 选择后缀
@@ -37,14 +36,13 @@ State interfaces should be named the name of the state followed by the `Model` s
 
 ## 单元测试
 
-Unit tests for the state should be named `my-state-name.state.spec.ts`
 状态的单元测试应命名为 `my-state-name.state.spec.ts` 的样子
 
 ## 动作的操作
 
 动作不应处理与视图相关的操作\(如：显示弹出窗口\)。 应使用操作流来处理这类操作
 
-## 避免在状态中保存基于类的实例(Avoid Saving Class Based Instances in Your State)
+## 避免在状态中保存基于类的实例
 
 
 状态存储的对象应该是不可变的，并且应该支持序列化和反序列化。 因此，建议在您的状态下存储纯对象文字。 基于类的实例在序列化和反序列化方面并非易事，而且它们常常通过公开操作封装内部结构和改变内部状态。 这与状态中存储的数据要求不符。
