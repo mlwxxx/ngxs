@@ -16,7 +16,6 @@ export const environment = {
 };
 ```
 
-This means that these plugins will be used only when Angular uses `environment.ts` file, but in the production build it will be replaced with `environment.prod.ts` file \(or any other configuration you use\). If you already figured out the `environment.prod.ts` file will contain `plugins` property that equals empty array, the code would look as follows:
 这意味着仅当Angular使用 `environment.ts` 文件时才使用这些插件，但是在生产版本中它将被 `environment.prod.ts` 文件\(或您使用的任何其他配置\)替换。 如果您已经发现 `environment.prod.ts` 文件将包含等于空数组的 `plugins` 属性，代码将文件下面这样：
 
 ```typescript
@@ -27,7 +26,6 @@ export const environment = {
 };
 ```
 
-All we have left to do is to import the environment file and reference `plugins` property in the `AppModule` imports:
 我们剩下要做的就是导入环境文件，并在 `AppModule` 导入中引用 `plugins` 属性：
 
 ```typescript

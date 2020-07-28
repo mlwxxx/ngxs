@@ -50,8 +50,6 @@ export class NewsPortalComponent implements OnDestroy {
 }
 ```
 
-In the above example we've got the `app-news-portal` component that listens to the `search` event, dispatched by the `app-news-search` component. The `search` method, invoked on the `search` event, dispatches the `SearchNews` action. Notice that the `SearchNews` action is defined in the component file because it's never used by any other part of the application. We don't want to overload our server with requests thus we listen to the `Actions` stream that pipes the `SearchNews` action with `debounceTime` operator. Let's look at the below code of how we would implement our `NewsState`:
-
 在上面的示例中，我们有一个名为 `app-news-portal` 的组件，该组件侦听由`app-news-search` 组件分发 `search` 事件 。 在`search`方法被`search`事件调用，并调度`SearchNews` 动作。 注意，`SearchNews` 动作是在组件文件中定义的，因为它从未被应用程序的任何其他部分使用。 我们不想让服务器请求超载，因此我们会侦听 `Actions` 流，该流通过 `debounceTime` 运算符将 `SearchNews` 操作传递给了管道。 让我们看一下下面的代码，了解如何实现 `NewsState`：
 
 ```typescript
@@ -97,6 +95,5 @@ export class NewsState {
 }
 ```
 
-The above state is pretty simple. As you can see we don't create an action handler for the `SearchNews` but it still will be passed via `Actions` stream and debounced. It all depends on the task in practice but you're already informed about debouncing actions.
 上面的状态很简单。 如您所见，我们没有为 `SearchNews` 创建动作处理程序，但仍将通过 `Actions` 流将其传递并进行去抖动。 这完全取决于实际的任务，但是您已经了解去抖动作的相关信息。
 

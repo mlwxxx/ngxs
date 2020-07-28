@@ -1,20 +1,26 @@
-# Actions Life Cycle
+# 动作的生命周期
 
-This document describes the life cycle of actions, after reading it you should have a better understanding of how NGXS handles actions and what stages they may be at.
+本文档介绍了动作的生命周期，阅读该文档后，您应该对NGXS如何处理动作以及它们处于什么阶段有更好的了解。
 
-## Theory
+## 理论
 
-Any action in NGXS can be in one of four states, these states are `DISPATCHED`, `SUCCESSFUL`, `ERRORED`, `CANCELED`, think of it as a finite state machine.
+NGXS中的任何动作都可以处于四个状态之一，这些状态为`DISPATCHED`, `SUCCESSFUL`, `ERRORED`, `CANCELED`，可以将其视为有限状态机。
+
+DISPATCHED: 已分配
+SUCCESSFUL: 成功
+ERRORED: 错误
+CANCELED: 已取消
 
 ![Actions FSM](../.gitbook/assets/actions-fsm.png)
 
-NGXS has an internal stream of actions. When we dispatch any action using the following code:
+NGXS具有内部动作流。 当我们使用以下代码调度任何操作时：
 
 ```typescript
 store.dispatch(new GetNovels());
 ```
 
 The internal actions stream emits an object called `ActionContext`, that has 2 properties:
+内部动作流发出一个名为 `ActionContext` 的对象，该对象具有2个属性：
 
 ```typescript
 {
@@ -23,7 +29,7 @@ The internal actions stream emits an object called `ActionContext`, that has 2 p
 }
 ```
 
-There is an action stream listener that filters actions by `DISPATCHED` status and invokes the appropriate handlers for this action. After all processing for the action has completed it generates a new `ActionContext` with the following `status` value:
+有一个动作流侦听器，可以通过 `DISPATCHED` 状态过滤动作并为该动作调用适当的处理程序。 在完成对动作的所有处理后，它将生成一个具有`status`值的新 `ActionContext` ：
 
 ```typescript
 {
@@ -32,9 +38,9 @@ There is an action stream listener that filters actions by `DISPATCHED` status a
 }
 ```
 
-The observable returned by the `dispatch` method is then triggered after the action is handled "successfully" and, in response to this observable, you are able to do the actions you wanted to do on completion of the action.
+然后，在“成功”处理动作之后，触发由 `dispatch` 方法返回的可观察对象，并且，响应于该可观察对象，您可以在操作完成后执行想要执行的操作。
 
-If the `GetNovels` handler throws an error, for example:
+如果 `GetNovels` 处理程序抛出错误，例如：
 
 ```typescript
 @Action(GetNovels)
@@ -43,7 +49,7 @@ getNovels() {
 }
 ```
 
-Then the following `ActionContext` will be created:
+然后将创建以下 `ActionContext` ：
 
 ```typescript
 {
@@ -52,9 +58,9 @@ Then the following `ActionContext` will be created:
 }
 ```
 
-Actions can be both synchronous and asynchronous, for example if you send a request to your API and wait for the response. Asynchronous actions are handled in parallel, synchronous actions are handled one after another.
+操作可以是同步的，也可以是异步的，例如，如果您向API发送请求并等待响应，则这些操作可以是同步的。 异步动作是并行处理的，同步动作是一个接一个地处理的。
 
-What about the `CANCELED` status? Only asynchronous actions can be canceled, this means that the new action was dispatched before the previous action handler finished doing some asynchronous job. Canceling actions can be achieved by providing options to the `@Action` decorator:
+那“已取消”状态呢？ 只能取消异步动作，这意味着新动作是在前一个动作处理程序完成某些异步工作之前调度的。 取消动作可以通过向 `@Action` 装饰器提供选项来实现：
 
 ```typescript
 export class NovelsState {
@@ -71,7 +77,7 @@ export class NovelsState {
 }
 ```
 
-Imagine a component where you've got a button that dispatches the `GetNovels` action on click:
+想象一下，有一个组件，它上面有一个按钮，该按钮在单击时调度 `GetNovels` 动作：
 
 ```typescript
 @Component({
@@ -92,7 +98,7 @@ export class NovelsComponent {
 }
 ```
 
-If you click the button twice - two actions will be dispatched and the previous action will be canceled because it's asynchronous. This works exactly the same as `switchMap`. If we didn't use NGXS - the code would look as follows:
+如果您单击按钮两次，则将调度两个动作，而上一个动作将被取消，因为它是异步的。 这和 `switchMap` 完全一样。 如果我们不使用NGXS，则代码如下所示：
 
 ```typescript
 @Component({
@@ -119,9 +125,9 @@ export class NovelsComponent implements OnInit {
 }
 ```
 
-## Asynchronous actions
+## 异步动作
 
-Let's talk more about asynchronous actions, imagine a simple state that stores different genres of books and has the following code:
+让来我们讨论异步操作更多的内容，想象一个简单的状态，该状态存储不同类型的书籍并具有以下代码：
 
 ```typescript
 export interface BooksStateModel {
@@ -168,7 +174,7 @@ export class BooksState {
 }
 ```
 
-Let's say that you dispatch `GetNovels` and `GetDetectives` actions separately like this:
+假设您分别分派 `GetNovels` 和 `GetDetectives` 动作，如下所示：
 
 ```typescript
 store
@@ -184,9 +190,9 @@ store
   });
 ```
 
-You could correctly assume that the request for `GetNovels` would be dispatched before `GetDetectives`. This is true due to the synchronous nature of the dispatch, but their action handlers are asynchronous so you can't be sure which HTTP response would return first. In this example we dispatch the `GetNovels` action before `GetDetectives`, but if the call to fetch novels takes longer then the `novels` property will be set after `detectives`. The `store.dispatch` function returns an observable that can be used to respond to the completion of each of these actions.
+您可以正确地假设对 `GetNovels` 的请求将在 `GetDetectives` 之前调度。 由于调度的同步性质，这是正确的，但是它们的动作处理程序是异步的，因此您无法确定哪个HTTP响应将首先返回。 在这个例子中，我们在 `GetDetectives` 之前调度 `GetNovels` 动作，但是如果调用小说的调用花费了更长的时间，那么 `novels` 属性将在 `detectives` 之后设置。 `store.dispatch`  函数返回一个observable，可用于响应每个动作的完成。
 
-Alternatively you could dispatch an array of actions:
+或者，您可以调度一个动作数组：
 
 ```typescript
 store
@@ -199,13 +205,13 @@ store
   });
 ```
 
-The order of dispatch would be the same as the previous example, but in this code we are able to subscribe to an observable from the `store.dispatch` function that will fire only when both actions have completed. The below diagram demonstrates how asynchronous actions are handled under the hood:
+分发的顺序与前面的示例相同，但是在此代码中，我们能够从 `store.dispatch` 函数中订阅一个可观察对象，该函数仅在两个动作均完成时才会触发。 下图演示了如何在后台处理异步操作：
 
-![Life cycle](../.gitbook/assets/actions-life-cycle.png)
+![生命周期](../.gitbook/assets/actions-life-cycle.png)
 
-## Error life cycle
+## 生命周期的错误
 
-So, how are errors handled in this regard? Let's say that you dispatch multiple actions at the same time like this:
+那么，在这方面如何处理错误？ 假设您像这样同时调度多个动作：
 
 ```typescript
 store
@@ -223,13 +229,13 @@ store
   );
 ```
 
-Because at least one action throws an error NGXS returns an error to the `onError` observable callback and neither the `onNext` or `onComplete` callbacks would be called.
+因为至少有一个动作会引发错误，所以NGXS会将错误返回到 `onError` 可观察回调，并且不会调用 `onNext` 或 `onComplete` 回调。
 
-## Asynchronous Actions continued - "Fire and forget" vs "Fire and wait"
+## 异步操作仍在继续 - "Fire and forget" vs "Fire and wait"
 
-In NGXS, when you do asynchronous work you should return an `Observable` or `Promise` from your `@Action` method that represents that asynchronous work \(and completion\). The completion of the action will then be bound to the completion of the asynchronous work. If you use the `async/await` javascript syntax then NGXS will know about the completion because an `async` method returns the `Promise` for you. If you return an `Observable` NGXS will subscribe to the observable for you and bind the action's completion lifecycle event to the completion of the `Observable`.
+在NGXS中，当您进行异步工作时，您应该从表示该异步工作\(和完成情况\)的`@Action`方法中返回一个`Observable`或 `Promise` 。 然后，动作的完成将与异步工作的完成联系在一起。 如果您使用JavaScript语法 `async/await`，NGXS将知道完成情况，因为 `async`方法会为您返回`Promise`。 如果您返回`Observable`，NGXS将为您订阅可观察的观察，并将操作的完成生命周期事件绑定到`Observable`的完成。
 
-Sometimes you may not want the completion of an action to wait for the asynchronous work to complete. This is what we will refer to as "fire and forget". This can be achieved by simply not returning the handle to your asynchronous work from the `@Action` method. Note that in the case of an `Observable` you would have to `.subscribe(...)` or call `.toPromise()` to ensure that your observable runs.
+有时，您可能不希望动作的完成等待异步工作完成。 这就是我们所说的"fire and forget"。 只需要`@Action`方法不将句柄返回到方法异步工作即可实现。 请注意，在这里对于`Observable`，您将必须进行`.toPromise()`或调用 `.toPromise()` 来确保可观察的运行。
 
 `Observable` version:
 
@@ -254,7 +260,7 @@ getNovels(ctx: StateContext<BooksStateModel>) {
 }
 ```
 
-Another more common use case of using the "fire and forget" approach would be when you dispatch a new action inside a handler and you don't want to wait for the 'child' action to complete. For example, if we want to load detectives right after novels but we don't want the completion of our `GetNovels` action to wait for the detectives to load then we would have the following code:
+使用"fire and forget"方法的另一个更常见的用例是，当您在处理程序里不想等待“子”动作完成就调度新动作。 例如，如果我们想在小说之后立即加载侦探，但又不想等到`GetNovels`动作完成后再加载侦探，那么我们将有以下代码：
 
 ```typescript
 export class BooksState {
@@ -281,7 +287,7 @@ export class BooksState {
 }
 ```
 
-Here the `GetDetectives` action would be dispatched just before the `GetNovels` action completes. The `GetDetectives` action is just a "fire and forget" as far as the `GetNovels` action is concerned. To be clear, NGXS will wait for a response from the `getNovels` service call, then it will populate a new state with the returned novels, then it will dispatch the new `GetDetectives` action \(which kicks off another asynchronous request\), and then `GetNovels` would move into its' success state \(without waiting for the completion of the `GetDetectives` action\):
+在这里，`GetDetectives` 动作将在 `GetNovels` 动作完成之前被调度。 就 `GetNovels` 动作而言，`GetDetectives` 动作就是一个"fire and forget"。 需要明确的是，NGXS将等待来自 `GetNovels` 服务调用的响应，然后它将使用返回的小说填充新状态，然后将调度新的 `GetDetectives` 操作\(这将启动另一个异步请求\)。 ，然后 `GetNovels` 会进入其成功状态\(而不等待 `GetDetectives` 动作完成\)：
 
 ```typescript
 store.dispatch(new GetNovels()).subscribe(() => {
@@ -289,7 +295,7 @@ store.dispatch(new GetNovels()).subscribe(() => {
 });
 ```
 
-If you want the `GetNovels` action to wait for the `GetDetectives` action to complete, you will have to use `mergeMap` operator \(or any operator that maps to the inner `Observable`, like `concatMap`, `switchMap`, `exhaustMap`\) so that the `Observable` returned by the `@Action` method has bound its completion to the inner action's completion:
+如果您希望 `GetNovels` 操作等待 `GetDetectives` 操作完成，则必须使用 `mergeMap` 操作符\(或任何映射到内部`Observable`操作符的操作符，例如`concatMap`，`switchMap` ，例如`exhaustMap`\)，以便 `@Action`方法返回的 `Observable` 将其完成绑定到内部动作的完成：
 
 ```typescript
 @Action(GetNovels)
@@ -303,7 +309,7 @@ getNovels(ctx: StateContext<BooksStateModel>) {
 }
 ```
 
-Often this type of code can be made simpler by converting to Promises and using the `async/await` syntax. The same method would be as follows:
+通常，将这类代码通过使用 `async/await` 语法转换为Promises来简化。 相同的方法如下：
 
 ```typescript
 @Action(GetNovels)
@@ -314,9 +320,9 @@ async getNovels(ctx: StateContext<BooksStateModel>) {
 }
 ```
 
-Note: leaving out the final `await` keyword here would cause this to be "fire and forget" again.
+注意：如果在此处省略最后一个 `await` 关键字，则会再次使该关键字成为 "fire and forget"
 
-## Summary
+## 总结
 
-In summary - any dispatched action starts with the status `DISPATCHED`. Next, NGXS looks for handlers that listen to this action, if there are any — NGXS invokes them and processes the return value and errors. If the handler has done some work and has not thrown an error, the status of the action changes to `SUCCESSFUL`. If something went wrong while processing the action \(for example, if the server returned an error\) then the status of the action changes to `ERRORED`. And if an action handler is marked as `cancelUncompleted` and a new action has arrived before the old one was processed then NGXS interrupts the processing of the first action and sets the action status to `CANCELED`.
+总之，任何已调度的动作都以状态 `DISPATCHED` 开始。 接下来，NGXS查找侦听此动作的处理程序（如果有）-NGXS调用它们并处理返回值和错误。 如果处理程序完成了一些工作并且没有引发错误，则操作的状态将更改为 `SUCCESSFUL` 。 如果在处理操作时出点问题\(例如，如果服务器返回了错误\)，则操作的状态将更改为`ERRORED`。 如果动作处理程序标记为 `cancelUncompleted`，并且在处理旧动作之前已经有新动作到达，则NGXS中断第一个动作的处理并将动作状态设置为 `CANCELED`。
 

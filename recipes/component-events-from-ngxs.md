@@ -1,6 +1,5 @@
 # NGXS的组件事件
 
-Developers always use the `@Output` decorator in conjunction with the `EventEmitter`. The below code has been seen by any Angular developer:
 开发人员通常将 `@Output` 装饰器与 `EventEmitter` 结合使用。 任何Angular开发人员都可以看到以下代码：
 
 ```typescript

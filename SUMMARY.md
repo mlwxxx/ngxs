@@ -12,7 +12,7 @@
   * [选择(Select)](concepts/select.md)
 * [高级](advanced/README.md)
   * [动作处理程序](advanced/action-handlers.md)
-  * [动作生命周期](advanced/actions-life-cycle.md)
+  * [动作的生命周期](advanced/actions-life-cycle.md)
   * [取消](advanced/cancellation.md)
   * [组成](advanced/composition.md)
   * [错误处理](advanced/errors.md)
