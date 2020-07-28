@@ -19,7 +19,6 @@ NGXS具有内部动作流。 当我们使用以下代码调度任何操作时：
 store.dispatch(new GetNovels());
 ```
 
-The internal actions stream emits an object called `ActionContext`, that has 2 properties:
 内部动作流发出一个名为 `ActionContext` 的对象，该对象具有2个属性：
 
 ```typescript

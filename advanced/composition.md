@@ -1,6 +1,6 @@
-# Composition
+# 组合
 
-You can compose multiple stores together using class inheritance. This is quite simple:
+您可以使用类继承将多个存储组合在一起。 这很简单：
 
 ```typescript
 @State({
@@ -29,5 +29,5 @@ class StLouisZooState extends ZooState {
 }
 ```
 
-Now when `StLouisZooState` is invoked, it will share the actions of the `ZooState`. Also all state options are inherited.
+这样，当调用 `StLouisZooState` 时，它将共享 `ZooState` 的动作。 同样，所有状态选项都被继承。
 

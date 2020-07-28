@@ -14,7 +14,7 @@
   * [动作处理程序](advanced/action-handlers.md)
   * [动作的生命周期](advanced/actions-life-cycle.md)
   * [取消](advanced/cancellation.md)
-  * [组成](advanced/composition.md)
+  * [组合](advanced/composition.md)
   * [错误处理](advanced/errors.md)
   * [Ivy迁移指南](advanced/ivy-migration-guide.md)
   * [延迟加载](advanced/lazy.md)

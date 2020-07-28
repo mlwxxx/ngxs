@@ -1,10 +1,10 @@
-# Cancellation
+# 取消
 
-If you have an async action, you may want to cancel a previous Observable if the action has been dispatched again. This is useful for canceling previous requests like in a typeahead.
+如果您有异步动作，则如果该操作已被再次调度，则可能要取消先前的Observable。 这对于取消先前的请求(前面的输入)很有用。
 
-## Basic
+## 简单
 
-For basic scenarios, we can use the `cancelUncompleted` action decorator option.
+简单场景，我们可以使用 `cancelUncompleted` 装饰器选项。
 
 ```typescript
 import { Injectable } from '@angular/core';
@@ -28,9 +28,9 @@ export class ZooState {
 }
 ```
 
-## Advanced
+## 高级
 
-For more advanced cases, we can use normal Rx operators.
+对于更高级的情况，我们可以使用普通的Rx运算符。
 
 ```typescript
 import { Injectable } from '@angular/core';
