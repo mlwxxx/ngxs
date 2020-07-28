@@ -6,10 +6,10 @@
 
 NGXS中的任何动作都可以处于四个状态之一，这些状态为`DISPATCHED`, `SUCCESSFUL`, `ERRORED`, `CANCELED`，可以将其视为有限状态机。
 
-DISPATCHED: 已分配
-SUCCESSFUL: 成功
-ERRORED: 错误
-CANCELED: 已取消
+* DISPATCHED: 已调度
+* SUCCESSFUL: 成功
+* ERRORED: 错误
+* CANCELED: 已取消
 
 ![Actions FSM](../.gitbook/assets/actions-fsm.png)
 
