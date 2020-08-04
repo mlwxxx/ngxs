@@ -1,6 +1,6 @@
 # 存储(Store)
 
-store是一个全局状态管理器，可调度状态容器侦听的动作，并提供从全局状态中选择数据切片的方法。
+存储(Store)是一个全局状态管理器，可调度状态容器所侦听的动作，并提供从全局状态中选择数据切片的方法。
 
 ## 创建动作
 
@@ -15,7 +15,7 @@ export class AddAnimal {
 
 ## 调度动作\(Dispatching actions\) 
 
-调度 actions, 您需要注入 `Store` 到你的组件/服务， 然后使用您希望触发的一个action\(或一系列action的数组\)调用 `dispatch` 方法。
+调度动作, 您需要将`Store`注入到你的组件/服务， 然后使用您希望触发的一个action\(或多个级成的action的数组\)调用 `dispatch` 方法。
 
 ```typescript
 import { Store } from '@ngxs/store';
@@ -37,7 +37,7 @@ export class ZooComponent {
 this.store.dispatch([new AddAnimal('Panda'), new AddAnimal('Zebra')]);
 ```
 
-假设执行动作后您要清除表单。 我们的`dispatch`方法 实际上返回了一个Observable，因此我们可以订阅它，并在成功后重新设置表单。
+假如在执行动作后您想清除表单。 我们的`dispatch`方法实际上返回了一个Observable，因此我们可以订阅它，并在成功后重置表单。
 
 ```typescript
 import { Store } from '@ngxs/store';
@@ -55,9 +55,9 @@ export class ZooComponent {
 }
 ```
 
-调度\(dispatch\)返回的Observable具有void类型,这是因为可以有多个状态\(states\)侦听同一`@ Action`，因此从这些操作\(actions\)上是不可能返回状态的，因为我们不知道他们是哪些states。
+调度\(dispatch\)返回的Observable具有void类型,这是因为可以有多个状态\(states\)侦听同一`@Action`，因此从这些动作\(actions\)上是不可能返回状态的，因为我们不知道他们是哪些states。
 
-如果您需要在此之后获取状态，只需在链中使用`@ Select`即可，例如：
+如果您需要在此之后获取状态，只需在链中使用`@Select`即可，例如：
 
 ```typescript
 import { Store, Select } from '@ngxs/store';

@@ -27,7 +27,7 @@ export class AnimalsState {}
 * `defaults`: 此状态切片默认值的集合\(对象/数组\)。
 * `children`: 子状态关联.
 
-我们的states也可以依赖注入。 并且是自动连接的，因此您要做的就是将依赖项注入到构造函数中。
+我们的states也可以依赖注入。 并且是自动连接的，因此您只需要将依赖项注入到构造函数中。
 
 ```typescript
 @State<ZooStateModel>({
@@ -69,7 +69,7 @@ states通过一个@Action装饰器来侦听动作。 动作装饰器接受一个
 
 ### 简单动作\(Actions\)
 
-Let's define a state that will listen to a `FeedAnimals` action to toggle whether the animals have been fed: 让我们定义一个状态，该状态将侦听`FeedAnimals`动作来切换动物是否已喂食：
+让我们定义一个状态，该状态将侦听`FeedAnimals`动作来切换动物是否已喂食：
 
 ```typescript
 import { Injectable } from '@angular/core';
@@ -145,7 +145,7 @@ export class ZooState {
       ...state,
       zebraFood: [
         ...state.zebraFood,
-        // this is the new ZebraFood instance that we add to the state
+        // 这是我们添加到该状态的新ZebraFood实例
         action.zebraToFeed
       ]
     });
@@ -155,7 +155,7 @@ export class ZooState {
 
 在这个示例中，我们有第二个参数表示动作，然后对其进行解构以提取名称，干草和胡萝卜，然后使用其更新状态。
 
-还有一个快捷的函数 `patchState`，使更新状态变得更加容易。在这种情况下，您仅向其传递要在状态上更新的属性，然后它将处理其余的属性。 上面的功能可以简化为：
+还有一个快捷的函数 `patchState`，使更新状态变得更加容易。在这种情况下，您仅向其传递要在状态上需要更新的属性，然后它将处理其余的属性。 上面的功能可以简化为：
 
 ```typescript
 @Action(FeedZebra)
@@ -170,7 +170,7 @@ feedZebra(ctx: StateContext<ZooStateModel>, action: FeedZebra) {
 }
 ```
 
-The `setState` function can also be called with a function which will be given the existing state and should return the new state. All immutability concerns need to be honoured by this function. `setState`函数也可以通过将被赋予现有状态并应返回新状态的函数来调用。 此函数必须满足所有不变性的考虑。
+`setState`函数也可以通过一个接收现有状态并应返回新状态的函数来调用。 此函数必须满足所有不变性的考虑。
 
 为了进行比较，以下是两种可以调用 `setState`函数的方式... 使用新构造的状态\(state\)值：
 
@@ -231,7 +231,7 @@ function addToZebraFood(itemToAdd) {
 
 动作\(Actions\)可以执行异步操作并在操作后更新状态。
 
-通常，在Redux中，您的操作是纯函数，并且您还可以使用其他系统（例如saga或effect）来执行这些操作，并将其他动作分派回您的状态以进行更改。 这有一些原因，但是在大多数情况下，它可能是多余的，只需添加样板即可。 很棒的是，我们让您可以根据自己的需求灵活地做出决定。
+通常，在Redux中，您的操作是纯函数，并且您还可以使用其他系统（例如saga或effect）来执行这些操作，并将其他动作调度回您的状态以进行更改。 这有一些原因，但是在大多数情况下，它可能是多余的，只需添加样板即可。 很棒的是，我们让您可以根据自己的需求灵活地做出决定。
 
 让我们看一个简单的异步动作：
 
@@ -276,9 +276,9 @@ export class ZooState {
 
 在此示例中，我们联系动物服务并调用`feed`，然后使用`setState`返回结果。 请记住，由于state属性是返回至当前状态切片，因此我们可以保证状态是新的。
 
-您可能会注意到我返回了Observable，只是使用了`tap`。 如果我们返回Observable，框架将自动为我们订阅它，因此我们不必自己处理它。 另外，如果我们希望 stores `dispatch`函数只能在操作完成后才能完成，则需要返回它，以便知道。
+您可能会注意到我返回了Observable，只需使用`tap`就做到了。 如果我们返回Observable，框架将自动为我们订阅它，因此我们不必自己处理它。 另外，如果我们希望存储`dispatch`函数可以只在操作完成后再执行，则需要返回它，以便知道。\(if we want the stores dispatch function to be able to complete only once the operation is completed, we need to return that so it knows that.\)
 
-Observables are not a requirement, you can use promises too. We could swap that observable chain to look like this:
+可观察性不是必需的，您也可以使用promise。 我们可以像这样交换该可观察的链：
 
 ```typescript
 import { Injectable } from '@angular/core';
@@ -315,9 +315,9 @@ export class ZooState {
 }
 ```
 
-### 从动作分派动作
+### 从动作调度动作
 
-如果您想让您的动作分派另一个动作，则可以使用状态上下文对象中包含的 `dispatch` 函数。
+如果您想让您的动作调度另一个动作，则可以使用状态上下文对象中包含的 `dispatch` 函数。
 
 ```typescript
 import { Injectable } from '@angular/core';
@@ -370,5 +370,5 @@ export class ZooState {
 }
 ```
 
-注意，我返回了dispatch函数，这返回到上面的示例，其中包含异步操作和分派器订阅结果。 这不是必需的。
+注意，我返回了dispatch函数，这返回到上面的示例，其中包含异步操作和调度器订阅结果。 这不是必需的。
 

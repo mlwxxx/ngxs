@@ -173,7 +173,7 @@ export class BooksState {
 }
 ```
 
-假设您分别分派 `GetNovels` 和 `GetDetectives` 动作，如下所示：
+假设您分别调度 `GetNovels` 和 `GetDetectives` 动作，如下所示：
 
 ```typescript
 store
