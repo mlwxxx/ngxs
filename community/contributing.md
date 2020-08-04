@@ -59,11 +59,11 @@
   git push origin my-fix-branch
   ```
 
-* In GitHub, send a pull request to `ngxs:master`.
-* If we suggest changes then:
-  * Make the required updates.
-  * Re-run the test suites to ensure tests are still passing.
-  * Rebase your branch and force push to your GitHub repository \(this will update your Pull Request\):
+* 在GitHub上,向`ngxs:master`发送一个pull request.
+* 如果建议更改，那么就需要:
+  * 进行所需的更新。
+  * 重新运行测试套件，以确保测试仍然通过。
+  * 重新设置分支基础并强制推送到GitHub上的库\(这将更新你的 Pull Request\):
 
     ```text
     git rebase master -i
