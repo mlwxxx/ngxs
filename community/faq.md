@@ -1,14 +1,14 @@
 # FAQ
 
-## Can I use NGXS with Angular 5?
+## 可以在Angular 5中使用NGXS吗？
 
-3.x supports Angular 6 and RxJs 6 out of the box. However, you can still use it with Angular 5 by upgrading your RxJs version and using the RxJs compatibility package in your project.
+3.x开箱即用地支持Angular 6和RxJs 6。 但是，您仍然可以通过升级RxJs版本并在项目中使用RxJs兼容性软件包将其与Angular 5结合使用。
 
-## Is this ready for production?
+## 准备好用于生产环境了吗？
 
-Yes, we made a huge effort with 2.0 to ensure stability and good test coverage. There are several individuals who are using this in production today.
+是的，我们在2.0方面付出了巨大的努力，以确保稳定性和良好的测试覆盖率。 现在已有一些人在生产中环境中使用。
 
-## Could we not reduce the boilerplate more by just calling the method directly?
+## 我们能不能通过直接调用该方法来减少样板？
 
-The main goal of NGXS is to make state management easy with as little boilerplate as possible. The question is often raised that we could reduce the boilerplate even more by just letting you call the method on the state rather than having action classes to dispatch. This is not really possible to do and keep a global state with rich debugging and hot reload capability. When we invoke a function we have to go to the global state and slice out that portion and pass it to the method. There is no good way to do this when calling methods directly. Additionally by using action dispatching, you can share actions between states and higher order states very easily.
+NGXS的主要目标是通过尽可能少的样板简化状态管理。 人们经常提出这样的问题，我们可以通过仅在状态上调用该方法而不是分配操作类来进一步减少样板。 确实不可能做到这一点，并且要保持具有丰富的调试和热重装功能的全局状态。 当我们调用一个函数时，我们必须进入全局状态并切出该部分并将其传递给方法。 直接调用方法时，没有好的方法。 另外，通过使用动作分派，您可以非常轻松地在状态和高阶状态之间共享动作。
 

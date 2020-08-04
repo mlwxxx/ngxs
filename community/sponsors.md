@@ -1,15 +1,15 @@
-# Sponsors
+# 赞助商
 
-## Backers
+## 支持者
 
-Thank you to all our backers! [Become a backer](https://opencollective.com/ngxs#backer)
+谢谢我们所有的支持者！ [成为支持者](https://opencollective.com/ngxs#backer)
 
-## Sponsors
+## 赞助商
 
-Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [Become a sponsor](https://opencollective.com/ngxs#sponsor)
+通过成为赞助者来支持该项目。 您的logo将显示在此处，并带有指向您网站的链接。 [成为赞助商](https://opencollective.com/ngxs#sponsor)
 
-## Other Contributions
+## 其他贡献
 
-* [DataFrameworks](https://dataframeworks.com/) - Websocket Plugin
-* [Marian Stoica](https://twitter.com/MarianStoica19) - NGXS.io domain name
+* [DataFrameworks](https://dataframeworks.com/) - Websocket 插件
+* [Marian Stoica](https://twitter.com/MarianStoica19) - NGXS.io 域名
 

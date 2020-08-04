@@ -1,6 +1,6 @@
 # Resources
 
-## Projects
+## 项目
 
 * [Angular 6 with NGXS and NX](https://xmlking.github.io/ngx-starter-kit/home)
 * [Angular 7, Angular Material and NGXS](https://github.com/adoi/Libnr)
@@ -24,7 +24,7 @@
 * [Fretboard Learning \(Game/tool built using angular, Ionic and NGXS\)](https://guitar-fretboard-learning.web.app/)
 * [Arkham Horror Card Game \(Built using Angular and NGXS\)](https://github.com/sandb0x4477/arkham-horror-lcg)
 
-## Media
+## 多媒体
 
 * [ngAtlanta - NGXS, State Management Made Simple - Jecelyn Yeen](https://youtu.be/0bhfUGjn0KA)
 * [ngAir 153 - NGXS: A New State Management for Angular Apps with Austin McDaniel and Danny Blue](https://www.youtube.com/watch?v=rkn73khwfWU&feature=youtu.be)
@@ -33,7 +33,7 @@
 * [NGXS: Redux implemented in 2018 by Gerard Sans](https://youtu.be/nh-mp85folo?t=3240)
 * [Angular NGXS Tutorial - An Alternative to NgRx for State Management](https://youtu.be/SfiO3bDUK7Q)
 
-## Articles
+## 文章
 
 * [@amcdnl - Authentication in NGXS](https://medium.com/@amcdnl/authentication-in-ngxs-6f25c52fd385)
 * [@amcdnl - Why another state management framework for Angular?](https://medium.com/@amcdnl/why-another-state-management-framework-for-angular-b4b4c19ef664)
@@ -57,5 +57,5 @@
 * [@alvino.aj - NGXS — Thoughts, Patterns, Architecture and best practices](https://medium.com/@alvino.aj/ngxs-thoughts-patterns-architecture-and-best-practices-c991c42618d9)
 * [Angular Chile - Manejo de Estado con NGXS en Angular \(Spanish\)](https://medium.com/angular-chile/manejo-de-estado-con-ngxs-en-angular-e66e11198a0)
 
-If you have content you'd like to share with the community, make a PR to add it here.
+如果您有想要与社区共享的内容，请此处添创建PR。
 

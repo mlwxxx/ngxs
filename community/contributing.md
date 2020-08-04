@@ -1,63 +1,59 @@
-# Contributing
+# 贡献
 
-We would love for you to contribute to our project and help make it ever better! As a contributor, here are the guidelines we would like you to follow.
+我们希望您能为我们的项目做出贡献，并帮助使其变得更好！ 作为贡献者，以下是我们希望您遵循的准则。
 
-* [Report Issues](contributing.md#report-issues)
-* [Request Features](contributing.md#request-features)
-* [Submitting a Pull Request \(PR\)](contributing.md#submitting-a-pull-request-pr)
-* [Commit Message Format](contributing.md#commit-message-format)
+* [报告问题](contributing.md#report-issues)
+* [申请功能](contributing.md#request-features)
+* [提交Pull Request \(PR\)](contributing.md#submitting-a-pull-request-pr)
+* [提交消息格式](contributing.md#commit-message-format)
 
-## Report Issues
+## 报告问题
 
-If you find a bug in the source code or a mistake in the documentation, you can help us by submitting an issue to our GitHub Repository. Including an issue reproduction \(via Stackblitz, Plunkr, etc.\) is the absolute best way to help the team quickly diagnose the problem. Screenshots are also helpful.
+如果您在源代码中发现错误或在文档中发现错误，则可以通过将问题提交到我们的GitHub来帮助我们。 包括问题重现\(通过Stackblitz，Plunkr等\) 是帮助团队快速诊断问题的绝对最佳方法。 屏幕截图也很有帮助。
 
-You can help the team even more and submit a Pull Request with a fix.
+您可以提供更多帮助，并提交包含修复程序的请求请求。
 
-## Issue Etiquette
+## 提交礼仪
 
-Before you submit an issue, search the archive, maybe your question was already answered.
+在您提交问题\(issue\)之前，请搜索档案，也许您的问题已被回答。
 
-If your issue appears to be a bug, and hasn't been reported, open a new issue. Help us to maximize the effort we can spend fixing issues and adding new features by not reporting duplicate issues. Providing the following information will increase the chances of your issue being dealt with quickly:
+如果您的问题似乎是Bug，并且尚未报告，请打开一个新问题。 不报告重复问题，帮助我们最大程度地投入精力来解决问题和添加新功能。 提供以下信息将增加迅速解决您的问题的机会：
 
-* Overview of the Issue - if an error is being thrown a non-minified stack trace helps
-* Angular and ngxs Versions - which versions of Angular and ngxs are affected
-* Motivation for or Use Case - explain what are you trying to do and why the current behavior is a bug for you
-* Browsers and Operating System - is this a problem with all browsers?
-* Reproduce the Error - provide a live example \(using Stackblitz, Plunker, etc.\) or a unambiguous set of steps
-* Screenshots - Due to the visual nature of ngxs, screenshots can help the team triage issues far more quickly than a text description.
-* Related Issues - has a similar issue been reported before?
-* Suggest a Fix - if you can't fix the bug yourself, perhaps you can point to what might be causing the problem \(line of code or commit\)
+* 问题\(Issue\) 概述 - 如果抛出错误，则非最小化堆栈跟踪会有所帮助。
+* Angular和ngxs版本 - 哪些版本的Angular和ngxs会受到影响
+* 动机或用例 - 解释您要做什么以及为什么当前行为对您来说是个错误
+* 浏览器和操作系统 - 是不是所有浏览器都有此问题。
+* 重现错误 - 提供实时示例\(使用Stackblitz，Plunker等\)或明确的步骤集
+* 屏幕截图 - 由于ngxs的视觉特性，屏幕截图可以比文本描述更快地帮助团队分类问题。
+* 相关问题 - 以前有没有报道过类似的问题？
+* 修复建议 - 如果您自己无法修复该错误，也许您可以指出可能导致该问题的原因\(代码行或提交行\)
 
-## Request Features
+## 申请功能
 
-You can request a new feature by submitting an issue to our GitHub Repository. If you would like to implement a new feature, please submit an issue with a proposal for your work first, to be sure that we can use it. Please consider what kind of change it is:
+您可以通过向我们的GitHub提交issue来请求新功能。 如果您想实施一项新功能，请先提交一份有关您的工作的建议书，以确保我们可以采纳它。 请考虑这是什么变化：
 
-* For a Major Feature, first open an issue and outline your proposal so that it can be discussed.
+* 对于主要功能，请先打开一个issue并概述您的建议，以便进行讨论。
 
-  This will also allow us to better coordinate our efforts, prevent duplication of work, and help you
+  这也将使我们能够更好地协调我们的工作，防止工作重复，并帮助您进行更改，使更改成功地被接受到项目中。
 
-  to craft the change so that it is successfully accepted into the project.
+* 可以制作小功能，并直接作为Pull提交。
 
-* Small Features can be crafted and directly submitted as a Pull Request.
+## 提交拉取请求 \(PR\)
 
-## Submitting a Pull Request \(PR\)
+在提交Pull请求\(PR\)之前，请考虑以下准则：
 
-Before you submit a Pull Request \(PR\) consider the following guidelines:
+* 搜索 [GitHub](https://github.com/amcdnl/ngxs/pulls) 中与您提交的内容有关的开放或关闭的PR
 
-* Search [GitHub](https://github.com/amcdnl/ngxs/pulls) for an open or closed PR
-
-  that relates to your submission. You don't want to duplicate effort.
-
-* Create a new git branch:
+* 创建一个新的git分支:
 
   ```text
   git checkout -b my-fix-branch master
   ```
 
-* Make changes on your local branch.
-* Run the full test suite and ensure that all tests pass.
-* Commit your changes using a descriptive commit message that follows our [commit message guidelines](contributing.md#commit-message-guidelines). Adherence to these conventions is necessary to keep a clean git log.
-* Push your branch to GitHub:
+* 在本地分支上进行更改。
+* 运行完整的测试套件，并确保所有测试均通过。
+* 使用我们[commit message guidelines](contributing.md#commit-message-guidelines) 中描述性提交消息来提交更改. 必须遵守这些约定，以保持干净的git日志。
+* 将您的分支推送到GitHub:
 
   ```text
   git push origin my-fix-branch
@@ -74,11 +70,11 @@ Before you submit a Pull Request \(PR\) consider the following guidelines:
     git push -f
     ```
 
-That's it! Thank you for your contribution!
+就是这样！ 感谢您的贡献！
 
-## Commit Message Format
+## 提交消息格式
 
-Each commit message consists of a **header**, a **body** and a **footer**. The header has a special format that includes a **type**, a **scope** and a **subject**:
+每个提交消息都由一个 **header**, 一个 **body** 和一个 **footer**组成。 标头具有一种特殊的格式，包括一个 **type**, 一个 **scope** 和一个 **subject**:
 
 ```text
 <type>(<scope>): <subject>
@@ -88,51 +84,46 @@ Each commit message consists of a **header**, a **body** and a **footer**. The h
 <footer>
 ```
 
-The **header** is mandatory and the **scope** of the header is optional.
+**header**是必须的，标头的 **scope** 是可选的。
 
-Any line of the commit message cannot be longer than 100 characters! This allows the message to be easier to read on GitHub as well as in various git tools.
+提交消息的任何一行都不能超过100个字符！ 这使得该消息在GitHub以及各种git工具中更易于阅读。
 
-### Revert
+### 还原
 
-If the commit reverts a previous commit, it should begin with `revert:`, followed by the header of the reverted commit. In the body it should say: `This reverts commit <hash>.`, where the hash is the SHA of the commit being reverted.
+如果该提交恢复了先前的提交，则应以`revert:`开头，然后是恢复后的提交的标头。 在主体中应该注明：`This reverts commit <hash>.`，其中哈希是要还原的提交的SHA。
 
-### Type
+### 类型
 
-Must be one of the following:
+必须为以下之一：
 
-* **feat**: A new feature
-* **fix**: A bug fix
-* **docs**: Documentation only changes
-* **style**: Changes that do not affect the meaning of the code \(white-space, formatting, missing
-
-  semi-colons, etc\)
-
-* **refactor**: A code change that neither fixes a bug nor adds a feature
-* **perf**: A code change that improves performance
-* **test**: Adding missing tests
-* **chore**: Changes to the build process or auxiliary tools and libraries such as documentation
-
-  generation
+* **feat**: 新功能
+* **fix**: 错误修复
+* **docs**: 仅文档更改
+* **style**: 不会影响代码含义的更改\(空格，格式，丢失，分号\)
+* **refactor**: 既无法修复错误也未添加功能的代码更改
+* **perf**: 更改代码以提高性能
+* **test**: 添加缺失的测试
+* **chore**: 更改构建过程或辅助工具和库，例如文档生成
 
 ### Scope
 
-The scope could be anything specifying place of the commit change. For example `Store`, `Mutation`, `Action`, `Select` etc.
+可以是指定提交更改位置的任何内容。 例如`Store`, `Mutation`, `Action`, `Select`等。
 
 ### Subject
 
-The subject contains succinct description of the change:
+包含对变更的简洁描述：
 
-* use the imperative, present tense: "change" not "changed" nor "changes"
-* don't capitalize first letter
-* no dot \(.\) at the end
+* 使用现在时命令: "change" 而不是 "changed" 或 "changes"
+* 不要大写第一个字母
+* 末尾不要加点 \(.\)
 
 ### Body
 
-Just as in the **subject**, use the imperative, present tense: "change" not "changed" nor "changes". The body should include the motivation for the change and contrast this with previous behavior.
+和**subject**中一样，使用现在时态的命令："change" 而不是 "changed" 或 "changes"。body应包括改变的动机，并将其与以前的行为进行对比。
 
 ### Footer
 
-The footer should contain any information about **Breaking Changes** and is also the place to reference GitHub issues that this commit **Closes**.
+Footer应包含有关**Breaking Changes**的所有信息，并且也是引用**Closes**的GitHub问题的地方。
 
-**Breaking Changes** should start with the word `BREAKING CHANGE:` with a space or two newlines. The rest of the commit message is then used for this.
+**Breaking Changes**应以单词 `BREAKING CHANGE:` 开头，并以空格或两个换行符开头。 然后，将其余的提交消息用于此。
 
