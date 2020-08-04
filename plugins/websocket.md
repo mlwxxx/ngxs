@@ -1,8 +1,8 @@
 # Web Socket
 
-Bind server web socket events to Ngxs store actions.
+将服务器Web套接字事件绑定到Ngxs存储操作。
 
-## Installation
+## 安装
 
 ```bash
 npm install @ngxs/websocket-plugin --save
@@ -11,9 +11,9 @@ npm install @ngxs/websocket-plugin --save
 yarn add @ngxs/websocket-plugin
 ```
 
-## Configuration
+## 配置
 
-Add the `NgxsWebsocketPluginModule` plugin to your root app module:
+将`NgxsWebsocketPluginModule`插件添加到您的根应用程序模块中：
 
 ```typescript
 import { NgxsModule } from '@ngxs/store';
@@ -30,18 +30,18 @@ import { NgxsWebsocketPluginModule } from '@ngxs/websocket-plugin';
 export class AppModule {}
 ```
 
-The plugin has a variety of options that can be passed:
+该插件具有多种可以传递的选项：
 
-* `url`: Url of the web socket connection. Can be passed here or by the `ConnectWebsocket` action.
-* `typeKey`: Object property that maps the web socket message to a action type. Default: `type`
-* `serializer`: Serializer used before sending objects to the web socket. Default: `JSON.stringify`
-* `deserializer`: Deserializer used for messages arriving from the web socket. Default: `JSON.parse`
+* `url`: Web套接字连接的网址。 可以在这里或通过`ConnectWebsocket`动作传递。
+* `typeKey`: 将Web套接字消息映射到操作类型的对象属性。 默认值：`type`
+* `serializer`: 将对象发送到Web套接字之前使用的序列化程序。 默认值: `JSON.stringify`
+* `deserializer`: 用于从Web套接字收到的消息的反序列化器。 默认值: `JSON.parse`
 
-## Usage
+## 用法
 
-Once connected, any message that comes across the web socket will be bound to the state event stream.
+连接后，Web套接字上出现的任何消息都将绑定到状态事件流。
 
-Let's assume that a server side web socket sends a message to the client in the following format:
+假设服务器端Web套接字以以下格式向客户端发送消息：
 
 ```javascript
 {
@@ -51,7 +51,7 @@ Let's assume that a server side web socket sends a message to the client in the 
 }
 ```
 
-We will want to make an action that corresponds to this web socket message, that will look like:
+我们将要进行与此Web套接字消息相对应的操作，如下所示：
 
 ```typescript
 export class AddMessage {
@@ -60,7 +60,7 @@ export class AddMessage {
 }
 ```
 
-Assume we've got some `messages` state where we store our chat messages:
+假设我们有一些`messages`状态，我们在其中存储聊天消息：
 
 ```typescript
 export interface Message {
@@ -83,7 +83,7 @@ export class MessagesState {
 }
 ```
 
-We are able to send messages to the server by dispatching the `SendWebSocketMessage` with the payload that you want to send to the server. Let's try it out:
+我们可以通过调度带有效负载的 `SendWebSocketMessage` 来将消息发送到服务器。 让我们尝试一下：
 
 ```typescript
 @Component({ ... })
@@ -104,7 +104,7 @@ export class AppComponent {
 }
 ```
 
-When sending the message, remember the send is accepting a JSON-able object. The socket on the server side would be listening for the `message` event. For example, the server code could be as follows:
+发送消息时，请记住发送接受JSON对象。 服务器端的套接字将侦听`message`事件。 例如，服务器代码可以如下：
 
 ```typescript
 const { Server } = require('ws');
@@ -140,7 +140,7 @@ ws.on('connection', socket => {
 });
 ```
 
-Notice that you have to specify `type` property on server side, otherwise you will get an error - `Type ... not found on message`. If you don't want to use a property called `type` as the key then you can specify your own property name when calling `forRoot`:
+请注意，您必须在服务器端指定 `type` 属性，否则将收到错误消息-`Type ... not found on message`。 如果您不想把`type`的属性名作为键名，可以在调用 `forRoot` 时指定自己的属性名称：
 
 ```typescript
 NgxsWebsocketPluginModule.forRoot({
@@ -150,6 +150,8 @@ NgxsWebsocketPluginModule.forRoot({
 ```
 
 In order to kick off our websockets we have to dispatch the `ConnectWebSocket` action. This will typically happen at startup or if you need to authenticate before, after authentication is done. You can optionally pass the URL here.
+
+为了开始我们的网络套接字，我们必须调度`ConnectWebSocket`动作。 这通常会在启动时发生，或者如果您需要在身份验证完成之前进行身份验证，则会发生这种情况。 您可以选择在此处传递URL。
 
 ```typescript
 @Component({ ... })
@@ -164,19 +166,21 @@ export class AppComponent {
 }
 ```
 
-If you have difficulties with understanding how the plugin works, you can have a look at the data flow diagram below. From one side it seems a little bit complex, but no worries. Just follow the pink data flow that leads to the server-side starting from view:
+如果您在理解插件的工作方式时遇到困难，可以查看下面的数据流程图。 从一方面看，它似乎有点复杂，但不用担心。 只需遵循从视图开始到服务器端的粉红色数据流即可：
 
 ![NGXS WebSocket data flow](../.gitbook/assets/ngxs-socket-dfd.png)
 
-Here is a list of all the available actions you have:
 
-* `ConnectWebSocket`: Dispatch this action when you want to init the web socket. Optionally pass URL here.
-* `DisconnectWebSocket`: Dispatch this Action to disconnect a web socket.
-* `WebSocketConnected`: Action dispatched when a web socket is connected.
-* `WebSocketDisconnected`: Action dispatched when a web socket is disconnected. Use its handler for reconnecting.
-* `SendWebSocketMessage`: Send a message to the server.
-* `WebsocketMessageError`: Action dispatched by this plugin when an error ocurrs upon receiving a message.
-* `WebSocketConnectionUpdated`: Action dispatched by this plugin when a new connection is created on top of an existing one. Existing connection is closing.
+以下是您可以执行的所有动作的列表：
+
+* `ConnectWebSocket`: 要初始化Web套接字时请调度此动作。 可以在此处传递URL（可选）。
+* `DisconnectWebSocket`: 调度此动作来断开Web套接字的连接。
+* `WebSocketConnected`: 连接Web套接字时调度的操作。
+* `WebSocketDisconnected`: Web套接字断开连接时调度的动作。 使用其处理程序进行重新连接。
+* `SendWebSocketMessage`: 向服务器发送消息。
+* `WebsocketMessageError`: 收到消息时发生错误时，此插件调度的动作。
+* `WebSocketConnectionUpdated`: 在现有连接之上创建新连接时，此插件调度的操作。 现有连接正在关闭。
 
 In summary - your server-side sockets should send objects that have a `type` property \(or another key that you can provide in the `typeKey` property when calling `forRoot`\). This plugin will receive a message from the server and dispatch the message as an action with the corresponding `type` value. If the `type` property doesn't match any client-side `@Action` methods \(with an Action with the corresponding `static type` property value\) then no State will respond to the message.
+总而言之——您的服务器端套接字应发送具有`type`属性\(或在调用`forRoot` 时可以在`typeKey`属性中提供的另一个键名\)的对象。  该插件将从服务器接收一条消息，并使用相应的 `type` 值将该消息作为动作进行调度。如果 `type` 属性与任何客户端 `@Action` 方法都不匹配\(带有具有相应 `static type` 属性值的动作\)，则没有状态会响应该消息。
 

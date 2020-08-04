@@ -1,21 +1,21 @@
 # Devtools
 
-Plugin with integration with the [Redux Devtools extension](http://extension.remotedev.io/).
+ [Redux Devtools extension](http://extension.remotedev.io/) 集成插件.
 
 ![Devtools Screenshot](../.gitbook/assets/devtools.png)
 
-## Installation
+## 安装
 
 ```bash
 npm install @ngxs/devtools-plugin --save-dev
 
-# or if you are using yarn
+# 用 yarn
 yarn add @ngxs/devtools-plugin --dev
 ```
 
-## Usage
+## 用法
 
-Add the `NgxsReduxDevtoolsPluginModule` plugin to your root app module:
+将 `NgxsReduxDevtoolsPluginModule` 插件添加到您的根应用程序模块中：
 
 ```typescript
 import { NgxsModule } from '@ngxs/store';
@@ -27,17 +27,17 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 export class AppModule {}
 ```
 
-### Options
+### 选项
 
-The plugin supports the following options passed via the `forRoot` method:
+该插件支持以下通过 `forRoot` 方法传递的选项：
 
-* `name`: Set the name by which this store instance is referenced in devtools \(Default: 'NGXS'\)
-* `disabled`: Disable the devtools during production
-* `maxAge`: Max number of entries to keep.
-* `actionSanitizer`: Reformat actions before sending to dev tools
-* `stateSanitizer`: Reformat state before sending to devtools
+* `name`: 设置在Devtools中引用此存储实例的名称, \(默认：'NGXS'\)。
+* `disabled`: 在生产环境禁用devtools
+* `maxAge`: 保留的最大条目数。
+* `actionSanitizer`: 在发送到开发工具之前重新格式化动作
+* `stateSanitizer`: 发送到devtools之前重新格式化状态
 
-### Notes
+### 注意事项
 
-You should always include the devtools as the last plugin in your configuration. For instance, if you were to include devtools before a plugin like the storage plugin, the initial state would not be reflected.
+您应该始终将devtools作为配置中的最后一个插件。 例如，如果要在诸如存储插件之类的插件之前包含devtools，则初始状态将不会得到反映。
 

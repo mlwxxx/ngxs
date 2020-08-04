@@ -2,24 +2,24 @@
 
 ![CLI Screenshot](../.gitbook/assets/cli.gif)
 
-## Install
+## 安装
 
-The CLI can be installed using NPM:
+可以使用NPM安装CLI:
 
 ```bash
 npm install @ngxs/cli -g
 
-# or if you use yarn
+# 如果你更钟意yarn,也可以这样
 yarn global add @ngxs/cli
 ```
 
-## Usage
+## 用法
 
 ```bash
 ngxs
 ```
 
-## Options \(silent\)
+## 选项 \(静默\)
 
 ```bash
   ▓█▓▒▒▒▒▒▒▒▒▒▒██░   ▓█▒░░░░░░░░░░░░░  ░▒▒▒▒▒██░ ░██▒▒▒▒▒░  ░██▓▒▒▒▒▒▒▒▒▒▒▒▒░
@@ -52,7 +52,6 @@ Custom template generator
   --plopfile path   Path to the plopfile
 ```
 
-### What is Plop?
+### Plop是啥?
 
-[Plop](https://www.npmjs.com/package/plop) is what I like to call a "micro-generator framework." Now, I call it that because it is a small tool that gives you a simple way to generate code or any other type of flat text files in a consistent way. You see, we all create structures and patterns in our code \(routes, controllers, components, helpers, etc\). These patterns change and improve over time so when you need to create a NEW insert-name-of-pattern-here, it's not always easy to locate the files in your codebase that represent the current "best practice." That's where plop saves you. With plop, you have your "best practice" method of creating any given pattern in CODE. Code that can easily be run from the terminal by typing plop. Not only does this save you from hunting around in your codebase for the right files to copy, but it also turns "the right way" into "the easiest way" to make new files.
-
+[Plop](https://www.npmjs.com/package/plop) 我们将他称为“微型发电机框架”(micro-generator framework)。现在我称其为“小工具”，因为它为您提供了一种以一致的方式生成代码或任何其他类型的纯文本文件的简单方法。 您会发现，我们都在代码\(例如 routes, controllers, components, helpers\)中创建了结构和模式。 这些模式会随着时间的流逝而变化和改进，因此当您需要在此处创建新的模式插入名称时，在代码库中查找代表当前“最佳实践”的文件变得很困难，那么，是时候叫出Plop了。 使用plop，您可以使用“最佳实践”方法在CODE中创建任何给定的模式。可以通过输入plop轻松地从终端运行代码。 这不仅免于在代码库中四处寻找要复制的正确文件，而且还使“正确的方式”变成了“创建新文件的最简单的方式”。

@@ -1,8 +1,8 @@
 # Storage
 
-Back your stores with `localStorage`, `sessionStorage` or any other mechanism you wish.
+使用`localStorage`, `sessionStorage`或您希望的任何其他机制来支持存储。
 
-## Installation
+## 安装
 
 ```bash
 npm install @ngxs/storage-plugin --save
@@ -11,9 +11,9 @@ npm install @ngxs/storage-plugin --save
 yarn add @ngxs/storage-plugin
 ```
 
-## Usage
+## 使用
 
-Import the `NgxsStoragePluginModule` into your app module like:
+将 `NgxsStoragePluginModule` 导入到您的应用模块中，如下所示：
 
 ```typescript
 import { NgxsModule } from '@ngxs/store';
@@ -25,23 +25,24 @@ import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 export class AppModule {}
 ```
 
-It is recommended to register the storage plugin before other plugins so initial state can be picked up by those plugins.
+建议在其他插件之前注册存储插件，以便这些插件可以获取初始状态。
 
-### Options
+### 选项
 
-The plugin has the following optional values:
+该插件具有以下选项：
 
-* `key`: State name\(s\) to be persisted. You can pass a string or array of strings that can be deeply nested via dot notation. If not provided, it defaults to all states using the `@@STATE` key.
-* `storage`: Storage strategy to use. This defaults to LocalStorage but you can pass SessionStorage or anything that implements the StorageEngine API.
-* `deserialize`: Custom deserializer. Defaults to `JSON.parse`
-* `serialize`: Custom serializer. Defaults to `JSON.stringify`
-* `migrations`: Migration strategies
-* `beforeSerialize`: Interceptor executed before serialization
-* `afterDeserialize`: Interceptor executed after deserialization
+* `key`: 要保留的状态名称. 您可以传递可以通过点表示法深度嵌套的字符串或字符串数组。 如果未提供，则使用, 所有状态都默认使用 `@@STATE` 。
 
-### Key option
+* `storage`: 要使用的存储策略。 默认为LocalStorage，但您可以传递SessionStorage或任何实现了StorageEngine API的东西。
+* `deserialize`: 自定义反序列化器。 默认为 `JSON.parse`
+* `serialize`:  自定义序列化器。 默认为 `JSON.stringify`
+* `migrations`: 迁移策略
+* `beforeSerialize`: 在序列化之前执行的拦截器
+* `afterDeserialize`: 在序列化之后执行的拦截器
 
-The `key` option is used to determine what states should be persisted in the storage. `key` shouldn't be a random string, it has to coincide with your state names. Let's look at the below example:
+### Key 选项
+
+`key`选项用于确定哪些状态应保留在存储中。`key` 不能是随机字符串，它必须与您的状态名一致。 让我们看下面的例子：
 
 ```typescript
 // novels.state.ts
@@ -61,7 +62,7 @@ export class NovelsState {}
 export class DetectivesState {}
 ```
 
-In order to persist all states there is no need to provide the `key` option, so it's enough just to write:
+为了保持所有状态，不需要提供`key`选项，因此只需编写即可：
 
 ```typescript
 @NgModule({
@@ -70,7 +71,7 @@ In order to persist all states there is no need to provide the `key` option, so 
 export class AppModule {}
 ```
 
-But what if we wanted to persist only `NovelsState`? Then we would have needed to pass its name to the `key` option:
+但是，如果我们只想保存 `NovelsState` 怎么办？ 然后，我们需要将其名称传递给 `key` 选项：
 
 ```typescript
 @NgModule({
@@ -83,7 +84,7 @@ But what if we wanted to persist only `NovelsState`? Then we would have needed t
 export class AppModule {}
 ```
 
-It's also possible to provide a state class as opposed to its name:
+也可以提供一个与其名称相反的状态类：
 
 ```typescript
 @NgModule({
@@ -96,7 +97,7 @@ It's also possible to provide a state class as opposed to its name:
 export class AppModule {}
 ```
 
-And if we wanted to persist `NovelsState` and `DetectivesState`:
+如果我们要保存 `NovelsState` 和 `DetectivesState` ：
 
 ```typescript
 @NgModule({
@@ -122,7 +123,7 @@ Or using state classes:
 export class AppModule {}
 ```
 
-You can even combine state classes and strings:
+您甚至可以结合使用状态类和字符串：
 
 ```typescript
 @NgModule({
@@ -135,11 +136,11 @@ You can even combine state classes and strings:
 export class AppModule {}
 ```
 
-This is very handy to avoid persisting runtime-only states that shouldn't be saved to any storage.
+这非常方便，在仅运行时\(runtime-only\)状态可以避免持久保存不应将保存到任何存储的。
 
-### Custom Storage Engine
+### 自定义存储引擎
 
-You can add your own storage engine by implementing the `StorageEngine` interface.
+您可以通过实现 `StorageEngine` 接口来添加自己的存储引擎。
 
 ```typescript
 import { NgxsStoragePluginModule, StorageEngine, STORAGE_ENGINE } from '@ngxs/storage-plugin';
@@ -182,12 +183,12 @@ export class MyStorageEngine implements StorageEngine {
 export class MyModule {}
 ```
 
-### Serialization Interceptors
+### 序列化拦截器
 
-You can define your own logic before or after the state get serialized or deserialized.
+可以在状态被序列化或反序列化之前或之后定义自己的逻辑。
 
-* beforeSerialize: Use this option to alter the state before it gets serialized.
-* afterSerialize: Use this option to alter the state after it gets deserialized. For instance, you can use it to instantiate a concrete class.
+* beforeSerialize: 此选项可在序列化状态之前更改状态。
+* afterSerialize: 序列化后，使用此选项可以更改状态。 例如，您可以使用它实例化一个具体的类。
 
 ```typescript
 @NgModule({
@@ -214,9 +215,10 @@ You can define your own logic before or after the state get serialized or deseri
 export class AppModule {}
 ```
 
-### Migrations
+### 迁移
 
 You can migrate data from one version to another during the startup of the store. Below is a strategy to migrate my state from `animals` to `newAnimals`.
+您可以在存储启动期间将数据从一个版本迁移到另一个版本。 以下是将我的状态从 `animals` 迁移到 `newAnimals` 的策略。
 
 ```typescript
 @NgModule({
@@ -242,12 +244,13 @@ You can migrate data from one version to another during the startup of the store
 export class MyModule {}
 ```
 
-In the migration strategy, we define:
+在迁移策略中，我们定义：
 
-* `version`: The version we are migrating
-* `versionKey`: The identifier for the version key \(Defaults to 'version'\)
-* `migrate`: A function that accepts a state and expects the new state in return.
-* `key`: The key for the item to migrate. If not specified, it takes the entire storage state.
+* `version`: 我们正在迁移的版本
+* `versionKey`: 版本标识符\(默认为'version'\)
+* `migrate`: 接受状态并期望返回新状态的函数。
+* `key`: 要迁移的项目的键。如果未指定，它将使用整个存储状态。
 
 Note: Its important to specify the strategies in the order of which they should progress.
+注意：重要的是要按其执行顺序指定策略。
 

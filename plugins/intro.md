@@ -1,10 +1,10 @@
 # 介绍
 
-Next let's talk about plugins. Similar to Redux's meta reducers, we have a plugins interface that allows you to build a global plugin for your state.
+我们够谈谈插件。 与Redux的meta reducers类似，我们有一个插件界面，该界面可让您为您的状态构建全局插件。
 
-All you have to do is provide a class to the `NGXS_PLUGINS` token. If your plugins have options associated with it, we suggest defining an injection token and then a `forRoot` method on your module.
+您所要做的就是为`NGXS_PLUGINS`令牌提供一个类。 如果您的插件具有与其相关联的选项，建议您定义一个注入令牌，然后在您的模块上定义一个`forRoot`方法。
 
-Let's take a look at a basic example of a logger:
+让我们看一个日志的基本示例：
 
 ```typescript
 import { Injectable, Inject, NgModule } from '@angular/core';
@@ -47,7 +47,7 @@ export class NgxsLoggerPluginModule {
 }
 ```
 
-You can also use pure functions for plugins. The above example in a pure function would look like this:
+您也可以对插件使用纯函数。 上面例子用纯函数实现如下：
 
 ```typescript
 export function logPlugin(state, action, next) {
@@ -58,9 +58,10 @@ export function logPlugin(state, action, next) {
 }
 ```
 
-NOTE: When providing a pure function make sure to use `useValue` instead of `useClass`.
 
-To register a plugin with NGXS, import the plugin module in your module and optionally pass in the plugin options like this:
+注意：提供纯函数时，请确保使用 `useValue` 而不是 `useClass`。
+
+要向NGXS注册插件，请在模块中导入插件模块，并传递如下插件选项(可选)：
 
 ```typescript
 @NgModule({
@@ -69,5 +70,6 @@ To register a plugin with NGXS, import the plugin module in your module and opti
 export class MyModule {}
 ```
 
-The method also works with `forFeature`.
+
+该方法也适用于 `forFeature`。
 

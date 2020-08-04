@@ -2,16 +2,17 @@
 
 ![Router Diagram](../.gitbook/assets/router.png)
 
-In the browser, the location \(URL information\) and session history \(a stack of locations visited by the current browser tab\) are stored in the global window object. They are accessible via:
+在浏览器中，位置\(URL信息\)和会话历史记录\(当前浏览器选项卡访问的位置的堆栈\)存储在全局窗口对象中。 可通过以下方式访问它们：
 
 * `window.location` \([Location API](https://developer.mozilla.org/en-US/docs/Web/API/Location)\)
 * `window.history` \([History API](https://developer.mozilla.org/en-US/docs/Web/API/History)\)
 
-Our location data is a dynamic and important part of application state-the kind of state that belongs in a store. Holding it in the store enables devtools luxuries like time-travel debugging, and easy access from any store-connected component.
 
-This plugin binds that state from the Angular router to our NGXS store.
+我们的位置数据是应用程序状态（属于存储的一种状态）的动态且重要的部分。 把它保存在存储中，我们使用devtools调试就像拥有了时间旅行器，可轻松从任何商店连接的组件进行访问。
 
-## Installation
+该插件将该状态从Angular路由器绑定到我们的NGXS存储。
+
+## 安装
 
 ```bash
 npm install @ngxs/router-plugin --save
@@ -20,9 +21,9 @@ npm install @ngxs/router-plugin --save
 yarn add @ngxs/router-plugin
 ```
 
-## Usage
+## 用法
 
-Add the `NgxsRouterPluginModule` plugin to your root app module:
+将`NgxsRouterPluginModule`插件添加到您的根应用模块：
 
 ```typescript
 import { NgxsModule } from '@ngxs/store';
@@ -34,9 +35,9 @@ import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 export class AppModule {}
 ```
 
-Now the route will be reflected in your store under the `router` state name. The state is represented as a `RouterStateSnapshot` object.
+现在，该路由将以命名`router`的状态体现在的存储中。 该状态表示为一个`RouterStateSnapshot`对象。
 
-You can also navigate using the store's dispatch method. It accepts the following arguments: `new Navigate(path: any[], queryParams?: Params, extras?: NavigationExtras)`. A simple example would be navigating to the admin page like this:
+您也可以使用存储的调度方法进行导航。 它接受以下参数：`new Navigate（path：any []，queryParams ?: Params，extras ?: NavigationExtras）`。 下面是一个导航至管理页面的简单例子：
 
 ```typescript
 import { Store } from '@ngxs/store';
@@ -54,11 +55,11 @@ export class MyApp {
 }
 ```
 
-You can use action handlers to listen to state changes in your components and services by subscribing to the `RouterNavigation`, `RouterCancel`, `RouterError` or `RouterDataResolved` action classes.
+您可以通过订阅`RouterNavigation`, `RouterCancel`, `RouterError`或`RouterDataResolved`动作类，使用动作处理程序来侦听组件和服务中的状态更改。
 
-## Listening to the data resolution event
+## 侦听数据解析事件
 
-You can listen to the `RouterDataResolved` action that is dispatch when the navigated route has some linked resolvers. For example:
+当导航的路由进行链接的解析器时，您可以侦听它调度的 `RouterDataResolved` 动作。 例如：
 
 ```typescript
 import { Actions, ofActionSuccessful } from '@ngxs/store';
@@ -89,7 +90,7 @@ export class AppComponent {
 }
 ```
 
-The more explicit example would be a situation where you would want to bind an input property providing some resolved data. For example:
+更进一步，当我们需要绑定一些已解析数据的输入属性。 例如：
 
 ```typescript
 import { Actions, ofActionSuccessful } from '@ngxs/store';
@@ -112,9 +113,9 @@ export class AppComponent {
 }
 ```
 
-## Custom Router State Serializer
+## 自定义路由状态序列化器
 
-You can implement your own router state serializer to serialize the router snapshot.
+您可以使用自己实现的路由状态序列化程序来序列化路由快照。
 
 ```typescript
 import { Params, RouterStateSnapshot } from '@angular/router';

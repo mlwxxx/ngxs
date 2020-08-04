@@ -1,5 +1,9 @@
 # 介绍
 
+### 这个文档翻译自 [ngxs on github](https://github.com/ngxs/store/tree/master/docs) 
+
+这个翻译存在 [这里](https://github.com/mlwxxx/ngxs)
+
  ![](.gitbook/assets/logo%20%282%29.png)  
  NGXS是Angular的状态管理模式+库  
   

@@ -2,15 +2,15 @@
 
 ![](../.gitbook/assets/ngxs-labs.png)
 
-We announced a new idea called [NGXS Labs](https://github.com/ngxs-labs). The goal of NGXS Labs is to more clearly communicate the balance between new explorations by the team, with the normal stability that our community has come to expect since the release of NGXS.
+我们宣布了一个名为[NGXS Labs]（https://github.com/ngxs-labs）的新想法。 NGXS实验室的目标是更清晰地传达团队新探索之间的平衡，以及自NGXS发布以来我们社区一直期望的正常稳定性。
 
 ## 介绍
 
-There is definitely no lack of enthusiasm for the NGXS project and as a result there has been a proliferation of pull requests to add new features to the framework. This is very exciting but at the same time has been one of the big challenges. How do we incorporate the growing innovation around the framework and experiment with different ideas without compromising the stability and comprehensibility of the core framework? In response to this we have created NGXS Labs.
+毫无疑问，NGXS项目不乏热情，结果，为框架添加新功能的拉取请求激增。 这是非常令人兴奋的，但同时也是一大挑战。 我们如何在框架周围融合不断增长的创新并尝试不同的想法，而又不损害核心框架的稳定性和可理解性？ 为此，我们创建了NGXS实验室。
 
-The idea with this github organisation is to provide a place for the community to create libraries that augment the main framework with functionality that does not need to be integrated directly into the framework and therefore can evolve through their initial iterations of experimentation without affecting the main `@ngxs/store` library. Once a project in the labs space has stabilised, has received significant adoption and is accepted as a recommended approach then it can be moved to the ngxs github organisation.
+这个在github组织的想法是为社区提供一个创建库的地方，该库可以使用不需要直接集成到框架中的功能来扩展主框架，因此可以在其最初的实验迭代中发展而不会影响主 `@ngxs/store` 库。 一旦实验室空间中的一个项目稳定下来，得到了广泛的采用，并被接受为推荐的方法，则可以将其移至ngxs github。
 
-From time to time we will be posting about projects that have been started under the ngxs-labs organisation to get community involvement and feedback around them.
+我们会不时发布有关ngxs-labs组织下已启动的项目的信息，以吸引社区的参与和反馈。
 
 ## Labs Packages
 
